@@ -1,6 +1,16 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'study_time.g.dart';
+
+@HiveType(typeId: 4)
 class StudyTime {
+  @HiveField(0)
   int day;
+
+  @HiveField(1)
   int startTime;
+
+  @HiveField(2)
   int width;
 
   StudyTime({required this.day, required this.startTime, required this.width});

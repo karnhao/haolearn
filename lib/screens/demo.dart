@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/services/storage_service.dart';
 
 class DemoPage extends StatefulWidget {
   const DemoPage({super.key});
@@ -10,39 +11,46 @@ class DemoPage extends StatefulWidget {
 }
 
 class _DemoPageState extends State<DemoPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final service = StorageService.getService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Testing data',
+              ),
+              Text("Table Name : ${service.getSaveData()!.table.name}"),
+              Text(
+                  "First Subject Name : ${service.getSaveData()!.table.subjectList.first.name}"),
+              Text(
+                  "First Subject Room : ${service.getSaveData()!.table.subjectList.first.room}"),
+              Text(
+                  "First Subject Day : ${service.getSaveData()!.table.subjectList.first.studyTimes.first.getDayName()}"),
+              Text(
+                  "First Subject Time : ${service.getSaveData()!.table.subjectList.first.studyTimes.first.getTimeName()}"),
+              InkWell(
+                onTap: () {
+                  service.getSaveData()!.table.name += "!";
+                  service.getSaveData()!.save().then(((v) {
+                    setState(() {});
+                  }));
+                },
+                child: Container(
+                  color: Colors.yellow,
+                  height: 50,
+                  width: 150,
+                  child: const Center(child: Text("Click here")),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

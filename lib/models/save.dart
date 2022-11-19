@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'save.g.dart';
 
 @HiveType(typeId: 1)
-class Save {
+class Save extends HiveObject {
   @HiveField(0)
   bool first = true;
 
