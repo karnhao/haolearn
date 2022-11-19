@@ -1,4 +1,4 @@
-package com.example.haolearn
+package com.nullteam.haolearn
 
 import io.flutter.embedding.android.FlutterActivity
 
