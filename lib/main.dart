@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/models/save.dart';
-import 'package:haolearn/models/table.dart' as TableModel;
+import 'package:haolearn/models/table.dart' as model;
 import 'package:haolearn/route.dart';
 import 'package:haolearn/themes/styles.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -11,7 +11,7 @@ Future<void> main() async {
 
   final box = await Hive.openBox<Save>('save');
 
-  box.add(Save(table: TableModel.Table(name: "Example")));
+  box.add(Save(table: model.Table(name: "Example")));
 
   ErrorWidget.builder = (details) {
     return Text('ERROR! : ${details.exception}',
