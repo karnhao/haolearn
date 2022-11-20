@@ -9,7 +9,23 @@ class Save extends HiveObject {
   bool first = true;
 
   @HiveField(1)
-  Table table;
+  List<Table> tables;
 
-  Save({required this.table});
+  @HiveField(2)
+  Table mainTable;
+
+  Save({required this.tables, required this.mainTable});
+
+  void addTable(Table table) {
+    tables.add(table);
+  }
+
+  void removeTable(int index) {
+    tables.removeAt(index);
+  }
+
+  Table? getMainTable() {
+    return mainTable;
+  }
 }
+// flutter packages pub run build_runner build

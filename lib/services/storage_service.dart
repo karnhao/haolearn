@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:haolearn/models/priority.dart';
 import 'package:haolearn/models/save.dart';
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
+import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/models/table.dart';
+import 'package:haolearn/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// ตัวช่วยในการจัดการข้อมูลที่บันทึกไว้บนเครื่อง
@@ -21,17 +26,35 @@ class StorageService {
     Hive.registerAdapter<Table>(TableAdapter());
     Hive.registerAdapter<Subject>(SubjectAdapter());
     Hive.registerAdapter<StudyTime>(StudyTimeAdapter());
+    Hive.registerAdapter<Task>(TaskAdapter());
+    Hive.registerAdapter<Priority>(PriorityAdapter());
+    Hive.registerAdapter<SubjectContent>(SubjectContentAdapter());
+    Hive.registerAdapter<ContentUnderstanding>(ContentUnderstandingAdapter());
 
-    _box = await Hive.openBox<Save>("save");
-    if (!hasSaveData()) {
-      Table exampleTable = Table(name: "Example Table");
-      Subject exampleSubject = Subject(name: "Example Subject");
-      exampleSubject.room = "Sc-709";
-      exampleSubject.studyTimes
-          .add(StudyTime(day: 1, startTime: 500, width: 90));
-      exampleTable.subjectList.add(exampleSubject);
-      await _box.put("save", Save(table: exampleTable));
+    try {
+      _box = await Hive.openBox<Save>("save");
+    } catch (e) {
+      log("Save file damaged!");
+      await Hive.deleteBoxFromDisk("save");
+      _box = await Hive.openBox<Save>("save");
     }
+    if (!hasSaveData()) {
+      await _fixSaveData();
+    }
+  }
+
+  Future<void> _fixSaveData() async {
+    Table exampleTable = Table(name: "Example Table");
+    Subject exampleSubject = Subject(name: "Example Subject");
+    exampleSubject.room = "Sc-709";
+    exampleSubject.studyTimes.add(StudyTime(day: 1, startTime: 500, width: 90));
+    exampleTable.subjectList.add(exampleSubject);
+    exampleSubject.contents.add(SubjectContent(
+        title: "Example content",
+        description: "This is example content!",
+        understanding: ContentUnderstanding.high));
+    await _box.put(
+        "save", Save(tables: [exampleTable], mainTable: exampleTable));
   }
 
   /// return true if save data is exist otherwise false.

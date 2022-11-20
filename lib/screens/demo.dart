@@ -29,13 +29,15 @@ class _DemoPageState extends State<DemoPage> {
               const Text(
                 'Testing data',
               ),
-              Text("Table Name : ${data.table.name}"),
-              Text("First Subject Name : ${data.table.subjectList.first.name}"),
-              Text("First Subject Room : ${data.table.subjectList.first.room}"),
+              Text("Table Name : ${data.mainTable.name}"),
               Text(
-                  "First Subject Day : ${data.table.subjectList.first.studyTimes.first.getDayName()}"),
+                  "First Subject Name : ${data.mainTable.subjectList.first.name}"),
               Text(
-                  "First Subject Time : ${data.table.subjectList.first.studyTimes.first.getTimeName()}"),
+                  "First Subject Room : ${data.mainTable.subjectList.first.room}"),
+              Text(
+                  "First Subject Day : ${data.mainTable.subjectList.first.studyTimes.first.getDayName()}"),
+              Text(
+                  "First Subject Time : ${data.mainTable.subjectList.first.studyTimes.first.getTimeName()}"),
               InkWell(
                 onTap: () {
                   showSnackBar("Hello");
