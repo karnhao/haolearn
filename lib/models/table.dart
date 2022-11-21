@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_table.dart';
