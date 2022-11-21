@@ -11,101 +11,61 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text("Home", style: Theme.of(context).textTheme.headline2)),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
+      appBar: AppBar(
+          title: Text("Home", style: Theme.of(context).textTheme.headline2)),
+      body: Stack(children: [
+        Container(
           height: MediaQuery.of(context).size.height,
-          decoration:
-              const BoxDecoration(color: Color.fromARGB(255, 255, 235, 235)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(height: 0),
-              const Center(
-                  child: Text("Null Learn",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.w700))),
-              SizedBox(
-                height: 410,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.green,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.table_chart_outlined,
-                                  color: Colors.white),
-                              Text("Table")
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.blue,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.book_outlined, color: Colors.white),
-                              Text("Subject")
-                            ],
-                          ),
-                        )
-                      ],
+          width: MediaQuery.of(context).size.width,
+        ),
+
+        // Container(
+        //   height: 180,
+        //   width: double.infinity,
+        //   decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
+        //       color: Colors.amber),
+        // ),
+
+        // height: MediaQuery.of(context).size.height,
+        Positioned(
+          top: 410,
+          child: Container(
+              height: 510,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(20),
+                  color: const Color.fromARGB(255, 140, 140, 140)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/demo");
-                          },
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.red,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.error_outline, color: Colors.white),
-                                Text("Debug Zone")
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.pink,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.settings, color: Colors.white),
-                              Text("Settings")
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [],
+                    ),
+                  )
+                ],
+              )),
+        ),
+        Positioned(
+          top: 420,
+          width: 200,
+          right: 105,
+          child: Container(
+            width: 150,
+            height: 5,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
           ),
-        ));
+        )
+      ]),
+    );
   }
 }
