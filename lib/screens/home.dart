@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 200,
-                          height: 200,
+                          width: 160,
+                          height: 160,
                           color: Colors.green,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,17 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.blue,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.book_outlined, color: Colors.white),
-                              Text("Subject")
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/subject");
+                          },
+                          child: Container(
+                            width: 160,
+                            height: 160,
+                            color: Colors.blue,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.book_outlined, color: Colors.white),
+                                Text("Subject")
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -73,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).pushNamed("/demo");
                           },
                           child: Container(
-                            width: 200,
-                            height: 200,
+                            width: 160,
+                            height: 160,
                             color: Colors.red,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Container(
-                          width: 200,
-                          height: 200,
+                          width: 160,
+                          height: 160,
                           color: Colors.pink,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
