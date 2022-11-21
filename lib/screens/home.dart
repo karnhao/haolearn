@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
+                        onTap: (() {}),
                         child: boxBottom(
                             "Calendar",
                             const Icon(
@@ -40,12 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               size: 100,
                             )),
                       ),
-                      boxBottom(
-                          "List Subject",
-                          const Icon(
-                            Icons.calendar_month,
-                            size: 100,
-                          )),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/listsubject");
+                        },
+                        child: boxBottom(
+                            "List Subject",
+                            const Icon(
+                              Icons.calendar_month,
+                              size: 100,
+                            )),
+                      ),
                     ],
                   ),
                   Row(
@@ -63,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ),
                       InkWell(
+                        onTap: () {},
                         child: boxBottom(
                             "Setting",
                             const Icon(
@@ -81,9 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
           right: 105,
           child: Container(
             width: 150,
-            height: 5,
+            height: 8,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(20)),
           ),
         )
       ]),
