@@ -13,5 +13,6 @@ ThemeData appTheme() {
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
               color: Colors.white)),
-      scaffoldBackgroundColor: kappBackground);
+      scaffoldBackgroundColor: kappBackground,
+      useMaterial3: true);
 }

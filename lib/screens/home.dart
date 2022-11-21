@@ -77,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 40,
             ),
             InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, "/table");
+                },
                 child: boxBottom("Table", const Icon(Icons.calendar_month))),
             InkWell(
                 onTap: () {
