@@ -18,6 +18,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
         ),
       ),
+
       body: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
@@ -41,6 +42,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                           "Subject",
                           style: TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
+
                         ),
                         Row(children: [
                           IconButton(
