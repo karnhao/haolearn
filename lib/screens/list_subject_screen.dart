@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/screens/subject_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ListSubjectScreen extends StatefulWidget {
   const ListSubjectScreen({super.key});
@@ -18,7 +20,6 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
         ),
       ),
-
       body: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
@@ -42,7 +43,6 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                           "Subject",
                           style: TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
-
                         ),
                         Row(children: [
                           IconButton(
@@ -77,15 +77,27 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                   child: ListView.builder(
                       itemCount: 10,
                       itemBuilder: ((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 22),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 80, 80, 80),
-                                borderRadius: BorderRadius.circular(20)),
-                            height: 80,
-                            width: MediaQuery.of(context).size.width,
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: SubjectScreen(),
+                                    type: PageTransitionType.leftToRight,
+                                    duration: Duration(milliseconds: 500),
+                                    reverseDuration:
+                                        Duration(milliseconds: 500)));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 22),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 80, 80, 80),
+                                  borderRadius: BorderRadius.circular(20)),
+                              height: 80,
+                              width: MediaQuery.of(context).size.width,
+                            ),
                           ),
                         );
                       })),
