@@ -14,24 +14,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
           title: Text("Home", style: Theme.of(context).textTheme.headline2)),
       body: Stack(children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
         ),
-
-        // Container(
-        //   height: 180,
-        //   width: double.infinity,
-        //   decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
-        //       color: Colors.amber),
-        // ),
-
-        // height: MediaQuery.of(context).size.height,
         Positioned(
-          top: 410,
+          top: 380,
           child: Container(
-              height: 510,
+              height: 420,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadiusDirectional.circular(20),
@@ -39,23 +29,54 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        child: boxBottom(
+                            "Calendar",
+                            const Icon(
+                              Icons.calendar_month,
+                              size: 100,
+                            )),
+                      ),
+                      boxBottom(
+                          "List Subject",
+                          const Icon(
+                            Icons.calendar_month,
+                            size: 100,
+                          )),
+                    ],
                   ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed("/demo");
+                        },
+                        child: boxBottom(
+                            "Debug",
+                            const Icon(
+                              Icons.calendar_month,
+                              size: 100,
+                            )),
+                      ),
+                      InkWell(
+                        child: boxBottom(
+                            "Setting",
+                            const Icon(
+                              Icons.calendar_month,
+                              size: 100,
+                            )),
+                      ),
+                    ],
                   )
                 ],
               )),
         ),
         Positioned(
-          top: 420,
+          top: 390,
           width: 200,
           right: 105,
           child: Container(
@@ -66,6 +87,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         )
       ]),
+    );
+  }
+
+  Widget boxBottom(String title, Icon icon) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 98, 98, 98),
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          icon,
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
     );
   }
 }
