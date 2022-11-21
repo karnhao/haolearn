@@ -89,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: boxBottom("Debug", const Icon(Icons.cancel))),
           ],
         ));
+
   }
 
   Widget boxBottom(String title, Icon icon) {
