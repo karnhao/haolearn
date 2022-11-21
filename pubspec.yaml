@@ -40,6 +40,7 @@ dependencies:
   hive: ^2.1.0
   page_transition: "^2.0.9"
   hive_flutter: ^1.1.0
+  pie_chart: ^5.3.2
 
 dev_dependencies:
   flutter_test:
