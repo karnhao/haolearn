@@ -22,7 +22,7 @@ class _DemoPageState extends State<DemoPage> {
   Widget build(BuildContext context) {
     final data = service.getSaveData()!;
     return Scaffold(
-        appBar: createKAppBar(context, "Debug"),
+        appBar: createKAppBar(context, "DEBUG SCREEN"),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
