@@ -7,6 +7,6 @@ import 'package:haolearn/screens/list_subject_screen.dart';
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/demo": (BuildContext context) => const DemoPage(),
   "/home": (BuildContext context) => const HomeScreen(),
-  "/subject": (BuildContext context) => const SubjectScreen()
+  "/subject": (BuildContext context) => const SubjectScreen(),
   "/listsubject": (BuildContext context) => const ListSubjectScreen(),
 };
