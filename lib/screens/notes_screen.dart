@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/themes/colors.dart';
 
-class notesScreen extends StatefulWidget {
-  const notesScreen({super.key});
+class NotesScreen extends StatefulWidget {
+  const NotesScreen({super.key});
 
   @override
-  State<notesScreen> createState() => _notesScreenState();
+  State<NotesScreen> createState() => _NotesScreenState();
 }
 
-class _notesScreenState extends State<notesScreen> {
+class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text("Test"),
-      ),
+          title: Text(
+            "Subject",
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          backgroundColor: kappBarColor,
+          toolbarHeight: 70),
     );
   }
 }
