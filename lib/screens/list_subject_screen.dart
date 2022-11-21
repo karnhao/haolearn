@@ -78,12 +78,17 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 22),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 80, 80, 80),
-                              borderRadius: BorderRadius.circular(20)),
-                          height: 80,
-                          width: MediaQuery.of(context).size.width,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/subject+");
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 80, 80, 80),
+                                borderRadius: BorderRadius.circular(20)),
+                            height: 80,
+                            width: MediaQuery.of(context).size.width,
+                          ),
                         ),
                       );
                     })),
