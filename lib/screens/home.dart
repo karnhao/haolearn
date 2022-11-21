@@ -27,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 17),
-              child: Container(
+              child: SizedBox(
                 height: 225,
                 // color: Colors.white,
                 child: PieChart(
                   dataMap: dataMap,
-                  animationDuration: Duration(milliseconds: 2000),
+                  animationDuration: const Duration(milliseconds: 3000),
                   chartLegendSpacing: 32,
                   chartRadius: MediaQuery.of(context).size.width / 3.2,
                   colorList: colorList,
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         height: 80,
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 87, 156, 50),
+            color: const Color.fromARGB(255, 87, 156, 50),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
