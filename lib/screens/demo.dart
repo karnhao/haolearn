@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/services/storage_service.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 
 class DemoPage extends StatefulWidget {
@@ -21,9 +22,7 @@ class _DemoPageState extends State<DemoPage> {
   Widget build(BuildContext context) {
     final data = service.getSaveData()!;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
+        appBar: createKAppBar(context, "Debug"),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
