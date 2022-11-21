@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/demo");
+                          Navigator.of(context).pushNamed("/note");
                         },
                         child: boxBottom(
                             "Debug",

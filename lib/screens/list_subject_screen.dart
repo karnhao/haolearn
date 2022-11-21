@@ -80,7 +80,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                             vertical: 8.0, horizontal: 22),
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, "/subject+");
+                            Navigator.pushNamed(context, "/subject");
                           },
                           child: Container(
                             decoration: BoxDecoration(
