@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:haolearn/themes/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Home", style: Theme.of(context).textTheme.headline2)),
+            backgroundColor: kappBarColor,
+            title: Text("Home", style: Theme.of(context).textTheme.headline2),
+            centerTitle: true),
         body: ListView(
           children: [
             Padding(
