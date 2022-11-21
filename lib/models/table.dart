@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_table.dart';
@@ -34,9 +36,11 @@ class Table {
   /// 5 คือวันศุกร์
   /// 6 คือวันเสาร์
   ///
+  /// KU: startTime: 480, endTime: 1260
+  ///
   /// throw exception เมื่อ day ไม่อยู่ในช่วง [0, 6]
   List<SubjectTable> getSubjectTableList(
-      {required int day, int startTime = 0, int endTime = 1440}) {
+      {required int day, int startTime = 0, int endTime = 1439}) {
     if (day < 0 || day > 6) throw Exception("Day is out of range!");
     List<SubjectTable> result = List.empty(growable: true);
     int temp = startTime;
@@ -47,7 +51,7 @@ class Table {
         if (j.day != day) continue;
         tempSubject.add(SubjectTable(
             name: i.name,
-            time: j,
+            time: StudyTime(day: j.day, startTime: j.startTime, width: j.width),
             isEmptySubject: false,
             room: i.room,
             teacherName: i.teacherName));
@@ -56,16 +60,35 @@ class Table {
 
     tempSubject.sort((a, b) => a.time.startTime.compareTo(b.time.startTime));
 
-    for (SubjectTable i in tempSubject) {
-      if (temp < i.time.startTime) {
+    for (int i = 0; i < tempSubject.length;) {
+      if (temp < tempSubject[i].time.startTime) {
         final st = StudyTime(
-            day: i.time.day, startTime: temp, width: i.time.startTime - temp);
+            day: tempSubject[i].time.day,
+            startTime: temp,
+            width: tempSubject[i].time.startTime - temp);
         result.add(SubjectTable(name: "", time: st));
         temp = st.getEndTime();
       } else {
-        result.add(i);
-        temp = i.time.getEndTime();
+        if (tempSubject[i].time.startTime < startTime) {
+          tempSubject[i].time.width -=
+              startTime - tempSubject[i].time.startTime;
+          tempSubject[i].time.startTime = startTime;
+        }
+        if (tempSubject[i].time.getEndTime() > endTime) {
+          tempSubject[i].time.width -=
+              tempSubject[i].time.getEndTime() - endTime;
+        }
+        result.add(tempSubject[i]);
+        temp = tempSubject[i].time.getEndTime();
+        i++;
       }
+    }
+
+    if (temp < endTime) {
+      result.add(SubjectTable(
+          name: "",
+          isEmptySubject: true,
+          time: StudyTime(day: day, startTime: temp, width: endTime - temp)));
     }
 
     return result;

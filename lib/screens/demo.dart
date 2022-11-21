@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/models/study_time.dart';
+import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 
@@ -40,6 +42,12 @@ class _DemoPageState extends State<DemoPage> {
                   "First Subject Time : ${data.mainTable.subjectList.first.studyTimes.first.getTimeName()}"),
               InkWell(
                 onTap: () {
+                  data.getMainTable()!.subjectList.clear();
+                  Subject testSubject = Subject(name: "testSubject");
+                  testSubject.studyTimes
+                      .add(StudyTime(day: 1, startTime: 500, width: 50));
+                  data.getMainTable()!.subjectList.add(testSubject);
+                  service.saveData;
                   showSnackBar("Hello");
                 },
                 child: Container(

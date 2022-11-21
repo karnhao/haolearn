@@ -33,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (() {}),
+                        onTap: (() {
+                          Navigator.of(context).pushNamed("/table");
+                        }),
                         child: boxBottom(
                             "Calendar",
                             const Icon(
