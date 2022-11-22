@@ -3,7 +3,7 @@ import 'package:haolearn/themes/colors.dart';
 
 ThemeData appTheme() {
   return ThemeData(
-      fontFamily: "Inter",
+      fontFamily: "DB-Ozone-X",
       textTheme: const TextTheme(
           headline1: TextStyle(
               fontSize: 32.0, fontWeight: FontWeight.w700, color: kuSecColor),
