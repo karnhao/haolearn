@@ -22,7 +22,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
       ),
       body: Align(
         alignment: Alignment.bottomCenter,
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.75,
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -82,18 +82,18 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: SubjectScreen(),
+                                    child: const SubjectScreen(),
                                     type: PageTransitionType.leftToRight,
-                                    duration: Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
                                     reverseDuration:
-                                        Duration(milliseconds: 500)));
+                                        const Duration(milliseconds: 500)));
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 80, 80, 80),
+                                  color: const Color.fromARGB(255, 80, 80, 80),
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
