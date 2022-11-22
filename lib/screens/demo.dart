@@ -45,8 +45,12 @@ class _DemoPageState extends State<DemoPage> {
                   Subject testSubject = Subject(name: "testSubject");
                   testSubject.studyTimes
                       .add(StudyTime(day: 1, startTime: 500, width: 50));
+                  Subject testSubject2 = Subject(name: "testSubject");
+                  testSubject.studyTimes
+                      .add(StudyTime(day: 1, startTime: 600, width: 60));
                   data.getMainTable()!.subjectList.add(testSubject);
-                  service.saveData;
+                  data.getMainTable()!.subjectList.add(testSubject2);
+                  service.saveData();
                   showSnackBar("Hello");
                 },
                 child: Container(

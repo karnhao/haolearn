@@ -31,16 +31,21 @@ class StorageService {
     Hive.registerAdapter<SubjectContent>(SubjectContentAdapter());
     Hive.registerAdapter<ContentUnderstanding>(ContentUnderstandingAdapter());
 
-    try {
-      _box = await Hive.openBox<Save>("save");
-    } catch (e) {
+    await Hive.openBox<Save>("save").then((v) {
+      _box = v;
+      if (!hasSaveData()) {
+        _fixSaveData();
+      }
+    }).onError((error, stackTrace) async {
       log("Save file damaged!");
       await Hive.deleteBoxFromDisk("save");
-      _box = await Hive.openBox<Save>("save");
-    }
-    if (!hasSaveData()) {
-      await _fixSaveData();
-    }
+      Hive.openBox<Save>("save").then((x) {
+        _box = x;
+        if (!hasSaveData()) {
+          _fixSaveData();
+        }
+      });
+    });
   }
 
   Future<void> _fixSaveData() async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -13,6 +14,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
   Map<String, double> dataMap = {
     "Success": 75,
     "Not pass": 25,
