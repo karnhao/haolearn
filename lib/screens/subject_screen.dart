@@ -92,29 +92,35 @@ class _SubjectScreenState extends State<SubjectScreen> {
               padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  CircleAvatar(
+                children: [
+                  const CircleAvatar(
                     radius: 24,
                     backgroundColor: kuPriColor,
                     foregroundColor: kuSecColor,
                     child: Text('Score'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  CircleAvatar(
-                      radius: 24,
-                      backgroundColor: kuPriColor,
-                      foregroundColor: kuSecColor,
-                      child: Text('Time')),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 24,
-                    backgroundColor: kuPriColor,
-                    foregroundColor: kuSecColor,
-                    child: Text('Task'),
+                    backgroundColor: kCircleAvatar,
+                    foregroundColor: kappBarTextColor,
+                    child: Text('Time'),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/notesubject");
+                    },
+                    child: const CircleAvatar(
+                      radius: 24,
+                      backgroundColor: kCircleAvatar,
+                      foregroundColor: kappBarTextColor,
+                      child: Text('Note'),
+                    ),
                   )
                 ],
               ),
