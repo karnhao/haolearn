@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/models/task.dart';
-import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/screens/task_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -31,7 +29,7 @@ class _TaskScreenState extends State<TaskScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 138, 138, 138),
+              color: kuSecColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
@@ -101,7 +99,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 80, 80, 80),
+                                  color: kuPriColor,
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
@@ -115,12 +113,44 @@ class _TaskScreenState extends State<TaskScreen> {
                                   children: [
                                     Column(
                                       children: [
-                                        Text(data.tasks[index].dueDate
-                                            .toString()),
-                                        Text(data.tasks[index].title)
+                                        Text(
+                                            "${data.tasks[index].dueDate ?? "ไม่ระบุ"}",
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white)),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Text(data.tasks[index].title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2)
                                       ],
                                     ),
-                                    Text(data.tasks[index].priority.toString()),
+                                    Column(
+                                      children: [
+                                        Text(
+                                            data.tasks[index].priority
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white)),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        RatingBarIndicator(
+                                          rating: 3,
+                                          itemCount: 5,
+                                          itemSize: 20,
+                                          itemBuilder: (context, index) {
+                                            return const Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
