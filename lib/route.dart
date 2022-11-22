@@ -10,7 +10,9 @@ import 'package:haolearn/screens/table_screen.dart';
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/demo": (BuildContext context) => const DemoPage(),
   "/home": (BuildContext context) => const HomeScreen(),
-  "/subject": (BuildContext context) => const SubjectScreen(),
+  "/subject": (BuildContext context) => const SubjectScreen(
+        index: 0,
+      ),
   "/listsubject": (BuildContext context) => const ListSubjectScreen(),
   "/notesubject": (BuildContext context) => const NotesScreen(),
   "/table": (BuildContext context) => const TableScreen(),

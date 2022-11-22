@@ -21,6 +21,12 @@ class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          mini: true,
+          onPressed: () {},
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           title: Text("Note Subject",
               style: Theme.of(context).textTheme.headline2),
@@ -31,8 +37,8 @@ class _NotesScreenState extends State<NotesScreen> {
           // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              // decoration: BoxDecoration(
+              //     color: Colors.white, borderRadius: BorderRadius.circular(20)),
               alignment: AlignmentDirectional.center,
               height: 200,
               child: const Text("Note 10 note"),
@@ -43,7 +49,7 @@ class _NotesScreenState extends State<NotesScreen> {
             Container(
               height: MediaQuery.of(context).size.height * 0.7,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), color: Colors.white),
+                  borderRadius: BorderRadius.circular(20), color: kuSecColor),
               child: Column(
                 children: [
                   SizedBox(
@@ -61,7 +67,7 @@ class _NotesScreenState extends State<NotesScreen> {
                         return boxTask(index);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -80,14 +86,13 @@ class _NotesScreenState extends State<NotesScreen> {
           height: 75,
           width: 300,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(115, 205, 205, 205)),
+              borderRadius: BorderRadius.circular(20), color: kuPriColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 40),
-                child: Text('Title$index'),
+                child: Text('Title $index'),
               ),
               Padding(
                   padding: const EdgeInsets.only(right: 40),
@@ -101,7 +106,7 @@ class _NotesScreenState extends State<NotesScreen> {
                         color: Colors.amber,
                       );
                     },
-                  ))
+                  )),
             ],
           ),
         ),
