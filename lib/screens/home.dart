@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: kuSecColor,
         appBar: AppBar(
             backgroundColor: kuPriColor,
             title: Text("Home", style: Theme.of(context).textTheme.headline2),
@@ -82,6 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  children: [Text("sdffdsf")],
+                ),
               ),
             ),
             const SizedBox(
@@ -91,7 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.pushNamed(context, "/table");
                 },
-                child: boxBottom("Table", const Icon(Icons.calendar_month))),
+                child: boxBottom(
+                    "Table",
+                    const Icon(
+                      Icons.calendar_month,
+                      color: Colors.white,
+                    ))),
             InkWell(
                 onTap: () {
                   Navigator.push(
@@ -102,7 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           duration: const Duration(milliseconds: 500),
                           reverseDuration: const Duration(milliseconds: 500)));
                 },
-                child: boxBottom("Subject", const Icon(Icons.book))),
+                child: boxBottom(
+                    "Subject",
+                    const Icon(
+                      Icons.book,
+                      color: Colors.white,
+                    ))),
             InkWell(
                 onTap: () {
                   Navigator.push(
@@ -113,7 +127,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           duration: const Duration(milliseconds: 500),
                           reverseDuration: const Duration(milliseconds: 500)));
                 },
-                child: boxBottom("Task", const Icon(Icons.task))),
+                child: boxBottom(
+                    "Task",
+                    const Icon(
+                      Icons.task,
+                      color: Colors.white,
+                    ))),
             InkWell(
                 onTap: () {
                   Navigator.push(
@@ -124,7 +143,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           duration: const Duration(milliseconds: 500),
                           reverseDuration: const Duration(milliseconds: 500)));
                 },
-                child: boxBottom("Debug", const Icon(Icons.cancel))),
+                child: boxBottom(
+                    "Debug",
+                    const Icon(
+                      Icons.cancel,
+                      color: Colors.white,
+                    ))),
           ],
         ));
   }
@@ -135,15 +159,17 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         height: 80,
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 87, 156, 50),
-            borderRadius: BorderRadius.circular(20)),
+            color: kuPriColor, borderRadius: BorderRadius.circular(20)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             icon,
             Text(
               title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
             )
           ],
         ),

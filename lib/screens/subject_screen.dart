@@ -82,7 +82,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Container(
                       decoration: const BoxDecoration(
-                          color: kuPriColor,
+                          color: kuSecColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
                               topRight: Radius.circular(50))),
@@ -116,15 +116,17 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       foregroundColor: kuSecColor,
                       child: Text('Score'),
                     ),
+
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   const CircleAvatar(
-                    radius: 24,
-                    backgroundColor: appBackgroundColor,
-                    foregroundColor: Colors.black,
-                    child: Text('Time'),
+                    radius: 28,
+                    backgroundColor: kuPriColor,
+                    foregroundColor: kuSecColor,
+                    child: Text('Time',
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
                   ),
                   const SizedBox(
                     width: 10,
@@ -134,10 +136,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.pushNamed(context, "/notesubject");
                     },
                     child: const CircleAvatar(
-                      radius: 24,
+                      radius: 28,
                       backgroundColor: kuPriColor,
                       foregroundColor: kuSecColor,
-                      child: Text('Note'),
+                      child: Text('Note',
+                          style: TextStyle(fontSize: 16, color: Colors.white)),
                     ),
                   )
                 ],

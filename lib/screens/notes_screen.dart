@@ -56,7 +56,12 @@ class _NotesScreenState extends State<NotesScreen> {
                     height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [Text("Name"), Text("Star")],
+                      children: [
+                        Text("Name",
+                            style: Theme.of(context).textTheme.headline2),
+                        Text("Star",
+                            style: Theme.of(context).textTheme.headline2)
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -92,7 +97,8 @@ class _NotesScreenState extends State<NotesScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 40),
-                child: Text('Title $index'),
+                child: Text('Title $index',
+                    style: Theme.of(context).textTheme.headline2),
               ),
               Padding(
                   padding: const EdgeInsets.only(right: 40),
