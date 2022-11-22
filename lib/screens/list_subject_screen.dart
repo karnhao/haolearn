@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/services/storage_service.dart';
+import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ListSubjectScreen extends StatefulWidget {
@@ -12,14 +16,12 @@ class ListSubjectScreen extends StatefulWidget {
 class _ListSubjectScreenState extends State<ListSubjectScreen> {
   @override
   Widget build(BuildContext context) {
+    final service = StorageService.getService();
+    final data = service.getSaveData()!;
+    final subjectList = data.mainTable.subjectList;
+
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "List Subject",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-        ),
-      ),
+      appBar: createKAppBar(context, "Subjects"),
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
@@ -28,7 +30,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 138, 138, 138),
+              color: kuSecColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
@@ -52,7 +54,12 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                                 size: 40,
                               )),
                           IconButton(
-                              onPressed: (() {}),
+                              onPressed: (() {
+                                setState(() {
+                                  subjectList.add(Subject(name: "Unname"));
+                                  service.saveData();
+                                });
+                              }),
                               icon: const Icon(
                                 Icons.add,
                                 size: 40,
@@ -75,14 +82,14 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: subjectList.length,
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: const SubjectScreen(),
+                                    child: SubjectScreen(index: index),
                                     type: PageTransitionType.leftToRight,
                                     duration: const Duration(milliseconds: 500),
                                     reverseDuration:
@@ -93,10 +100,27 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 80, 80, 80),
+                                  color: kuPriColor,
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        "Rome : ${subjectList[index].room ?? 'ไม่ระบุ'}",
+                                        style: const TextStyle(
+                                            fontSize: 16, color: Colors.white)),
+                                    Text(subjectList[index].name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         );

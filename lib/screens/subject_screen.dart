@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 
 class SubjectScreen extends StatefulWidget {
-  const SubjectScreen({super.key});
+  final int index;
+  const SubjectScreen({super.key, required this.index});
 
   @override
   State<SubjectScreen> createState() => _SubjectScreenState();
@@ -11,10 +13,14 @@ class SubjectScreen extends StatefulWidget {
 class _SubjectScreenState extends State<SubjectScreen> {
   @override
   Widget build(BuildContext context) {
+    final service = StorageService.getService();
+    final data = service.getSaveData()!;
+    final subjectList = data.mainTable.subjectList;
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Subject",
+            subjectList[widget.index].name,
             style: Theme.of(context).textTheme.headline1,
           ),
           backgroundColor: kuPriColor,
@@ -48,7 +54,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         padding: EdgeInsets.all(20),
                         child: TextField(
                           decoration:
-                              InputDecoration(hintText: 'Enter something'),
+                              InputDecoration(hintText: 'Enter subject'),
                         )),
                   ),
                 ),
@@ -64,8 +70,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     child: const Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
-                          decoration:
-                              InputDecoration(hintText: 'Enter something'),
+                          decoration: InputDecoration(hintText: 'Enter room'),
                         )),
                   ),
                 ),
