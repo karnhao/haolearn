@@ -95,7 +95,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                 children: const [
                   CircleAvatar(
                     radius: 24,
-                    backgroundColor: kuSecColor,
+                    backgroundColor: kuPriColor,
                     foregroundColor: kuSecColor,
                     child: Text('Score'),
                   ),
@@ -103,17 +103,16 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     width: 10,
                   ),
                   CircleAvatar(
-                    radius: 24,
-                    backgroundColor: kuSecColor,
-                    foregroundColor: kuSecColor,
-                    child: Text('Time'),
-                  ),
+                      radius: 24,
+                      backgroundColor: kuPriColor,
+                      foregroundColor: kuSecColor,
+                      child: Text('Time')),
                   SizedBox(
                     width: 10,
                   ),
                   CircleAvatar(
                     radius: 24,
-                    backgroundColor: kuSecColor,
+                    backgroundColor: kuPriColor,
                     foregroundColor: kuSecColor,
                     child: Text('Task'),
                   )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/screens/task_detail_screen.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
@@ -17,10 +18,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: kuPriColor,
-          title: Text("Task", style: Theme.of(context).textTheme.headline2),
-          centerTitle: true),
+      appBar: createKAppBar(context, "Task"),
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
@@ -83,7 +81,7 @@ class _TaskScreenState extends State<TaskScreen> {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: const SubjectScreen(),
+                                    child: const TaskDetailScreen(),
                                     type: PageTransitionType.leftToRight,
                                     duration: const Duration(milliseconds: 500),
                                     reverseDuration:
