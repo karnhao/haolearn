@@ -6,13 +6,11 @@ ThemeData appTheme() {
       fontFamily: "Inter",
       textTheme: const TextTheme(
           headline1: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.w700,
-              color: kappBarTextColor),
+              fontSize: 32.0, fontWeight: FontWeight.w700, color: kuSecColor),
           headline2: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
               color: Colors.white)),
-      scaffoldBackgroundColor: kappBackground,
+      scaffoldBackgroundColor: appBackgroundColor,
       useMaterial3: true);
 }

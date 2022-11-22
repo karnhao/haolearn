@@ -17,7 +17,7 @@ class _NotesScreenState extends State<NotesScreen> {
             "Subject",
             style: Theme.of(context).textTheme.headline1,
           ),
-          backgroundColor: kappBarColor,
+          backgroundColor: kuPriColor,
           toolbarHeight: 70),
     );
   }
