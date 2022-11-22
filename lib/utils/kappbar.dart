@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
 
-PreferredSize createKAppBar(BuildContext context, String title) {
+PreferredSize createKAppBar(BuildContext context, String title,
+    {List<Widget> actions = const []}) {
   return PreferredSize(
       preferredSize: Size(MediaQuery.of(context).size.width, 110),
       child: Column(
@@ -38,7 +39,12 @@ PreferredSize createKAppBar(BuildContext context, String title) {
                     ),
                   ),
                 ),
-                const SizedBox()
+                const SizedBox(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: actions,
+                )
               ],
             ),
           )
