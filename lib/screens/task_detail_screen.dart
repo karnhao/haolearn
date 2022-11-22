@@ -5,7 +5,9 @@ import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TaskDetailScreen extends StatefulWidget {
-  const TaskDetailScreen({super.key});
+  int index;
+
+  TaskDetailScreen({super.key, required this.index});
 
   @override
   State<TaskDetailScreen> createState() => _TaskDetailScreenState();
@@ -20,6 +22,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final service = StorageService.getService();
+    final data = service.getSaveData()!;
+    if (data.tasks[widget.index].dueDate != null) {
+      selectedDate = data.tasks[widget.index].dueDate!;
+    }
     return Scaffold(
         appBar: createKAppBar(context, "$subjectName task"),
         body: Stack(children: [
@@ -42,12 +49,15 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextField(
-                          enabled: toggle,
-                          decoration: const InputDecoration(hintText: 'Task'),
-                        )),
+                    child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: TextFormField(
+                            initialValue: data.tasks[widget.index].title,
+                            enabled: toggle,
+                            decoration: InputDecoration(hintText: 'Task'),
+                          )),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
