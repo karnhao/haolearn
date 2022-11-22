@@ -53,7 +53,7 @@ class Table {
             day: tempSubject[i].time.day,
             startTime: temp,
             width: tempSubject[i].time.startTime - temp);
-        result.add(SubjectTable(name: "", time: st));
+        result.add(SubjectTable(name: "", time: st, isEmptySubject: true));
         temp = st.getEndTime();
       } else {
         if (tempSubject[i].time.startTime < startTime) {
