@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -46,14 +42,12 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: TextField(
-                            enabled: toggle,
-                            decoration: InputDecoration(hintText: 'Task'),
-                          )),
-                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TextField(
+                          enabled: toggle,
+                          decoration: const InputDecoration(hintText: 'Task'),
+                        )),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +63,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                   });
                                 }
                               : null,
-                          icon: Icon(Icons.edit))
+                          icon: const Icon(Icons.edit))
                     ],
                   ),
                   Padding(
@@ -80,20 +74,20 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         Expanded(
                           child: TextField(
                             enabled: toggle,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: 'Score',
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 5)),
                           ),
                         ),
-                        Text("/"),
+                        const Text("/"),
                         Expanded(
                             child: TextField(
                           decoration: InputDecoration(
                               hintText: "Full score",
                               enabled: toggle,
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 5)),
+                                  const EdgeInsets.symmetric(horizontal: 5)),
                         ))
                       ],
                     ),
