@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/screens/score_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SubjectScreen extends StatefulWidget {
   final int index;
@@ -98,12 +100,23 @@ class _SubjectScreenState extends State<SubjectScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CircleAvatar(
-                    radius: 28,
-                    backgroundColor: kuPriColor,
-                    foregroundColor: kuSecColor,
-                    child: Text('Score',
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: ScoreScreen(),
+                              type: PageTransitionType.leftToRight,
+                              duration: Duration(milliseconds: 500),
+                              reverseDuration: Duration(milliseconds: 500)));
+                    },
+                    child: CircleAvatar(
+                      radius: 24,
+                      backgroundColor: kuPriColor,
+                      foregroundColor: kuSecColor,
+                      child: Text('Score'),
+                    ),
+
                   ),
                   const SizedBox(
                     width: 10,
