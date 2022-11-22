@@ -13,12 +13,10 @@ class _NotesScreenState extends State<NotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            "Subject",
-            style: Theme.of(context).textTheme.headline1,
-          ),
-          backgroundColor: kappBarColor,
-          toolbarHeight: 70),
+        title:const  Text("Note Subject"),
+        centerTitle: true,
+        
+      ),
     );
   }
 }
