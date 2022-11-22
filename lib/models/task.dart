@@ -12,7 +12,7 @@ class Task {
   String description;
 
   @HiveField(2)
-  double? score;
+  double score;
 
   @HiveField(3)
   DateTime? dueDate;
@@ -23,7 +23,7 @@ class Task {
   Task(
       {this.title = "untitled",
       this.description = "",
-      double? score,
-      DateTime? dueDate,
-      Priority priority = Priority.normal});
+      this.score = 0,
+      this.dueDate,
+      this.priority = Priority.normal});
 }
