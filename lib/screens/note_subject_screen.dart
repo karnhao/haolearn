@@ -48,9 +48,26 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                   )),
             ),
           ),
-          TextField(
-            controller: TextEditingController(),
-          )
+          const SizedBox(
+            height: 30,
+          ),
+          TextFormField(
+            maxLines: 20,
+            decoration: InputDecoration(
+              alignLabelWithHint: true,
+              hintText: "Text something...",
+              labelText: "Note",
+              fillColor: Colors.white,
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+            ),
+          ),
         ],
       ),
     );
