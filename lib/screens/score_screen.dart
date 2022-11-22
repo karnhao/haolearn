@@ -82,7 +82,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: const SubjectScreen(),
+                                    child: SubjectScreen(
+                                      index: index,
+                                    ),
                                     type: PageTransitionType.leftToRight,
                                     duration: const Duration(milliseconds: 500),
                                     reverseDuration:
