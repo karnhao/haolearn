@@ -104,8 +104,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   const CircleAvatar(
                     radius: 24,
-                    backgroundColor: kCircleAvatar,
-                    foregroundColor: kappBarTextColor,
+                    backgroundColor: appBackgroundColor,
+                    foregroundColor: Colors.black,
                     child: Text('Time'),
                   ),
                   const SizedBox(
@@ -117,8 +117,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     },
                     child: const CircleAvatar(
                       radius: 24,
-                      backgroundColor: kCircleAvatar,
-                      foregroundColor: kappBarTextColor,
+                      backgroundColor: kuPriColor,
+                      foregroundColor: kuSecColor,
                       child: Text('Note'),
                     ),
                   )

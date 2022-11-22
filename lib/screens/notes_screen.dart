@@ -25,7 +25,7 @@ class _NotesScreenState extends State<NotesScreen> {
           title: Text("Note Subject",
               style: Theme.of(context).textTheme.headline2),
           centerTitle: true,
-          backgroundColor: kappBarColor,
+          backgroundColor: kuSecColor,
         ),
         body: ListView(
           // mainAxisAlignment: MainAxisAlignment.start,

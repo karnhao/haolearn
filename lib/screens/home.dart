@@ -32,12 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Colors.blue,
     Colors.red,
   ];
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-  }
 
   @override
   Widget build(BuildContext context) {

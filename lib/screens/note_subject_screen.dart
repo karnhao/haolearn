@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/themes/colors.dart';
 
@@ -19,14 +17,14 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
         centerTitle: true,
         title:
             Text("ชื่อวิชา...", style: Theme.of(context).textTheme.headline2),
-        backgroundColor: kappBarColor,
+        backgroundColor: kuSecColor,
       ),
       body: ListView(
-        padding: EdgeInsetsDirectional.all(20),
+        padding: const EdgeInsetsDirectional.all(20),
         children: [
-          Container(
+          const SizedBox(
             height: 50,
-            child: const Center(
+            child: Center(
               child: Text(
                 "Piority",
                 style: TextStyle(fontSize: 20),
