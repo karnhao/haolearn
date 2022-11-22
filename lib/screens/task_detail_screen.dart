@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TaskDetailScreen extends StatefulWidget {
@@ -127,22 +128,28 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             ),
           ),
           Positioned(
-              right: 10,
-              bottom: 10,
-              child: InkWell(
-                  onTap: () {},
-                  child: Switch(
-                    value: toggle,
-                    onChanged: (value) {
-                      setState(
-                        () {
-                          toggle = value;
-                        },
-                      );
-                    },
-                    activeColor: Colors.green,
-                    activeTrackColor: Colors.lightGreenAccent,
-                  )))
+            right: 10,
+            bottom: 10,
+            child: Row(
+              children: [
+                deleteConfirm(),
+                InkWell(
+                    onTap: () {},
+                    child: Switch(
+                      value: toggle,
+                      onChanged: (value) {
+                        setState(
+                          () {
+                            toggle = value;
+                          },
+                        );
+                      },
+                      activeColor: Colors.green,
+                      activeTrackColor: Colors.lightGreenAccent,
+                    )),
+              ],
+            ),
+          )
         ]));
   }
 

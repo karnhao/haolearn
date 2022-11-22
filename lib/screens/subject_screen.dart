@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haolearn/screens/score_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_alert.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SubjectScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class SubjectScreen extends StatefulWidget {
 }
 
 class _SubjectScreenState extends State<SubjectScreen> {
+  bool toggle = false;
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
@@ -20,14 +23,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
     final subjectList = data.mainTable.subjectList;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            subjectList[widget.index].name,
-            style: Theme.of(context).textTheme.headline1,
-          ),
-          backgroundColor: kuPriColor,
-          toolbarHeight: 70,
-        ),
+        appBar: createKAppBar(context, "Subject"),
         body: Stack(children: [
           Container(
             decoration: const BoxDecoration(
@@ -52,9 +48,10 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: const Padding(
+                    child: Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
+                          enabled: toggle,
                           decoration:
                               InputDecoration(hintText: 'Enter subject'),
                         )),
@@ -69,9 +66,10 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: const Padding(
+                    child: Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
+                          enabled: toggle,
                           decoration: InputDecoration(hintText: 'Enter room'),
                         )),
                   ),
@@ -94,7 +92,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
           ),
           Positioned(
             bottom: 10,
-            right: 10,
+            left: 10,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
@@ -116,18 +114,15 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       foregroundColor: kuSecColor,
                       child: Text('Score'),
                     ),
-
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   const CircleAvatar(
-                    radius: 28,
-                    backgroundColor: kuPriColor,
-                    foregroundColor: kuSecColor,
-                    child: Text('Time',
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
-                  ),
+                      radius: 24,
+                      backgroundColor: kuPriColor,
+                      foregroundColor: kuSecColor,
+                      child: Text('Time')),
                   const SizedBox(
                     width: 10,
                   ),
@@ -136,17 +131,39 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.pushNamed(context, "/notesubject");
                     },
                     child: const CircleAvatar(
-                      radius: 28,
+                      radius: 24,
                       backgroundColor: kuPriColor,
                       foregroundColor: kuSecColor,
-                      child: Text('Note',
-                          style: TextStyle(fontSize: 16, color: Colors.white)),
+                      child: Text('Note'),
                     ),
                   )
                 ],
               ),
             ),
-          ), //Positioned
+          ),
+          Positioned(
+            child: Row(
+              children: [
+                deleteConfirm(),
+                InkWell(
+                    onTap: () {},
+                    child: Switch(
+                      value: toggle,
+                      onChanged: (value) {
+                        setState(
+                          () {
+                            toggle = value;
+                          },
+                        );
+                      },
+                      activeColor: Colors.green,
+                      activeTrackColor: Colors.lightGreenAccent,
+                    )),
+              ],
+            ),
+            bottom: 10,
+            right: 10,
+          )
         ]));
   }
 }
