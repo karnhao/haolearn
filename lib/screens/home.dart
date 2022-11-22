@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,6 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Colors.blue,
     Colors.red,
   ];
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           reverseDuration: const Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Subject", const Icon(Icons.book))),
-            boxBottom("Task", const Icon(Icons.task)),
+            InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, "/task");
+                },
+                child: boxBottom("Task", const Icon(Icons.task))),
             InkWell(
                 onTap: () {
                   Navigator.push(
