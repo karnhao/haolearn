@@ -1,7 +1,6 @@
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_table.dart';
-import 'package:haolearn/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'table.g.dart';
@@ -14,16 +13,6 @@ class Table {
   List<Subject> subjectList = List.empty(growable: true);
 
   Table({required this.name});
-
-  List<Task> getAllTask() {
-    List<Task> result = List.empty(growable: true);
-    for (var t in subjectList) {
-      for (var u in t.tasks) {
-        result.add(u);
-      }
-    }
-    return result;
-  }
 
   /// day คือวันในอาทิตย์
   ///

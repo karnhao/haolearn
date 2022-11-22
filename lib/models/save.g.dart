@@ -17,9 +17,10 @@ class SaveAdapter extends TypeAdapter<Save> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Save(
-      tables: (fields[1] as List).cast<Table>(),
-      mainTable: fields[2] as Table,
-    )..first = fields[0] as bool;
+      mainTable: fields[1] as Table,
+    )
+      ..first = fields[0] as bool
+      ..tasks = (fields[2] as List).cast<Task>();
   }
 
   @override
@@ -29,9 +30,9 @@ class SaveAdapter extends TypeAdapter<Save> {
       ..writeByte(0)
       ..write(obj.first)
       ..writeByte(1)
-      ..write(obj.tables)
+      ..write(obj.mainTable)
       ..writeByte(2)
-      ..write(obj.mainTable);
+      ..write(obj.tasks);
   }
 
   @override

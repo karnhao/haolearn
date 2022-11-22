@@ -53,8 +53,19 @@ class StorageService {
         title: "Example content",
         description: "This is example content!",
         understanding: ContentUnderstanding.high));
-    await _box.put(
-        "save", Save(tables: [exampleTable], mainTable: exampleTable));
+
+    Save saveData = Save(mainTable: exampleTable);
+    saveData.tasks.add(Task(
+      title: "Example task",
+      description: "This is example task",
+      priority: Priority.lowest,
+    ));
+    saveData.tasks.add(Task(
+        title: "Important example task",
+        description: "This is important example",
+        priority: Priority.highest));
+
+    await _box.put("save", saveData);
   }
 
   /// return true if save data is exist otherwise false.
@@ -85,6 +96,7 @@ class StorageService {
   static Future<void> initialize() async {
     _self = StorageService();
     await _self._init();
+    _self.getSaveData()!.sortTasksFromDueDate();
   }
 
   /// ส่งกลับ object ของ StorageService แล้วนำ object นี้ไปใช้งานต่อ
