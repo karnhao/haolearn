@@ -55,7 +55,14 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                           child: TextFormField(
                             initialValue: data.tasks[widget.index].title,
                             enabled: toggle,
-                            decoration: InputDecoration(hintText: 'Task'),
+                            decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.auto,
+                                labelText: "Task",
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.blue),
+                                    borderRadius: BorderRadius.circular(25))),
                           )),
                     ),
                   ),
@@ -83,9 +90,16 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       children: [
                         Expanded(
                           child: TextField(
+                            keyboardType: TextInputType.number,
                             enabled: toggle,
-                            decoration: const InputDecoration(
-                                hintText: 'Score',
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.blue),
+                                    borderRadius: BorderRadius.circular(25)),
+                                labelText: "Score",
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.auto,
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 5)),
                           ),
@@ -93,8 +107,14 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         const Text("/"),
                         Expanded(
                             child: TextField(
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                              hintText: "Full score",
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.blue),
+                                  borderRadius: BorderRadius.circular(25)),
+                              labelText: "Full score",
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                               enabled: toggle,
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 5)),
