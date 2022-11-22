@@ -40,8 +40,10 @@ dependencies:
   hive: ^2.1.0
   page_transition: "^2.0.9"
   hive_flutter: ^1.1.0
+  flutter_datetime_picker: ^1.5.1
   pie_chart: ^5.3.2
   flutter_rating_bar: ^4.0.1
+  time_planner: ^0.1.1
 
 dev_dependencies:
   flutter_test:

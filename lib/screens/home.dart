@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
+import 'package:haolearn/screens/task_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -14,6 +15,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
   Map<String, double> dataMap = {
     "Success": 75,
     "Not pass": 25,
@@ -33,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: kappBarColor,
+            backgroundColor: kuPriColor,
             title: Text("Home", style: Theme.of(context).textTheme.headline2),
             centerTitle: true),
         body: ListView(
@@ -101,7 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: boxBottom("Subject", const Icon(Icons.book))),
             InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, "/task");
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const TaskScreen(),
+                          type: PageTransitionType.leftToRight,
+                          duration: const Duration(milliseconds: 500),
+                          reverseDuration: const Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Task", const Icon(Icons.task))),
             InkWell(
