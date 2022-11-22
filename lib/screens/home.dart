@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/screens/task_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -91,7 +92,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           reverseDuration: Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Subject", const Icon(Icons.book))),
-            boxBottom("Task", const Icon(Icons.task)),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: TaskScreen(),
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(milliseconds: 500),
+                          reverseDuration: Duration(milliseconds: 500)));
+                },
+                child: boxBottom("Task", const Icon(Icons.task))),
             InkWell(
                 onTap: () {
                   Navigator.push(
