@@ -5,9 +5,9 @@ import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TaskDetailScreen extends StatefulWidget {
-  int index;
+  final int index;
 
-  TaskDetailScreen({super.key, required this.index});
+  const TaskDetailScreen({super.key, required this.index});
 
   @override
   State<TaskDetailScreen> createState() => _TaskDetailScreenState();
@@ -49,15 +49,13 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: TextFormField(
-                            initialValue: data.tasks[widget.index].title,
-                            enabled: toggle,
-                            decoration: InputDecoration(hintText: 'Task'),
-                          )),
-                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TextFormField(
+                          initialValue: data.tasks[widget.index].title,
+                          enabled: toggle,
+                          decoration: const InputDecoration(hintText: 'Task'),
+                        )),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
