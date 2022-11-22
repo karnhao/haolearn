@@ -47,8 +47,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     child: const Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
-                          decoration: InputDecoration(
-                              hintText: 'Enter fuxking something'),
+                          decoration:
+                              InputDecoration(hintText: 'Enter something'),
                         )),
                   ),
                 ),
@@ -64,8 +64,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     child: const Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
-                          decoration: InputDecoration(
-                              hintText: 'Enter fuxking something'),
+                          decoration:
+                              InputDecoration(hintText: 'Enter something'),
                         )),
                   ),
                 ),

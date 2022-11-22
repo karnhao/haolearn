@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:haolearn/models/task.dart';
 import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/screens/task_detail_screen.dart';
+import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
@@ -15,8 +17,10 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  final _service = StorageService.getService();
   @override
   Widget build(BuildContext context) {
+    final data = _service.getSaveData()!;
     return Scaffold(
       appBar: createKAppBar(context, "Task"),
       body: Align(
@@ -51,7 +55,12 @@ class _TaskScreenState extends State<TaskScreen> {
                                 size: 40,
                               )),
                           IconButton(
-                              onPressed: (() {}),
+                              onPressed: (() {
+                                data.tasks.add(Task());
+                                _service.saveData().then((value) {
+                                  setState(() {});
+                                });
+                              }),
                               icon: const Icon(
                                 Icons.add,
                                 size: 40,
@@ -74,14 +83,14 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: data.getTaskList().length,
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: const TaskDetailScreen(),
+                                    child: TaskDetailScreen(index: index),
                                     type: PageTransitionType.leftToRight,
                                     duration: const Duration(milliseconds: 500),
                                     reverseDuration:
@@ -96,6 +105,25 @@ class _TaskScreenState extends State<TaskScreen> {
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 30, top: 10, right: 30),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(data.tasks[index].dueDate
+                                            .toString()),
+                                        Text(data.tasks[index].title)
+                                      ],
+                                    ),
+                                    Text(data.tasks[index].priority.toString()),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         );
