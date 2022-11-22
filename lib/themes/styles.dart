@@ -12,6 +12,7 @@ ThemeData appTheme() {
           headline2: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
-              color: kappHeadline2)),
-      scaffoldBackgroundColor: const Color.fromARGB(255, 0, 102, 100));
+              color: Colors.white)),
+      scaffoldBackgroundColor: kappBackground,
+      useMaterial3: true);
 }

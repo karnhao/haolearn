@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
-import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/screens/task_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -28,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: kappBarColor,
+            backgroundColor: kuPriColor,
             title: Text("Home", style: Theme.of(context).textTheme.headline2),
             centerTitle: true),
         body: ListView(
@@ -79,17 +78,19 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 40,
             ),
             InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, "/table");
+                },
                 child: boxBottom("Table", const Icon(Icons.calendar_month))),
             InkWell(
                 onTap: () {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: ListSubjectScreen(),
+                          child: const ListSubjectScreen(),
                           type: PageTransitionType.leftToRight,
-                          duration: Duration(milliseconds: 500),
-                          reverseDuration: Duration(milliseconds: 500)));
+                          duration: const Duration(milliseconds: 500),
+                          reverseDuration: const Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Subject", const Icon(Icons.book))),
             InkWell(
@@ -97,10 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: TaskScreen(),
+                          child: const TaskScreen(),
                           type: PageTransitionType.leftToRight,
-                          duration: Duration(milliseconds: 500),
-                          reverseDuration: Duration(milliseconds: 500)));
+                          duration: const Duration(milliseconds: 500),
+                          reverseDuration: const Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Task", const Icon(Icons.task))),
             InkWell(
@@ -108,10 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: DemoPage(),
+                          child: const DemoPage(),
                           type: PageTransitionType.leftToRight,
-                          duration: Duration(milliseconds: 500),
-                          reverseDuration: Duration(milliseconds: 500)));
+                          duration: const Duration(milliseconds: 500),
+                          reverseDuration: const Duration(milliseconds: 500)));
                 },
                 child: boxBottom("Debug", const Icon(Icons.cancel))),
           ],

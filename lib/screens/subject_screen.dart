@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/themes/colors.dart';
 
 class SubjectScreen extends StatefulWidget {
@@ -23,7 +22,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
         ),
         body: Stack(children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: kappBackground,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
@@ -32,19 +31,20 @@ class _SubjectScreenState extends State<SubjectScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(
+                const Center(
                   child: SizedBox(
                     height: 50,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Container(
                     decoration: BoxDecoration(
                         color: kBoxColor,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: Padding(
+                    child: const Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
                           decoration: InputDecoration(
@@ -52,15 +52,16 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         )),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Container(
                     decoration: BoxDecoration(
                         color: kBoxColor,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: Padding(
+                    child: const Padding(
                         padding: EdgeInsets.all(20),
                         child: TextField(
                           decoration: InputDecoration(
@@ -68,12 +69,12 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         )),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: kappBarColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
@@ -88,10 +89,10 @@ class _SubjectScreenState extends State<SubjectScreen> {
             bottom: 10,
             right: 10,
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   CircleAvatar(
                     radius: 24,
                     backgroundColor: kCircleAvatar,
