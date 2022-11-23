@@ -26,14 +26,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
         appBar: createKAppBar(context, subjectList[widget.index].name),
         body: Stack(children: [
           Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // const Center(
-              //   child: SizedBox(
-              //     height: 50,
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: Container(
@@ -46,11 +39,18 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         initialValue: subjectList[widget.index].name,
                         enabled: toggle,
                         decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                borderSide:
+                                    BorderSide(color: kuPriColor, width: 10)),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelText: "Name",
+                            labelText: "Subject",
+                            labelStyle: const TextStyle(
+                                color: Colors.black, fontSize: 20),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    width: 1, color: Colors.blue),
+                                    width: 1, color: kuPriColor),
                                 borderRadius: BorderRadius.circular(25))),
                       )),
                 ),
@@ -68,28 +68,22 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         initialValue: subjectList[widget.index].room,
                         enabled: toggle,
                         decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                borderSide:
+                                    BorderSide(color: kuPriColor, width: 10)),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                             labelText: "Room",
+                            labelStyle: const TextStyle(
+                                color: Colors.black, fontSize: 20),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    width: 1, color: Colors.blue),
+                                    width: 1, color: kuPriColor),
                                 borderRadius: BorderRadius.circular(25))),
                       )),
                 ),
               ),
-              // const SizedBox(height: 50),
-              // Expanded(
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 10),
-              //     child: Container(
-              //       decoration: const BoxDecoration(
-              //           color: kuSecColor,
-              //           borderRadius: BorderRadius.only(
-              //               topLeft: Radius.circular(50),
-              //               topRight: Radius.circular(50))),
-              //     ),
-              //   ),
-              // )
             ],
           ),
           Positioned(
