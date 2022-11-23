@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/screens/time_detail_screen.dart';
@@ -22,7 +23,7 @@ class _TimeScreenState extends State<TimeScreen> {
   Widget build(BuildContext context) {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
-    final subjectList = data.mainTable.subjectList;
+    final studyTime = data.mainTable.subjectList[widget.index].studyTimes;
 
     return Scaffold(
       appBar: createKAppBar(context, "Schedule"),
@@ -54,7 +55,8 @@ class _TimeScreenState extends State<TimeScreen> {
                           IconButton(
                               onPressed: (() {
                                 setState(() {
-                                  subjectList.add(Subject(name: "Unname"));
+                                  studyTime.add(StudyTime(
+                                      day: 0, startTime: 0, width: 180));
                                   service.saveData();
                                 });
                               }),
@@ -119,10 +121,10 @@ class _TimeScreenState extends State<TimeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "Rome : ${subjectList[index].room ?? 'ไม่ระบุ'}",
+                                        "Room : ${studyTime[widget.index].toString() ?? 'ไม่ระบุ'}",
                                         style: const TextStyle(
                                             fontSize: 16, color: Colors.white)),
-                                    Text(subjectList[index].name,
+                                    Text(studyTime[widget.index].toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2),
