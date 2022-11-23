@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/screens/notes_screen.dart';
 import 'package:haolearn/screens/score_screen.dart';
+import 'package:haolearn/screens/time.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
@@ -177,14 +178,23 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const CircleAvatar(
-                    radius: 24,
-                    backgroundColor: kuPriColor,
-                    foregroundColor: kuSecColor,
-                    child: Text(
-                      'Time',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: TimeScreen(),
+                              type: PageTransitionType.leftToRight,
+                              duration: const Duration(milliseconds: 500),
+                              reverseDuration:
+                                  const Duration(milliseconds: 500)));
+                    },
+                    child: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: kuPriColor,
+                        foregroundColor: kuSecColor,
+                        child: Text('Time')),
+
                   ),
                   const SizedBox(
                     width: 10,
@@ -195,6 +205,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                           context,
                           PageTransition(
                               child: NotesScreen(index: widget.index),
+
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:

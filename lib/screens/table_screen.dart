@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/table.dart';
 
 class TableScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _TableScreenState extends State<TableScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Table")),
+        appBar: createKAppBar(context, "Table"),
         body: createTableWidget(context));
   }
 }
