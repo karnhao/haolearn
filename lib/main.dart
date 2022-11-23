@@ -11,7 +11,6 @@ Future<void> main() async {
   ErrorWidget.builder = (details) {
     return Text('ERROR! : ${details.exception}',
         style: const TextStyle(
-          
             color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 20));
   };
   runApp(const MyApp());
