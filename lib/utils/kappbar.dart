@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
@@ -31,7 +32,7 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           visible: Navigator.of(context).canPop(),
                           child: InkWell(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.maybePop(context);
                             },
                             child: const Icon(Icons.arrow_back,
                                 size: 35, color: Colors.white),
@@ -41,7 +42,8 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           width: 20,
                         ),
                         Text(title,
-                            style: Theme.of(context).textTheme.headline1),
+                            style: Theme.of(context).textTheme.headline1,
+                            overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   ),

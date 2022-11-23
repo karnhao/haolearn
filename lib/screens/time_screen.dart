@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/screens/time_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
-class ListSubjectScreen extends StatefulWidget {
-  const ListSubjectScreen({super.key});
+class TimeScreen extends StatefulWidget {
+  int index;
+  TimeScreen({super.key, required this.index});
 
   @override
-  State<ListSubjectScreen> createState() => _ListSubjectScreenState();
+  State<TimeScreen> createState() => _TimeScreenState();
 }
 
-class _ListSubjectScreenState extends State<ListSubjectScreen> {
+class _TimeScreenState extends State<TimeScreen> {
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
@@ -21,7 +25,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
     final subjectList = data.mainTable.subjectList;
 
     return Scaffold(
-      appBar: createKAppBar(context, "Subjects"),
+      appBar: createKAppBar(context, "Schedule"),
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
@@ -41,9 +45,9 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${subjectList.length} Subject",
-                          style: const TextStyle(
+                        const Text(
+                          "Schedule",
+                          style: TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
@@ -76,22 +80,19 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: subjectList.length,
+                      itemCount: data.mainTable.subjectList[widget.index]
+                          .studyTimes.length,
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: SubjectScreen(index: index),
-                                        type: PageTransitionType.leftToRight,
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        reverseDuration:
-                                            const Duration(milliseconds: 500)))
-                                .then((v) {
-                              setState(() {});
-                            });
+                                context,
+                                PageTransition(
+                                    child: TimeDetailScreen(index: index),
+                                    type: PageTransitionType.leftToRight,
+                                    duration: const Duration(milliseconds: 500),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 500)));
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
