@@ -1,3 +1,4 @@
+import 'package:haolearn/models/notification_model.dart';
 import 'package:haolearn/models/table.dart';
 import 'package:haolearn/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';

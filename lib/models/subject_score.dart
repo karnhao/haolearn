@@ -1,5 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
+part 'subject_score.g.dart';
+
 @HiveType(typeId: 9)
 class SubjectScore {
   @HiveField(0)

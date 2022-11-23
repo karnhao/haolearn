@@ -29,7 +29,7 @@ class TaskAdapter extends TypeAdapter<Task> {
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -41,7 +41,9 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(4)
       ..write(obj.priority)
       ..writeByte(5)
-      ..write(obj.complete);
+      ..write(obj.complete)
+      ..writeByte(6)
+      ..write(obj.id);
   }
 
   @override
