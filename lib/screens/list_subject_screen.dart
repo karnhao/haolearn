@@ -41,9 +41,9 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Subject",
-                          style: TextStyle(
+                        Text(
+                          "${subjectList.length} Subject",
+                          style: const TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
@@ -81,13 +81,17 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: SubjectScreen(index: index),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
+                                    context,
+                                    PageTransition(
+                                        child: SubjectScreen(index: index),
+                                        type: PageTransitionType.leftToRight,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        reverseDuration:
+                                            const Duration(milliseconds: 500)))
+                                .then((v) {
+                              setState(() {});
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
