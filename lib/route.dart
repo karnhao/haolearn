@@ -16,5 +16,5 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/listsubject": (BuildContext context) => const ListSubjectScreen(),
   "/notesubject": (BuildContext context) => const NotesScreen(),
   "/table": (BuildContext context) => const TableScreen(),
-  "/note": (BuildContext context) => const NoteSubjectScreen(),
+  "/note": (BuildContext context) => const NoteSubjectScreen(index: 0),
 };

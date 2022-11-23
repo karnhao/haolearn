@@ -86,9 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  children: const [Text("")],
-                ),
               ),
             ),
             const SizedBox(

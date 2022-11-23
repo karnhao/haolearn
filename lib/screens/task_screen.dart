@@ -47,12 +47,6 @@ class _TaskScreenState extends State<TaskScreen> {
                         ),
                         Row(children: [
                           IconButton(
-                              onPressed: (() {}),
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 40,
-                              )),
-                          IconButton(
                               onPressed: (() {
                                 data.tasks.add(Task());
                                 _service.saveData().then((value) {

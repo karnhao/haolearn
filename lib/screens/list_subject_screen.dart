@@ -48,12 +48,6 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                         ),
                         Row(children: [
                           IconButton(
-                              onPressed: (() {}),
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 40,
-                              )),
-                          IconButton(
                               onPressed: (() {
                                 setState(() {
                                   subjectList.add(Subject(name: "Unname"));
