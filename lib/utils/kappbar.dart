@@ -35,7 +35,7 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           visible: Navigator.of(context).canPop(),
                           child: InkWell(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.maybePop(context);
                             },
                             child: const Icon(Icons.arrow_back,
                                 size: 35, color: Colors.white),

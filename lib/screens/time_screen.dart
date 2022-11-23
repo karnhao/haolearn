@@ -3,13 +3,15 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/screens/time_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class TimeScreen extends StatefulWidget {
-  const TimeScreen({super.key});
+  int index;
+  TimeScreen({super.key, required this.index});
 
   @override
   State<TimeScreen> createState() => _TimeScreenState();
@@ -78,14 +80,15 @@ class _TimeScreenState extends State<TimeScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: data.mainTable.subjectList[widget.index]
+                          .studyTimes.length,
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: SubjectScreen(index: index),
+                                    child: TimeDetailScreen(index: index),
                                     type: PageTransitionType.leftToRight,
                                     duration: const Duration(milliseconds: 500),
                                     reverseDuration:

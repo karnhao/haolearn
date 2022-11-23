@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/screens/notes_screen.dart';
 import 'package:haolearn/screens/score_screen.dart';
-import 'package:haolearn/screens/time.dart';
+import 'package:haolearn/screens/time_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
@@ -48,27 +48,27 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            nameChange = value;
-                          },
-                          initialValue: subjectList[widget.index].name,
-                          enabled: toggle,
-                          decoration: InputDecoration(
-                              border: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25)),
-                                  borderSide:
-                                      BorderSide(color: kuPriColor, width: 10)),
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              labelText: "Subject",
-                              labelStyle: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: kuPriColor),
-                                  borderRadius: BorderRadius.circular(25))),
-                        )),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          nameChange = value;
+                        },
+                        initialValue: subjectList[widget.index].name,
+                        enabled: toggle,
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                borderSide:
+                                    BorderSide(color: kuPriColor, width: 10)),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: "Subject",
+                            labelStyle: const TextStyle(
+                                color: Colors.black, fontSize: 20),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: kuPriColor),
+                                borderRadius: BorderRadius.circular(25))),
+                      )),
                 ),
               ),
               const SizedBox(height: 20),
@@ -173,7 +173,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: TimeScreen(),
+                              child: TimeScreen(
+                                index: widget.index,
+                              ),
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:
@@ -184,7 +186,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         backgroundColor: kuPriColor,
                         foregroundColor: kuSecColor,
                         child: Text('Time')),
-
                   ),
                   const SizedBox(
                     width: 10,
@@ -195,7 +196,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                           context,
                           PageTransition(
                               child: NotesScreen(index: widget.index),
-
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:

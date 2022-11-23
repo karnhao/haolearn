@@ -16,9 +16,13 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   final _service = StorageService.getService();
+  String? taskNameChange, description;
+  double? fullscore;
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
+    final taskList = data.tasks;
+
     return Scaffold(
       appBar: createKAppBar(context, "Task"),
       body: Align(
@@ -80,13 +84,17 @@ class _TaskScreenState extends State<TaskScreen> {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: TaskDetailScreen(index: index),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
+                                    context,
+                                    PageTransition(
+                                        child: TaskDetailScreen(index: index),
+                                        type: PageTransitionType.leftToRight,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        reverseDuration:
+                                            const Duration(milliseconds: 500)))
+                                .then((value) {
+                              setState(() {});
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -123,9 +131,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                     ),
                                     Column(
                                       children: [
-                                        Text(
-                                            data.tasks[index].priority
-                                                .toString(),
+                                        Text(data.tasks[index].score.toString(),
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.white)),
@@ -133,7 +139,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                           height: 6,
                                         ),
                                         RatingBarIndicator(
-                                          rating: 3,
+                                          rating: data
+                                              .tasks[index].priority.level
+                                              .toDouble(),
                                           itemCount: 5,
                                           itemSize: 20,
                                           itemBuilder: (context, index) {
