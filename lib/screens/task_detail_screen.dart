@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
@@ -20,7 +21,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   bool toggle = false;
   final service = StorageService.getService();
   DateTime selectedDate = DateTime.now();
-
+  String? title, description;
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
@@ -29,6 +30,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       selectedDate = data.tasks[widget.index].dueDate!;
     }
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: createKAppBar(context, "$subjectName task"),
         body: Stack(children: [
           Padding(
@@ -119,7 +121,61 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         ))
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: RatingBar(
+                      ignoreGestures: !toggle,
+                      minRating: 1,
+                      maxRating: 5,
+                      allowHalfRating: false,
+                      itemSize: 40,
+                      initialRating: 1,
+                      onRatingUpdate: (value) {},
+                      ratingWidget: RatingWidget(
+                          full: const Icon(Icons.star, color: Colors.amber),
+                          half: const Icon(Icons.circle, color: Colors.amber),
+                          empty: const Icon(
+                            Icons.star_border_purple500_outlined,
+                            color: Colors.grey,
+                          )),
+                    ),
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        data.tasks[widget.index].title = "TEST";
+                        data.tasks[widget.index].description = "AAAA";
+                        // ...
+
+                        service.saveData();
+                      },
+                      child: Container(
+                          margin: EdgeInsets.all(20),
+                          padding: EdgeInsets.all(3),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Save",
+                                style: Theme.of(context).textTheme.headline1,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.save,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                              color: kuPriColor,
+                              borderRadius: BorderRadius.circular(30))),
+                    ),
+                  ),
                 ],
               ),
             ),
