@@ -122,7 +122,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Center(
@@ -153,8 +153,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         service.saveData();
                       },
                       child: Container(
-                          margin: EdgeInsets.all(20),
-                          padding: EdgeInsets.all(3),
+                          margin: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              color: kuPriColor,
+                              borderRadius: BorderRadius.circular(30)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -162,18 +165,15 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                 "Save",
                                 style: Theme.of(context).textTheme.headline1,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.save,
                                 color: Colors.white,
                               )
                             ],
-                          ),
-                          decoration: BoxDecoration(
-                              color: kuPriColor,
-                              borderRadius: BorderRadius.circular(30))),
+                          )),
                     ),
                   ),
                 ],
