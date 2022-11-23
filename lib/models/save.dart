@@ -1,4 +1,3 @@
-import 'package:haolearn/models/notification_model.dart';
 import 'package:haolearn/models/table.dart';
 import 'package:haolearn/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -35,10 +34,10 @@ class Save extends HiveObject {
     final tempNotHasDueDate =
         tasks.where((t) => t.dueDate == null).toList(growable: true);
 
-    tempHasDueDate.sort((a, b) => b.dueDate!.millisecondsSinceEpoch
+    tempHasDueDate.sort((b, a) => b.dueDate!.millisecondsSinceEpoch
         .compareTo(a.dueDate!.millisecondsSinceEpoch));
     tempNotHasDueDate
-        .sort((a, b) => a.priority.level.compareTo(b.priority.level));
+        .sort((b, a) => a.priority.level.compareTo(b.priority.level));
 
     result.addAll(tempHasDueDate);
     result.addAll(tempNotHasDueDate);

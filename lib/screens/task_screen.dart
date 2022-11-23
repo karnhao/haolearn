@@ -21,7 +21,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
-    final taskList = data.tasks;
+    data.sortTasksFromDueDate();
 
     return Scaffold(
       appBar: createKAppBar(context, "Task"),
@@ -44,17 +44,31 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Task",
-                          style: TextStyle(
+                        Text(
+                          "${data.tasks.length} Task${data.tasks.length == 1 ? '' : 's'}",
+                          style: const TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
                           IconButton(
                               onPressed: (() {
-                                data.tasks.add(Task());
+                                Task task = Task();
+                                data.tasks.add(task);
                                 _service.saveData().then((value) {
-                                  setState(() {});
+                                  Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: TaskDetailScreen(
+                                                  index: data.tasks.length - 1),
+                                              type: PageTransitionType
+                                                  .leftToRight,
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              reverseDuration: const Duration(
+                                                  milliseconds: 500)))
+                                      .then((value) {
+                                    setState(() {});
+                                  });
                                 });
                               }),
                               icon: const Icon(
@@ -114,6 +128,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                             "${data.tasks[index].dueDate ?? "ไม่ระบุ"}",
@@ -130,6 +146,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                       ],
                                     ),
                                     Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(data.tasks[index].score.toString(),
                                             style: const TextStyle(
