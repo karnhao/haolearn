@@ -19,6 +19,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
   bool toggle = false;
   bool update = true;
   String? nameChange;
+  String? roomChange;
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
@@ -27,6 +28,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
 
     if (update) {
       nameChange = subjectList[widget.index].name;
+      roomChange = subjectList[widget.index].room;
       update = false;
     }
 
@@ -47,27 +49,29 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            nameChange = value;
-                          },
-                          initialValue: subjectList[widget.index].name,
-                          enabled: toggle,
-                          decoration: InputDecoration(
-                              border: const OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25)),
-                                  borderSide:
-                                      BorderSide(color: kuPriColor, width: 10)),
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              labelText: "Subject",
-                              labelStyle: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: kuPriColor),
-                                  borderRadius: BorderRadius.circular(25))),
-                        )),
+
+                      ///// MARK
+                      child: TextFormField(
+                        onChanged: (value) {
+                          nameChange = value;
+                        },
+                        initialValue: subjectList[widget.index].name,
+                        enabled: toggle,
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                borderSide:
+                                    BorderSide(color: kuPriColor, width: 10)),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: "Subject",
+                            labelStyle: const TextStyle(
+                                color: Colors.black, fontSize: 20),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: kuPriColor),
+                                borderRadius: BorderRadius.circular(25))),
+                      )),
                 ),
               ),
               const SizedBox(height: 20),
@@ -79,8 +83,13 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(20),
+
+                      //MARK
                       child: TextFormField(
                         initialValue: subjectList[widget.index].room,
+                        onChanged: (value) {
+                          roomChange = value;
+                        },
                         enabled: toggle,
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(
@@ -105,6 +114,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
               InkWell(
                 onTap: () {
                   subjectList[widget.index].name = nameChange ?? "ERROR";
+                  subjectList[widget.index].room = roomChange ?? "ERROR";
 
                   service.saveData().then((v) {
                     setState(() {});
@@ -207,7 +217,15 @@ class _SubjectScreenState extends State<SubjectScreen> {
             right: 10,
             child: Row(
               children: [
-                const DeleteConfirm(),
+                DeleteConfirm(
+                  function: () {
+                    subjectList.removeAt(widget.index);
+
+                    service.saveData();
+
+                    Navigator.pop(context);
+                  },
+                ),
                 InkWell(
                     onTap: () {},
                     child: Switch(

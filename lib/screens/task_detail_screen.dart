@@ -185,7 +185,12 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             bottom: 10,
             child: Row(
               children: [
-                const DeleteConfirm(),
+
+
+                // Delete
+                 DeleteConfirm(function: () {
+                   
+                 },),
                 InkWell(
                     onTap: () {},
                     child: Switch(
