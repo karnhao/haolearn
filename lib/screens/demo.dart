@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/models/priority.dart' as model;
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
+import 'package:haolearn/models/subject_content.dart';
+import 'package:haolearn/models/task.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
@@ -50,6 +53,31 @@ class _DemoPageState extends State<DemoPage> {
                 onTap: () {
                   data.getMainTable()!.subjectList.clear();
                   data.tasks.clear();
+                  data.tasks.add(Task(
+                      title: "PDPA",
+                      description:
+                          "Do PDPA powerpoint and present in front of the class!",
+                      dueDate: DateTime.now()
+                          .add(const Duration(days: 1, minutes: 1)),
+                      priority: model.Priority.high,
+                      score: 100));
+                  data.tasks.add(Task(
+                      title: "English Speaking 3",
+                      description: "Record a speaking video for 5 minutes",
+                      dueDate:
+                          DateTime.now().add(const Duration(days: 2, hours: 2)),
+                      priority: model.Priority.high,
+                      score: 15));
+                  data.tasks.add(Task(
+                      title: "Play games with cat",
+                      description: "Give ball to the cat and pet the dog.",
+                      priority: model.Priority.lowest,
+                      score: 0));
+                  data.tasks.add(Task(
+                      title: "Play games with rabbit",
+                      description: "Make cat and rabbit play together!",
+                      priority: model.Priority.low,
+                      score: 20));
                   Subject testSubject = Subject(name: "Biolody");
                   testSubject.studyTimes
                       .add(StudyTime(day: 1, startTime: 500, width: 50));
@@ -57,9 +85,18 @@ class _DemoPageState extends State<DemoPage> {
                       Subject(name: "Introduction to Computer Science");
                   testSubject.studyTimes
                       .add(StudyTime(day: 1, startTime: 600, width: 60));
+                  testSubject2.addContent(
+                      title: "Bitwise Operators I",
+                      description: "Bitwise I Operators is hard",
+                      understanding: ContentUnderstanding.high);
+                  testSubject2.addContent(
+                      title: "Bitwise Operators II",
+                      description: "Bitwise II Operators is hardest",
+                      understanding: ContentUnderstanding.lowest);
                   data.getMainTable()!.subjectList.add(testSubject);
                   data.getMainTable()!.subjectList.add(testSubject2);
                   service.saveData();
+
                   showSnackBar("Hello");
                 },
                 child: Container(

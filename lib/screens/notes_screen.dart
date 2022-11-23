@@ -129,7 +129,8 @@ class _NotesScreenState extends State<NotesScreen> {
               Padding(
                   padding: const EdgeInsets.only(right: 40),
                   child: RatingBarIndicator(
-                    rating: 3,
+                    rating:
+                        subject.contents[index].understanding.level.toDouble(),
                     itemCount: 5,
                     itemSize: 20,
                     itemBuilder: (context, index) {

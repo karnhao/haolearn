@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,17 +19,25 @@ class TaskDetailScreen extends StatefulWidget {
 
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
   String subjectName = "Subject";
-  //dynamic date = "Deadline date";
+  bool update = true;
   bool toggle = false;
   final service = StorageService.getService();
   DateTime selectedDate = DateTime.now();
   String? title, description;
+  double? fullscore;
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
+    final task = data.tasks[widget.index];
     if (data.tasks[widget.index].dueDate != null) {
       selectedDate = data.tasks[widget.index].dueDate!;
+    }
+    if (update) {
+      title = task.title;
+      description = task.description;
+      fullscore = task.score;
+      update = false;
     }
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -55,6 +65,9 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     child: Padding(
                         padding: const EdgeInsets.all(20),
                         child: TextFormField(
+                          onChanged: (value) {
+                            title = value;
+                          },
                           initialValue: data.tasks[widget.index].title,
                           enabled: toggle,
                           decoration: InputDecoration(
@@ -66,6 +79,24 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                   borderRadius: BorderRadius.circular(25))),
                         )),
                   ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 70,
+                      ),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          description = value;
+                        },
+                        initialValue: data.tasks[widget.index].description,
+                        enabled: toggle,
+                        decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: "Description",
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(25))),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -84,12 +115,15 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    padding: const EdgeInsets.symmetric(horizontal: 70),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: TextField(
+                            onChanged: (value) {
+                              fullscore = double.parse(value);
+                            },
                             keyboardType: TextInputType.number,
                             enabled: toggle,
                             decoration: InputDecoration(
@@ -97,28 +131,13 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                     borderSide: const BorderSide(
                                         width: 1, color: Colors.blue),
                                     borderRadius: BorderRadius.circular(25)),
-                                labelText: "Score",
+                                labelText: "Full score",
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.auto,
                                 contentPadding:
                                     const EdgeInsets.symmetric(horizontal: 5)),
                           ),
                         ),
-                        const Text("/"),
-                        Expanded(
-                            child: TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: Colors.blue),
-                                  borderRadius: BorderRadius.circular(25)),
-                              labelText: "Full score",
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              enabled: toggle,
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 5)),
-                        ))
                       ],
                     ),
                   ),
@@ -146,11 +165,15 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   Center(
                     child: InkWell(
                       onTap: () {
-                        data.tasks[widget.index].title = "TEST";
-                        data.tasks[widget.index].description = "AAAA";
-                        // ...
+                        data.tasks[widget.index].title = title ?? "ERROR";
+                        data.tasks[widget.index].description =
+                            description ?? "ERROR";
+                        data.tasks[widget.index].score = fullscore ?? 0;
+                        data.tasks[widget.index].dueDate = selectedDate;
 
-                        service.saveData();
+                        service.saveData().then((value) {
+                          setState(() {});
+                        });
                       },
                       child: Container(
                           margin: const EdgeInsets.all(20),

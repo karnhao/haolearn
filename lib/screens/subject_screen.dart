@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/screens/notes_screen.dart';
 import 'package:haolearn/screens/score_screen.dart';
-import 'package:haolearn/screens/time.dart';
+import 'package:haolearn/screens/time_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
@@ -50,8 +50,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(20),
-
-                      ///// MARK
                       child: TextFormField(
                         onChanged: (value) {
                           nameChange = value;
@@ -183,7 +181,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: TimeScreen(),
+                              child: TimeScreen(
+                                index: widget.index,
+                              ),
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:
@@ -194,7 +194,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         backgroundColor: kuPriColor,
                         foregroundColor: kuSecColor,
                         child: Text('Time')),
-
                   ),
                   const SizedBox(
                     width: 10,
@@ -205,7 +204,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                           context,
                           PageTransition(
                               child: NotesScreen(index: widget.index),
-
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:
