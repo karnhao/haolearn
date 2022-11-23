@@ -49,11 +49,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
                             const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
                     child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: TextField(
                           enabled: toggle,
                           decoration:
-                              InputDecoration(hintText: 'Enter subject'),
+                              const InputDecoration(hintText: 'Enter subject'),
                         )),
                   ),
                 ),
@@ -67,10 +67,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
                             const BorderRadius.all(Radius.circular(30)),
                         border: Border.all(width: 1, color: kBoxColorBorder)),
                     child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: TextField(
                           enabled: toggle,
-                          decoration: InputDecoration(hintText: 'Enter room'),
+                          decoration:
+                              const InputDecoration(hintText: 'Enter room'),
                         )),
                   ),
                 ),
@@ -103,12 +104,13 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: ScoreScreen(),
+                              child: const ScoreScreen(),
                               type: PageTransitionType.leftToRight,
-                              duration: Duration(milliseconds: 500),
-                              reverseDuration: Duration(milliseconds: 500)));
+                              duration: const Duration(milliseconds: 500),
+                              reverseDuration:
+                                  const Duration(milliseconds: 500)));
                     },
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 24,
                       backgroundColor: kuPriColor,
                       foregroundColor: kuSecColor,
@@ -142,9 +144,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
             ),
           ),
           Positioned(
+            bottom: 10,
+            right: 10,
             child: Row(
               children: [
-                deleteConfirm(),
+                const DeleteConfirm(),
                 InkWell(
                     onTap: () {},
                     child: Switch(
@@ -161,8 +165,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     )),
               ],
             ),
-            bottom: 10,
-            right: 10,
           )
         ]));
   }

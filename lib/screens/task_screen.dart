@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/models/task.dart';
 import 'package:haolearn/screens/task_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
+import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -45,12 +46,6 @@ class _TaskScreenState extends State<TaskScreen> {
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
-                          IconButton(
-                              onPressed: (() {}),
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 40,
-                              )),
                           IconButton(
                               onPressed: (() {
                                 data.tasks.add(Task());

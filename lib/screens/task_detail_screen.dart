@@ -50,22 +50,19 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: TextFormField(
-                            initialValue: data.tasks[widget.index].title,
-                            enabled: toggle,
-                            decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                                labelText: "Task",
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.blue),
-                                    borderRadius: BorderRadius.circular(25))),
-                          )),
-                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TextFormField(
+                          initialValue: data.tasks[widget.index].title,
+                          enabled: toggle,
+                          decoration: InputDecoration(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              labelText: "Task",
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Colors.blue),
+                                  borderRadius: BorderRadius.circular(25))),
+                        )),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -95,14 +92,14 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                             enabled: toggle,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 1, color: Colors.blue),
                                     borderRadius: BorderRadius.circular(25)),
                                 labelText: "Score",
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.auto,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 5)),
+                                    const EdgeInsets.symmetric(horizontal: 5)),
                           ),
                         ),
                         const Text("/"),
@@ -111,8 +108,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.blue),
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Colors.blue),
                                   borderRadius: BorderRadius.circular(25)),
                               labelText: "Full score",
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -132,7 +129,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             bottom: 10,
             child: Row(
               children: [
-                deleteConfirm(),
+                const DeleteConfirm(),
                 InkWell(
                     onTap: () {},
                     child: Switch(

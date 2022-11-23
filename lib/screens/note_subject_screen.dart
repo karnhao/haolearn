@@ -3,7 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/themes/colors.dart';
 
 class NoteSubjectScreen extends StatefulWidget {
-  const NoteSubjectScreen({super.key});
+  final int index;
+  const NoteSubjectScreen({super.key, required this.index});
 
   @override
   State<NoteSubjectScreen> createState() => _NoteSubjectScreenState();
@@ -52,6 +53,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
             height: 30,
           ),
           TextFormField(
+            onChanged: (value) {},
             maxLines: 20,
             decoration: InputDecoration(
               alignLabelWithHint: true,
