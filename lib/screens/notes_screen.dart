@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:haolearn/models/subject.dart';
+import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class NotesScreen extends StatefulWidget {
 }
 
 class _NotesScreenState extends State<NotesScreen> {
+  late Subject subject;
   @override
   void initState() {
     super.initState();
@@ -20,6 +23,10 @@ class _NotesScreenState extends State<NotesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final service = StorageService.getService();
+    // final data = service.getSaveData()!;
+    // subject = data.getMainTable()!.subjectList[widget.index];
+
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           mini: true,
@@ -67,7 +74,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   SizedBox(
                     height: 490,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: 1,
                       itemBuilder: (context, index) {
                         return boxTask(index);
                       },
@@ -97,7 +104,7 @@ class _NotesScreenState extends State<NotesScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 40),
-                child: Text('Title $index',
+                child: Text("efwedf",
                     style: Theme.of(context).textTheme.headline2),
               ),
               Padding(
