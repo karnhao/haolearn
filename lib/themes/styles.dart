@@ -3,16 +3,14 @@ import 'package:haolearn/themes/colors.dart';
 
 ThemeData appTheme() {
   return ThemeData(
-      fontFamily: "Inter",
+      fontFamily: "DB-Ozone-X",
       textTheme: const TextTheme(
           headline1: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.w700,
-              color: kappBarTextColor),
+              fontSize: 32.0, fontWeight: FontWeight.w700, color: Colors.white),
           headline2: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
               color: Colors.white)),
-      scaffoldBackgroundColor: kappBackground,
+      scaffoldBackgroundColor: appBackgroundColor,
       useMaterial3: true);
 }

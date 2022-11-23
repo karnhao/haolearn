@@ -22,7 +22,14 @@ class _DemoPageState extends State<DemoPage> {
   Widget build(BuildContext context) {
     final data = service.getSaveData()!;
     return Scaffold(
-        appBar: createKAppBar(context, "DEBUG SCREEN"),
+        appBar: createKAppBar(context, "DEBUG SCREEN", actions: [
+          InkWell(
+            onTap: () {
+              showSnackBar("AAARRRGGHH!!!");
+            },
+            child: const Icon(Icons.cancel),
+          ),
+        ]),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -42,11 +49,17 @@ class _DemoPageState extends State<DemoPage> {
               InkWell(
                 onTap: () {
                   data.getMainTable()!.subjectList.clear();
-                  Subject testSubject = Subject(name: "testSubject");
+                  data.tasks.clear();
+                  Subject testSubject = Subject(name: "Biolody");
                   testSubject.studyTimes
                       .add(StudyTime(day: 1, startTime: 500, width: 50));
+                  Subject testSubject2 =
+                      Subject(name: "Introduction to Computer Science");
+                  testSubject.studyTimes
+                      .add(StudyTime(day: 1, startTime: 600, width: 60));
                   data.getMainTable()!.subjectList.add(testSubject);
-                  service.saveData;
+                  data.getMainTable()!.subjectList.add(testSubject2);
+                  service.saveData();
                   showSnackBar("Hello");
                 },
                 child: Container(

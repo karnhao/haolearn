@@ -1,35 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/themes/colors.dart';
 
-PreferredSize createKAppBar(BuildContext context, String title) {
+PreferredSize createKAppBar(BuildContext context, String title,
+    {List<Widget> actions = const []}) {
   return PreferredSize(
       preferredSize: Size(MediaQuery.of(context).size.width, 110),
       child: Column(
         children: [
-          const SizedBox(
-            height: 50,
-          ),
           Container(
-            height: 60,
-            color: const Color.fromARGB(255, 178, 187, 30),
+            height: 110,
+            color: kuSecColor,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: 60,
+                  height: 110,
                   decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 0, 102, 100),
+                      color: kuPriColor,
                       borderRadius:
                           BorderRadius.only(bottomRight: Radius.circular(20))),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 40),
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.arrow_back,
-                              size: 40, color: Colors.white),
+                        Visibility(
+                          visible: Navigator.of(context).canPop(),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(Icons.arrow_back,
+                                size: 35, color: Colors.white),
+                          ),
                         ),
                         const SizedBox(
                           width: 20,
@@ -40,7 +42,12 @@ PreferredSize createKAppBar(BuildContext context, String title) {
                     ),
                   ),
                 ),
-                const SizedBox()
+                const SizedBox(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: actions,
+                )
               ],
             ),
           )

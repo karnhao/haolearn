@@ -40,7 +40,10 @@ dependencies:
   hive: ^2.1.0
   page_transition: "^2.0.9"
   hive_flutter: ^1.1.0
+  flutter_datetime_picker: ^1.5.1
   pie_chart: ^5.3.2
+  flutter_rating_bar: ^4.0.1
+  time_planner: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -82,11 +85,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: DB-Ozone-X
+      fonts:
+        - asset: assets/fonts/DB-Ozone-X-Li-It.ttf
+        - asset: assets/fonts/DB-Ozone-X-Li.ttf
+        - asset: assets/fonts/DB-Ozone-X-Med-It.ttf
+        - asset: assets/fonts/DB-Ozone-X-Med.ttf
+        - asset: assets/fonts/DB-Ozone-X-UlLi-It.ttf
+        - asset: assets/fonts/DB-Ozone-X-UlLi.ttf
+        - asset: assets/fonts/DB-Ozone-X.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
