@@ -6,9 +6,9 @@ import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TaskDetailScreen extends StatefulWidget {
-  int index;
+  final int index;
 
-  TaskDetailScreen({super.key, required this.index});
+  const TaskDetailScreen({super.key, required this.index});
 
   @override
   State<TaskDetailScreen> createState() => _TaskDetailScreenState();
