@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/services/storage_service.dart';
 
 class DeleteConfirm extends StatelessWidget {
-  const DeleteConfirm({super.key});
+  Function() function;
+  DeleteConfirm({super.key, required this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,10 @@ class DeleteConfirm extends StatelessWidget {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
+              onPressed: () {
+                function();
+                Navigator.pop(context, 'OK');
+              },
               child: const Text('OK'),
             ),
           ],

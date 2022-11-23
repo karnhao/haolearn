@@ -22,13 +22,14 @@ class SubjectAdapter extends TypeAdapter<Subject> {
       ..room = fields[1] as String?
       ..teacherName = fields[2] as String?
       ..studyTimes = (fields[3] as List).cast<StudyTime>()
-      ..contents = (fields[4] as List).cast<SubjectContent>();
+      ..contents = (fields[4] as List).cast<SubjectContent>()
+      ..scores = (fields[5] as List).cast<SubjectScore>();
   }
 
   @override
   void write(BinaryWriter writer, Subject obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class SubjectAdapter extends TypeAdapter<Subject> {
       ..writeByte(3)
       ..write(obj.studyTimes)
       ..writeByte(4)
-      ..write(obj.contents);
+      ..write(obj.contents)
+      ..writeByte(5)
+      ..write(obj.scores);
   }
 
   @override

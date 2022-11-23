@@ -41,9 +41,9 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Subject",
-                          style: TextStyle(
+                        Text(
+                          "${subjectList.length} Subject",
+                          style: const TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
@@ -81,19 +81,32 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: SubjectScreen(index: index),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
+                                    context,
+                                    PageTransition(
+                                        child: SubjectScreen(index: index),
+                                        type: PageTransitionType.leftToRight,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        reverseDuration:
+                                            const Duration(milliseconds: 500)))
+                                .then((v) {
+                              setState(() {});
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.9),
+                                      spreadRadius: 0.1,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
                                   color: kuPriColor,
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,

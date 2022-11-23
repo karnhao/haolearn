@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
   return PreferredSize(
-      preferredSize: Size(MediaQuery.of(context).size.width, 110),
+      preferredSize: Size(MediaQuery.of(context).size.width, 54),
       child: Column(
         children: [
           Container(
-            height: 110,
-            color: kuSecColor,
+            height: MediaQuery.of(context).viewPadding.top,
+            decoration: const BoxDecoration(color: Colors.black),
+          ),
+          SizedBox(
+            height: 54,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 110,
+                  height: 54,
                   decoration: const BoxDecoration(
                       color: kuPriColor,
                       borderRadius:
@@ -27,7 +32,7 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           visible: Navigator.of(context).canPop(),
                           child: InkWell(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.maybePop(context);
                             },
                             child: const Icon(Icons.arrow_back,
                                 size: 35, color: Colors.white),
@@ -37,7 +42,8 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           width: 20,
                         ),
                         Text(title,
-                            style: Theme.of(context).textTheme.headline1),
+                            style: Theme.of(context).textTheme.headline1,
+                            overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   ),
