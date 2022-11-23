@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
@@ -44,7 +45,8 @@ PreferredSize createKAppBar(BuildContext context, String title,
                           width: 20,
                         ),
                         Text(title,
-                            style: Theme.of(context).textTheme.headline1),
+                            style: Theme.of(context).textTheme.headline1,
+                            overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   ),
