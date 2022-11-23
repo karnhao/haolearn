@@ -23,73 +23,74 @@ class _SubjectScreenState extends State<SubjectScreen> {
     final subjectList = data.mainTable.subjectList;
 
     return Scaffold(
-        appBar: createKAppBar(context, "Subject"),
+        appBar: createKAppBar(context, subjectList[widget.index].name),
         body: Stack(children: [
-          Container(
-            decoration: const BoxDecoration(
-                color: appBackgroundColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50))),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Center(
-                  child: SizedBox(
-                    height: 50,
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // const Center(
+              //   child: SizedBox(
+              //     height: 50,
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: kBoxColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
-                        border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextField(
-                          enabled: toggle,
-                          decoration:
-                              const InputDecoration(hintText: 'Enter subject'),
-                        )),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: kBoxColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
-                        border: Border.all(width: 1, color: kBoxColorBorder)),
-                    child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextField(
-                          enabled: toggle,
-                          decoration:
-                              const InputDecoration(hintText: 'Enter room'),
-                        )),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          color: kuSecColor,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(50),
-                              topRight: Radius.circular(50))),
-                    ),
+                      padding: const EdgeInsets.all(20),
+                      child: TextFormField(
+                        initialValue: subjectList[widget.index].name,
+                        enabled: toggle,
+                        decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: "Name",
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(25))),
+                      )),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
-                )
-              ],
-            ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: TextFormField(
+                        initialValue: subjectList[widget.index].room,
+                        enabled: toggle,
+                        decoration: InputDecoration(
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: "Room",
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(25))),
+                      )),
+                ),
+              ),
+              // const SizedBox(height: 50),
+              // Expanded(
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 10),
+              //     child: Container(
+              //       decoration: const BoxDecoration(
+              //           color: kuSecColor,
+              //           borderRadius: BorderRadius.only(
+              //               topLeft: Radius.circular(50),
+              //               topRight: Radius.circular(50))),
+              //     ),
+              //   ),
+              // )
+            ],
           ),
           Positioned(
             bottom: 10,
@@ -104,7 +105,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: const ScoreScreen(),
+
+                              ///ToDo
+                              child: const ScoreScreen(index: 0),
                               type: PageTransitionType.leftToRight,
                               duration: const Duration(milliseconds: 500),
                               reverseDuration:
