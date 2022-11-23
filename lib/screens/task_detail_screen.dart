@@ -5,6 +5,7 @@ import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/loading_dialog.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 import 'package:haolearn/utils/utils.dart';
 
@@ -181,6 +182,12 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   Center(
                     child: InkWell(
                       onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => const Center(
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 4),
+                                ));
                         data.tasks[widget.index].title = title ?? "ERROR";
                         data.tasks[widget.index].description =
                             description ?? "ERROR";
@@ -188,6 +195,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         data.tasks[widget.index].dueDate = selectedDate;
 
                         service.saveData().then((value) {
+                          Navigator.pop(context);
                           setState(() {});
                           showSnackBar("Save complete",
                               backgroundColor: Colors.green);
