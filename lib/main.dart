@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:haolearn/route.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/styles.dart';
 
 Future<void> main() async {
   log("Starting...");
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   await StorageService.initialize();
   ErrorWidget.builder = (details) {
     return Text('ERROR! : ${details.exception}',
