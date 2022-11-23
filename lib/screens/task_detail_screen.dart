@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -6,6 +5,8 @@ import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/show_snack_bar.dart';
+import 'package:haolearn/utils/utils.dart';
 
 class TaskDetailScreen extends StatefulWidget {
   final int index;
@@ -21,7 +22,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   bool update = true;
   bool toggle = false;
   final service = StorageService.getService();
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
   String? title, description;
   double? fullscore;
   @override
@@ -43,44 +44,43 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
         appBar: createKAppBar(context, "$subjectName task"),
         body: Stack(children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
             child: Container(
               decoration: const BoxDecoration(
-                  color: appBackgroundColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50))),
+                color: appBackgroundColor,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Center(
-                    child: SizedBox(
-                      height: 20,
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            title = value;
-                          },
-                          initialValue: data.tasks[widget.index].title,
-                          enabled: toggle,
-                          decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                              labelText: "Task",
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: Colors.blue),
-                                  borderRadius: BorderRadius.circular(25))),
-                        )),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        title = value;
+                      },
+                      initialValue: data.tasks[widget.index].title,
+                      enabled: toggle,
+                      style: const TextStyle(fontSize: 32),
+                      decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          labelText: "Task",
+                          labelStyle: const TextStyle(fontSize: 32),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.blue),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 70,
+                        horizontal: 30,
                       ),
                       child: TextFormField(
                         onChanged: (value) {
@@ -88,57 +88,74 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         },
                         initialValue: data.tasks[widget.index].description,
                         enabled: toggle,
+                        style: const TextStyle(fontSize: 32),
                         decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
                             labelText: "Description",
+                            labelStyle: const TextStyle(fontSize: 32),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1, color: Colors.blue),
-                                borderRadius: BorderRadius.circular(25))),
+                                borderRadius: BorderRadius.circular(10))),
                       )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                    ),
+                    child: TextField(
+                      onChanged: (value) {
+                        fullscore = double.parse(value);
+                      },
+                      keyboardType: TextInputType.number,
+                      enabled: toggle,
+                      style: const TextStyle(fontSize: 32),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 1, color: Colors.blue),
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Full score",
+                        labelStyle: const TextStyle(fontSize: 32),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                        selectedDate != null
+                            ? "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}"
+                                " ${formatTime(selectedDate!.hour.toString())}"
+                                ":${formatTime(selectedDate!.minute.toString())}"
+                            : "Select Due Date",
+                        style: const TextStyle(fontSize: 32),
+                      ),
                       IconButton(
                           onPressed: toggle
-                              ? () {
-                                  _selectDate(context).then((v) {
-                                    selectedDate = v ?? DateTime.now();
-                                    setState(() {});
-                                  });
-                                }
+                              ? selectedDate == null
+                                  ? () {
+                                      _selectDate(context).then((v) {
+                                        selectedDate = v;
+                                        setState(() {});
+                                      });
+                                    }
+                                  : () {
+                                      setState(() {
+                                        selectedDate = null;
+                                      });
+                                    }
                               : null,
-                          icon: const Icon(Icons.edit))
+                          icon: Icon(selectedDate == null
+                              ? Icons.edit
+                              : Icons.cancel_outlined))
                     ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 70),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            onChanged: (value) {
-                              fullscore = double.parse(value);
-                            },
-                            keyboardType: TextInputType.number,
-                            enabled: toggle,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.blue),
-                                    borderRadius: BorderRadius.circular(25)),
-                                labelText: "Full score",
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 5)),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -172,6 +189,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
 
                         service.saveData().then((value) {
                           setState(() {});
+                          showSnackBar("Save complete",
+                              backgroundColor: Colors.green);
                         });
                       },
                       child: Container(
@@ -207,12 +226,10 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             bottom: 10,
             child: Row(
               children: [
-
-
                 // Delete
-                 DeleteConfirm(function: () {
-                   
-                 },),
+                DeleteConfirm(
+                  function: () {},
+                ),
                 InkWell(
                     onTap: () {},
                     child: Switch(
