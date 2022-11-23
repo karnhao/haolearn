@@ -27,8 +27,12 @@ class Subject {
 
   Subject({required this.name});
 
-  void addContent({String title = "Untitled", String description = ""}) {
-    contents.add(SubjectContent(title: title, description: description));
+  void addContent(
+      {String title = "Untitled",
+      String description = "",
+      ContentUnderstanding understanding = ContentUnderstanding.normal}) {
+    contents.add(SubjectContent(
+        title: title, description: description, understanding: understanding));
   }
 
   void removeContent(int index) {
