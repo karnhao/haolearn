@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:haolearn/models/subject.dart';
-import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/screens/time_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -10,8 +7,8 @@ import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class TimeScreen extends StatefulWidget {
-  int index;
-  TimeScreen({super.key, required this.index});
+  final int index;
+  const TimeScreen({super.key, required this.index});
 
   @override
   State<TimeScreen> createState() => _TimeScreenState();

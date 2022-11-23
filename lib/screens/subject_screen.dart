@@ -189,7 +189,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                               reverseDuration:
                                   const Duration(milliseconds: 500)));
                     },
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                         radius: 24,
                         backgroundColor: kuPriColor,
                         foregroundColor: kuSecColor,

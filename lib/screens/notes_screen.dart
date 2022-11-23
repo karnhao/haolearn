@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -111,7 +109,6 @@ class _NotesScreenState extends State<NotesScreen> {
               .then((v) {
             setState(() {});
           });
-          ;
         },
         child: Container(
           height: 75,

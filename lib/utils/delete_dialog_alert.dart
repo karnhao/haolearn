@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:haolearn/services/storage_service.dart';
 
 class DeleteConfirm extends StatelessWidget {
-  Function() function;
-  DeleteConfirm({super.key, required this.function});
+  final Function() function;
+  const DeleteConfirm({super.key, required this.function});
 
   @override
   Widget build(BuildContext context) {

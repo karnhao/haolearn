@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
-import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
