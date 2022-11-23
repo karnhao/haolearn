@@ -24,12 +24,12 @@ PreferredSize createKAppBar(BuildContext context, String title,
                     child: Row(
                       children: [
                         Visibility(
-                          visible: false,
+                          visible: Navigator.of(context).canPop(),
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(Icons.arrow_back,
+                            child: const Icon(Icons.arrow_back,
                                 size: 35, color: Colors.white),
                           ),
                         ),

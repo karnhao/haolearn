@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
-                  children: [Text("")],
+                  children: const [Text("")],
                 ),
               ),
             ),

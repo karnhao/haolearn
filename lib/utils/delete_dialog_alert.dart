@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class deleteConfirm extends StatelessWidget {
-  const deleteConfirm({super.key});
+class DeleteConfirm extends StatelessWidget {
+  const DeleteConfirm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.delete,
         size: 30,
       ),
