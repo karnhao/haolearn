@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TimeDetailScreen extends StatefulWidget {
-  int index;
-  TimeDetailScreen({super.key, required this.index});
+  final int index;
+  const TimeDetailScreen({super.key, required this.index});
 
   @override
   State<TimeDetailScreen> createState() => _TimeDetailScreenState();

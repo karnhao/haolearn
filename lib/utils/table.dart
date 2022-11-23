@@ -29,7 +29,7 @@ Widget createTableWidget(BuildContext context) {
           ],
           style: TimePlannerStyle(
             cellWidth: 200,
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           ),
           tasks: allSubjectTables
               .where((u) => !u.isEmptySubject)

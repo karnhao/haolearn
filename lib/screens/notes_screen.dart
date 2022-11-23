@@ -35,25 +35,23 @@ class _NotesScreenState extends State<NotesScreen> {
         floatingActionButton: FloatingActionButton(
           mini: true,
           onPressed: () {
-            setState(() {
-              subject.addContent();
+            subject.addContent();
+            service.saveData().then((value) {
+              setState(() {});
             });
           },
           backgroundColor: Colors.green,
           child: const Icon(Icons.add),
         ),
         appBar: AppBar(
-          title: Text("Note Subject",
-              style: Theme.of(context).textTheme.headline2),
+          title:
+              Text(subject.name, style: Theme.of(context).textTheme.headline2),
           centerTitle: true,
           backgroundColor: kuSecColor,
         ),
         body: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              // decoration: BoxDecoration(
-              //     color: Colors.white, borderRadius: BorderRadius.circular(20)),
               alignment: AlignmentDirectional.center,
               height: 200,
               child: const Text("Note 10 note"),
@@ -103,14 +101,14 @@ class _NotesScreenState extends State<NotesScreen> {
           Navigator.push(
                   context,
                   PageTransition(
-                      child: NoteSubjectScreen(index: index),
+                      child: NoteSubjectScreen(
+                          contentIndex: index, subjectIndex: widget.index),
                       type: PageTransitionType.leftToRight,
                       duration: const Duration(milliseconds: 500),
                       reverseDuration: const Duration(milliseconds: 500)))
               .then((v) {
             setState(() {});
           });
-          ;
         },
         child: Container(
           height: 75,
