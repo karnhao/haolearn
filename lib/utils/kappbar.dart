@@ -23,12 +23,15 @@ PreferredSize createKAppBar(BuildContext context, String title,
                     padding: const EdgeInsets.only(left: 16.0, right: 40),
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.arrow_back,
-                              size: 35, color: Colors.white),
+                        Visibility(
+                          visible: Navigator.of(context).canPop(),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(Icons.arrow_back,
+                                size: 35, color: Colors.white),
+                          ),
                         ),
                         const SizedBox(
                           width: 20,

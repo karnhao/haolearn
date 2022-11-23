@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 
 class TaskDetailScreen extends StatefulWidget {
-  int index;
+  final int index;
 
-  TaskDetailScreen({super.key, required this.index});
+  const TaskDetailScreen({super.key, required this.index});
 
   @override
   State<TaskDetailScreen> createState() => _TaskDetailScreenState();
@@ -49,22 +50,19 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: TextFormField(
-                            initialValue: data.tasks[widget.index].title,
-                            enabled: toggle,
-                            decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                                labelText: "Task",
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: Colors.blue),
-                                    borderRadius: BorderRadius.circular(25))),
-                          )),
-                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: TextFormField(
+                          initialValue: data.tasks[widget.index].title,
+                          enabled: toggle,
+                          decoration: InputDecoration(
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                              labelText: "Task",
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Colors.blue),
+                                  borderRadius: BorderRadius.circular(25))),
+                        )),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,14 +92,14 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                             enabled: toggle,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         width: 1, color: Colors.blue),
                                     borderRadius: BorderRadius.circular(25)),
                                 labelText: "Score",
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.auto,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 5)),
+                                    const EdgeInsets.symmetric(horizontal: 5)),
                           ),
                         ),
                         const Text("/"),
@@ -110,8 +108,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.blue),
+                                  borderSide: const BorderSide(
+                                      width: 1, color: Colors.blue),
                                   borderRadius: BorderRadius.circular(25)),
                               labelText: "Full score",
                               floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -127,22 +125,28 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
             ),
           ),
           Positioned(
-              right: 10,
-              bottom: 10,
-              child: InkWell(
-                  onTap: () {},
-                  child: Switch(
-                    value: toggle,
-                    onChanged: (value) {
-                      setState(
-                        () {
-                          toggle = value;
-                        },
-                      );
-                    },
-                    activeColor: Colors.green,
-                    activeTrackColor: Colors.lightGreenAccent,
-                  )))
+            right: 10,
+            bottom: 10,
+            child: Row(
+              children: [
+                const DeleteConfirm(),
+                InkWell(
+                    onTap: () {},
+                    child: Switch(
+                      value: toggle,
+                      onChanged: (value) {
+                        setState(
+                          () {
+                            toggle = value;
+                          },
+                        );
+                      },
+                      activeColor: Colors.green,
+                      activeTrackColor: Colors.lightGreenAccent,
+                    )),
+              ],
+            ),
+          )
         ]));
   }
 

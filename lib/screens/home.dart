@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
 import 'package:haolearn/screens/task_screen.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:haolearn/themes/colors.dart';
@@ -37,41 +38,43 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kuSecColor,
-        appBar: AppBar(
-            backgroundColor: kuPriColor,
-            title: Text("Home", style: Theme.of(context).textTheme.headline2),
-            centerTitle: true),
+        appBar: createKAppBar(context, "Home"),
         body: ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 17),
-              child: SizedBox(
-                height: 225,
-                // color: Colors.white,
-                child: PieChart(
-                  dataMap: dataMap,
-                  animationDuration: const Duration(milliseconds: 3000),
-                  chartLegendSpacing: 32,
-                  chartRadius: MediaQuery.of(context).size.width / 3.2,
-                  colorList: colorList,
-                  initialAngleInDegree: 0,
-                  chartType: ChartType.ring,
-                  ringStrokeWidth: 32,
-                  centerText: "Read",
-                  legendOptions: const LegendOptions(
-                    showLegendsInRow: true,
-                    legendPosition: LegendPosition.right,
-                    showLegends: true,
-                    legendTextStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 30),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: SizedBox(
+                  height: 225,
+                  // color: Colors.white,
+                  child: PieChart(
+                    dataMap: dataMap,
+                    animationDuration: const Duration(milliseconds: 3000),
+                    chartLegendSpacing: 24,
+                    chartRadius: MediaQuery.of(context).size.width / 4.0,
+                    colorList: colorList,
+                    initialAngleInDegree: 0,
+                    chartType: ChartType.ring,
+                    ringStrokeWidth: 24,
+                    centerText: "Read",
+                    legendOptions: const LegendOptions(
+                      showLegendsInRow: true,
+                      legendPosition: LegendPosition.right,
+                      showLegends: true,
+                      legendTextStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  chartValuesOptions: const ChartValuesOptions(
-                    showChartValueBackground: true,
-                    showChartValues: true,
-                    showChartValuesInPercentage: true,
-                    showChartValuesOutside: false,
-                    decimalPlaces: 1,
+                    chartValuesOptions: const ChartValuesOptions(
+                      showChartValueBackground: true,
+                      showChartValues: true,
+                      showChartValuesInPercentage: true,
+                      showChartValuesOutside: false,
+                      decimalPlaces: 1,
+                    ),
                   ),
                 ),
               ),

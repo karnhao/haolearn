@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haolearn/screens/subject_screen.dart';
+import 'package:haolearn/services/storage_service.dart';
+import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ScoreScreen extends StatefulWidget {
@@ -12,14 +15,10 @@ class ScoreScreen extends StatefulWidget {
 class _ScoreScreenState extends State<ScoreScreen> {
   @override
   Widget build(BuildContext context) {
+    final service = StorageService.getService();
+    final data = service.getSaveData()!;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Score",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-        ),
-      ),
+      appBar: createKAppBar(context, "Score"),
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
@@ -28,38 +27,30 @@ class _ScoreScreenState extends State<ScoreScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 138, 138, 138),
+              color: kuSecColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Subject",
-                          style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
-                        ),
-                        Row(children: [
-                          IconButton(
-                              onPressed: (() {}),
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 40,
-                              )),
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 30, right: 30),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Subject",
+                            style: TextStyle(
+                                fontSize: 26, fontWeight: FontWeight.w700),
+                          ),
                           IconButton(
                               onPressed: (() {}),
                               icon: const Icon(
                                 Icons.add,
                                 size: 40,
                               ))
-                        ])
-                      ]),
-                ),
+                        ])),
                 const SizedBox(
                   height: 7,
                 ),
@@ -95,7 +86,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 80, 80, 80),
+                                  color: kuPriColor,
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
