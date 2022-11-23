@@ -94,6 +94,15 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
                               decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.9),
+                                      spreadRadius: 0.1,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
                                   color: kuPriColor,
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,

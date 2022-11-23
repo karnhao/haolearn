@@ -1,20 +1,27 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:haolearn/themes/colors.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
+  log(MediaQuery.of(context).viewPadding.top.toString());
   return PreferredSize(
-      preferredSize: Size(MediaQuery.of(context).size.width, 110),
+      preferredSize: Size(MediaQuery.of(context).size.width, 54),
       child: Column(
         children: [
           Container(
-            height: 110,
-            color: kuSecColor,
+            height: MediaQuery.of(context).viewPadding.top,
+            decoration: const BoxDecoration(color: Colors.black),
+          ),
+          SizedBox(
+            height: 54,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 110,
+                  height: 54,
                   decoration: const BoxDecoration(
                       color: kuPriColor,
                       borderRadius:

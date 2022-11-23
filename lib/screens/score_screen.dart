@@ -6,7 +6,8 @@ import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ScoreScreen extends StatefulWidget {
-  const ScoreScreen({super.key});
+  final int index;
+  const ScoreScreen({super.key, required this.index});
 
   @override
   State<ScoreScreen> createState() => _ScoreScreenState();
@@ -17,6 +18,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
   Widget build(BuildContext context) {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
+    final subjectList = data.mainTable.subjectList;
+
     return Scaffold(
       appBar: createKAppBar(context, "Score"),
       body: Align(
