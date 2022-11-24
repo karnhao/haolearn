@@ -184,8 +184,7 @@ class _NotesScreenState extends State<NotesScreen> {
         child: Center(
           child: Container(
             height: 75,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: kuPriColor),
+            decoration: kuBoxStyle,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
