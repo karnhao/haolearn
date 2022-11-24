@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:haolearn/screens/demo.dart';
 import 'package:haolearn/screens/list_subject_screen.dart';
 import 'package:haolearn/screens/task_screen.dart';
+import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -27,10 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ]);
   }
 
-  Map<String, double> dataMap = {
-    "Success": 75,
-    "Not pass": 25,
-  };
   List<Color> colorList = [
     Colors.blue,
     Colors.red,
@@ -38,6 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data =
+        StorageService.getService().getSaveData()!.getTaskCompletePercentage();
+
+    Map<String, double> dataMap = {"Finish": data, "Not Finish": 100 - data};
     return Scaffold(
         backgroundColor: kuSecColor,
         appBar: createKAppBar(context, "Home"),
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   initialAngleInDegree: 0,
                   chartType: ChartType.ring,
                   ringStrokeWidth: 24,
-                  centerText: "Read",
+                  centerText: "Homework",
                   legendOptions: const LegendOptions(
                     showLegendsInRow: true,
                     legendPosition: LegendPosition.right,

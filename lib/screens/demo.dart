@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/models/notification_model.dart';
 import 'package:haolearn/models/priority.dart' as model;
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/models/task.dart';
+import 'package:haolearn/services/notification_service.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
@@ -40,19 +42,24 @@ class _DemoPageState extends State<DemoPage> {
               const Text(
                 'Testing data',
               ),
-              Text("Table Name : ${data.mainTable.name}"),
-              Text(
-                  "First Subject Name : ${data.mainTable.subjectList.first.name}"),
-              Text(
-                  "First Subject Room : ${data.mainTable.subjectList.first.room}"),
-              Text(
-                  "First Subject Day : ${data.mainTable.subjectList.first.studyTimes.first.getDayName()}"),
-              Text(
-                  "First Subject Time : ${data.mainTable.subjectList.first.studyTimes.first.getTimeName()}"),
               InkWell(
                 onTap: () {
                   data.getMainTable()!.subjectList.clear();
                   data.tasks.clear();
+                  Task task1 = Task(
+                      title: "PDPA",
+                      description:
+                          "Do PDPA powerpoint and present in front of the class!",
+                      dueDate: DateTime.now()
+                          .add(const Duration(days: 1, minutes: 1)),
+                      priority: model.Priority.high,
+                      score: 100);
+                  task1.registerNotification(
+                      NotificationModel(
+                          id: task1.id,
+                          showTime: DateTime(task1.dueDate!.year,
+                              task1.dueDate!.month, task1.dueDate!.day - 1)),
+                      NotificationChannel.homework);
                   data.tasks.add(Task(
                       title: "PDPA",
                       description:

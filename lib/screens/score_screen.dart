@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:haolearn/screens/subject_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
-import 'package:page_transition/page_transition.dart';
 
 class ScoreScreen extends StatefulWidget {
   final int index;
@@ -69,21 +67,10 @@ class _ScoreScreenState extends State<ScoreScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: subjectList[widget.index].scores.length,
                       itemBuilder: ((context, index) {
                         return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: SubjectScreen(
-                                      index: index,
-                                    ),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
-                          },
+                          onTap: () {},
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
@@ -93,6 +80,15 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                   borderRadius: BorderRadius.circular(20)),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(subjectList[widget.index]
+                                      .scores[index]
+                                      .name)
+                                ],
+                              ),
                             ),
                           ),
                         );

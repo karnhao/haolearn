@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,6 +17,7 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   late Subject subject;
+  bool reverseSort = true;
 
   @override
   void initState() {
@@ -32,6 +31,7 @@ class _NotesScreenState extends State<NotesScreen> {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
     subject = data.getMainTable()!.subjectList[widget.index];
+    subject.sortContentViaUnderstanding(reverse: reverseSort);
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -111,7 +111,6 @@ class _NotesScreenState extends State<NotesScreen> {
               .then((v) {
             setState(() {});
           });
-          ;
         },
         child: Container(
           height: 75,

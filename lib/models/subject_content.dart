@@ -21,6 +21,29 @@ enum ContentUnderstanding {
   final int level;
   const ContentUnderstanding({required this.level});
 
+  /// level 1 = lowest
+  /// level 2 = low
+  /// level 3 = normal
+  /// level 4 = high
+  /// level 5 = highest
+  /// otherwise = normal
+  static ContentUnderstanding from(int level) {
+    switch (level) {
+      case 1:
+        return ContentUnderstanding.lowest;
+      case 2:
+        return ContentUnderstanding.low;
+      case 3:
+        return ContentUnderstanding.normal;
+      case 4:
+        return ContentUnderstanding.high;
+      case 5:
+        return ContentUnderstanding.highest;
+      default:
+        return ContentUnderstanding.normal;
+    }
+  }
+
   bool operator >(ContentUnderstanding other) => level > other.level;
 }
 

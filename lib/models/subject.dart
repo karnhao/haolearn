@@ -68,4 +68,12 @@ class Subject {
     return lists.fold(
         initialValue, (previousValue, element) => previousValue + element);
   }
+
+  void sortContentViaUnderstanding({bool reverse = false}) {
+    contents
+        .sort((a, b) => a.understanding.level.compareTo(b.understanding.level));
+    if (reverse) {
+      contents = contents.reversed.toList();
+    }
+  }
 }
