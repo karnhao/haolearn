@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/time_set_widget.dart';
+import 'package:haolearn/utils/utils.dart';
 
 class TimeScreen extends StatefulWidget {
   final int index;
@@ -91,120 +97,64 @@ class _TimeScreenState extends State<TimeScreen> {
                           .studyTimes.length,
                       itemBuilder: ((context, index) {
                         return Slidable(
-                          endActionPane:
-                              ActionPane(motion: ScrollMotion(), children: [
-                            SlidableAction(
-                              onPressed: (context) {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Comfirm delete?'),
-                                    content:
-                                        const Text('This will gone forever.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          studyTime.removeAt(index);
-                                          setState(() {});
-                                          Navigator.pop(context, 'OK');
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              label: "Delete",
-                              icon: Icons.delete,
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.red,
-                            ),
-                            SlidableAction(
-                              onPressed: (context) {
-                                final day = studyTime[index].getDay();
-                                final dayName = studyTime[index].getDayName();
-                                final timename = studyTime[index]
-                                    .getTimeName()
-                                    .split('-')
-                                    .map((t) => t.trim());
-                                final startTimeName = timename.elementAt(0);
-                                final endTimeName = timename.elementAt(1);
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                          title: const Text("Edit"),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              DropdownButton(
-                                                  hint: Text(dayName),
-                                                  items: list.map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (value) {}),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    studyTime != null
-                                                        ? "Start time : ${timename.elementAt(0)}"
-                                                        : "Select Due Date",
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {},
-                                                      icon: Icon(Icons.edit))
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    studyTime != null
-                                                        ? "End time : ${timename.elementAt(1)}"
-                                                        : "Select Due Date",
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {},
-                                                      icon: Icon(Icons.edit))
-                                                ],
-                                              ),
-                                            ],
+                          endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Confirm delete?'),
+                                        content: const Text(
+                                            'This will gone forever.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancel'),
+                                            child: const Text('Cancel'),
                                           ),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text("Cancel")),
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text("Confirm"))
-                                          ],
-                                        ));
-                              },
-                              label: "Edit",
-                              icon: Icons.edit,
-                              backgroundColor: Colors.transparent,
-                            ),
-                          ]),
+                                          TextButton(
+                                            onPressed: () => {
+                                              studyTime.removeAt(index),
+                                              setState(() {}),
+                                              Navigator.pop(context, 'OK'),
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  label: "Delete",
+                                  icon: Icons.delete,
+                                  backgroundColor: Colors.transparent,
+                                  foregroundColor: Colors.red,
+                                ),
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            TimeSetWidget(
+                                              index: index,
+                                              subjectIndex: widget.index,
+                                              onTimeSeledted:
+                                                  (day, startday, widthday) {
+                                                service.saveData().then(
+                                                  (value) {
+                                                    setState(() {});
+                                                  },
+                                                );
+                                              },
+                                            ));
+                                  },
+                                  label: "Edit",
+                                  icon: Icons.edit,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ]),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
