@@ -29,6 +29,10 @@ class _TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     return Scaffold(
         appBar: createKAppBar(context, "Table"),
         body: createTableWidget(context));

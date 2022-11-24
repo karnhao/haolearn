@@ -17,6 +17,7 @@ class NotesScreen extends StatefulWidget {
 
 class _NotesScreenState extends State<NotesScreen> {
   late Subject subject;
+  bool reverseSort = true;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _NotesScreenState extends State<NotesScreen> {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
     subject = data.getMainTable()!.subjectList[widget.index];
+    subject.sortContentViaUnderstanding(reverse: reverseSort);
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(

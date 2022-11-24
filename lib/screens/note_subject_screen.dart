@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
@@ -21,8 +22,9 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
   late Subject subject;
   bool toggle = false;
   bool update = true;
-  String? nameChange;
-  String? descriptionChange;
+  late String nameChange;
+  late String descriptionChange;
+  late int understandingLevelChange;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +35,14 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
     if (update) {
       nameChange = subject.contents[widget.contentIndex].title;
       descriptionChange = subject.contents[widget.contentIndex].description;
+      understandingLevelChange =
+          subject.contents[widget.contentIndex].understanding.level;
       update = false;
     }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(nameChange!, style: Theme.of(context).textTheme.headline2),
+        title: Text(nameChange, style: Theme.of(context).textTheme.headline2),
         backgroundColor: kuSecColor,
       ),
       body: Stack(
@@ -96,9 +100,9 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                   maxRating: 5,
                   allowHalfRating: false,
                   itemSize: 40,
-                  initialRating: 1,
+                  initialRating: understandingLevelChange.toDouble(),
                   onRatingUpdate: (value) {
-                    showSnackBar("Sevice unvalible");
+                    understandingLevelChange = value.toInt();
                   },
                   ratingWidget: RatingWidget(
                       full: const Icon(Icons.star, color: Colors.amber),
@@ -139,10 +143,11 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
               ),
               InkWell(
                 onTap: () {
-                  subject.contents[widget.contentIndex].title =
-                      nameChange ?? "ERROR";
+                  subject.contents[widget.contentIndex].title = nameChange;
                   subject.contents[widget.contentIndex].description =
-                      descriptionChange ?? "ERROR";
+                      descriptionChange;
+                  subject.contents[widget.contentIndex].understanding =
+                      ContentUnderstanding.from(understandingLevelChange);
 
                   service.saveData().then((v) {
                     setState(() {});

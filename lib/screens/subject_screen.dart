@@ -113,7 +113,10 @@ class _SubjectScreenState extends State<SubjectScreen> {
               InkWell(
                 onTap: () {
                   subjectList[widget.index].name = nameChange ?? "ERROR";
-                  subjectList[widget.index].room = roomChange ?? "ERROR";
+                  subjectList[widget.index].room =
+                      roomChange == null || roomChange == ""
+                          ? null
+                          : roomChange;
 
                   service.saveData().then((v) {
                     setState(() {});
@@ -193,7 +196,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         radius: 24,
                         backgroundColor: kuPriColor,
                         foregroundColor: kuSecColor,
-                        child: Text('Time')),
+                        child: Text('Time',
+                            style: TextStyle(color: Colors.white))),
                   ),
                   const SizedBox(
                     width: 10,
