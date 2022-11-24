@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:haolearn/models/study_time.dart';
@@ -49,6 +48,7 @@ class _TimeScreenState extends State<TimeScreen> {
                               maxWidth: MediaQuery.of(context).size.width - 116,
                               maxHeight: 30),
                           child: Marquee(
+                            blankSpace: 100,
                             text: data.mainTable.subjectList[widget.index].name,
                             style: const TextStyle(
                                 fontSize: 26, fontWeight: FontWeight.w700),

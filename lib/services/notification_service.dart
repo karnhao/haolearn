@@ -13,6 +13,7 @@ enum NotificationChannel {
 }
 
 class NotificationService {
+  final String postURL = "https://myapi.ku.th/auth/login";
   static late NotificationService _self;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 

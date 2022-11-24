@@ -189,10 +189,17 @@ class _TaskScreenState extends State<TaskScreen> {
                                         const SizedBox(
                                           height: 6,
                                         ),
-                                        Text(data.tasks[index].title,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline2)
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              204,
+                                          child: Text(data.tasks[index].title,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2),
+                                        )
                                       ],
                                     ),
                                     Column(
