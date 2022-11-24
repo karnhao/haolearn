@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:haolearn/models/study_time.dart';
-import 'package:haolearn/models/subject.dart';
-import 'package:haolearn/screens/time_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
-import 'package:page_transition/page_transition.dart';
 
 class TimeScreen extends StatefulWidget {
   final int index;
@@ -23,6 +19,15 @@ class _TimeScreenState extends State<TimeScreen> {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
     final studyTime = data.mainTable.subjectList[widget.index].studyTimes;
+    const List<String> list = <String>[
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
 
     return Scaffold(
       appBar: createKAppBar(context, "Schedule"),
@@ -45,9 +50,10 @@ class _TimeScreenState extends State<TimeScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Schedule",
-                          style: TextStyle(
+                        Text(
+                          data.mainTable.subjectList[widget.index].name,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
                         Row(children: [
@@ -55,7 +61,7 @@ class _TimeScreenState extends State<TimeScreen> {
                               onPressed: (() {
                                 setState(() {
                                   studyTime.add(StudyTime(
-                                      day: 0, startTime: 0, width: 180));
+                                      day: 0, startTime: 0, width: 90));
                                   service.saveData();
                                 });
                               }),
@@ -84,17 +90,121 @@ class _TimeScreenState extends State<TimeScreen> {
                       itemCount: data.mainTable.subjectList[widget.index]
                           .studyTimes.length,
                       itemBuilder: ((context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: TimeDetailScreen(index: index),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
-                          },
+                        return Slidable(
+                          endActionPane:
+                              ActionPane(motion: ScrollMotion(), children: [
+                            SlidableAction(
+                              onPressed: (context) {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Comfirm delete?'),
+                                    content:
+                                        const Text('This will gone forever.'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          studyTime.removeAt(index);
+                                          setState(() {});
+                                          Navigator.pop(context, 'OK');
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              label: "Delete",
+                              icon: Icons.delete,
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: Colors.red,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {
+                                final day = studyTime[index].getDay();
+                                final dayName = studyTime[index].getDayName();
+                                final timename = studyTime[index]
+                                    .getTimeName()
+                                    .split('-')
+                                    .map((t) => t.trim());
+                                final startTimeName = timename.elementAt(0);
+                                final endTimeName = timename.elementAt(1);
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text("Edit"),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              DropdownButton(
+                                                  hint: Text(dayName),
+                                                  items: list.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(value),
+                                                    );
+                                                  }).toList(),
+                                                  onChanged: (value) {}),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    studyTime != null
+                                                        ? "Start time : ${timename.elementAt(0)}"
+                                                        : "Select Due Date",
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(Icons.edit))
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    studyTime != null
+                                                        ? "End time : ${timename.elementAt(1)}"
+                                                        : "Select Due Date",
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {},
+                                                      icon: Icon(Icons.edit))
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Cancel")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Confirm"))
+                                          ],
+                                        ));
+                              },
+                              label: "Edit",
+                              icon: Icons.edit,
+                              backgroundColor: Colors.transparent,
+                            ),
+                          ]),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
@@ -114,21 +224,12 @@ class _TimeScreenState extends State<TimeScreen> {
                               height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "Room : ${studyTime[widget.index].toString() ?? 'ไม่ระบุ'}",
-                                        style: const TextStyle(
-                                            fontSize: 16, color: Colors.white)),
-                                    Text(studyTime[widget.index].toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2),
-                                  ],
-                                ),
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 30),
+                                child: Text(
+                                    "${studyTime[index].getDayName()} ${studyTime[index].getTimeName()}",
+                                    style:
+                                        Theme.of(context).textTheme.headline2),
                               ),
                             ),
                           ),
