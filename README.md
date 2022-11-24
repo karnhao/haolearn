@@ -1,16 +1,11 @@
 # haolearn
 
-A new Flutter project.
+Mobile Application ที่จะช่วยให้ทุกคนสามารถจัดการกับปัญหาการเรียนได้ง่ายยิ่งขึ้น
 
-## Getting Started
+## Features :grinning:
 
-This project is a starting point for a Flutter application.
+:books: บันทึกการบ้านและงานต่างๆ อย่างละเอียด
+:books: ตารางเวลาที่สามารถปรับแต่งได้เอง เพื่อช่วยให้การเรียนนอกเวลาเป็นเรื่องที่มีระเบียบมากยิ่งขึ้น
+:books: ติดตามคะแนนเก็บและคะแนนสอบ เพื่อให้มองเห็นปัญหาในเนื้อหาได้ง่ายขึ้น
+:books: เพิ่มโน๊ตในแต่ละเนื้อหา เพื่อทบทวนตัวเองก่อนสอบ 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
