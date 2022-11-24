@@ -1,11 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:haolearn/models/priority.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
-import 'package:haolearn/utils/loading_dialog.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 import 'package:haolearn/utils/utils.dart';
 
@@ -19,13 +21,13 @@ class TaskDetailScreen extends StatefulWidget {
 }
 
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
-  String subjectName = "Subject";
   bool update = true;
   bool toggle = false;
   final service = StorageService.getService();
   DateTime? selectedDate;
   String? title, description;
   double? fullscore;
+  late Priority priority;
   @override
   Widget build(BuildContext context) {
     final service = StorageService.getService();
@@ -38,11 +40,12 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       title = task.title;
       description = task.description;
       fullscore = task.score;
+      priority = task.priority;
       update = false;
     }
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: createKAppBar(context, "$subjectName task"),
+        appBar: createKAppBar(context, task.title),
         body: Stack(children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -162,26 +165,43 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     height: 20,
                   ),
                   Center(
-                    child: RatingBar(
-                      ignoreGestures: !toggle,
-                      minRating: 1,
-                      maxRating: 5,
-                      allowHalfRating: false,
-                      itemSize: 40,
-                      initialRating: 1,
-                      onRatingUpdate: (value) {},
-                      ratingWidget: RatingWidget(
-                          full: const Icon(Icons.star, color: Colors.amber),
-                          half: const Icon(Icons.circle, color: Colors.amber),
-                          empty: const Icon(
-                            Icons.star_border_purple500_outlined,
-                            color: Colors.grey,
-                          )),
-                    ),
-                  ),
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Priority : ", style: TextStyle(fontSize: 28)),
+                      const SizedBox(
+                        width: 40,
+                      ),
+                      toggle
+                          ? DropdownButton(
+                              value: priority.name,
+                              items: Priority.values
+                                  .map((t) => DropdownMenuItem(
+                                        value: t.name,
+                                        child: Text(
+                                          t.name,
+                                          style: const TextStyle(fontSize: 28),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (v) {
+                                for (Priority p in Priority.values) {
+                                  if (p.name == v) {
+                                    priority = p;
+                                    setState(() {});
+                                    return;
+                                  }
+                                }
+                              },
+                            )
+                          : Text(task.priority.name,
+                              style: const TextStyle(fontSize: 28)),
+                    ],
+                  )),
                   Center(
                     child: InkWell(
                       onTap: () {
+                        toggle = false;
                         showDialog(
                             context: context,
                             builder: (context) => const Center(
@@ -193,6 +213,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                             description ?? "ERROR";
                         data.tasks[widget.index].score = fullscore ?? 0;
                         data.tasks[widget.index].dueDate = selectedDate;
+                        data.tasks[widget.index].priority = priority;
 
                         service.saveData().then((value) {
                           Navigator.pop(context);

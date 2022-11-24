@@ -49,6 +49,32 @@ class _TaskScreenState extends State<TaskScreen> {
                           style: const TextStyle(
                               fontSize: 26, fontWeight: FontWeight.w700),
                         ),
+                        Row(
+                          children: [
+                            const Text("Sort by : ",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w700)),
+                            DropdownButton(
+                                value: 0,
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: 0,
+                                    child: Text("Due Date",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w100)),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 1,
+                                    child: Text("Priority",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w100)),
+                                  )
+                                ],
+                                onChanged: (v) {}),
+                          ],
+                        ),
                         Row(children: [
                           IconButton(
                               onPressed: (() {
