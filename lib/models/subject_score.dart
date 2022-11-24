@@ -5,15 +5,15 @@ part 'subject_score.g.dart';
 @HiveType(typeId: 9)
 class SubjectScore {
   @HiveField(0)
-  final double score;
+  double score;
 
   @HiveField(1)
-  final double maxScore;
+  double maxScore;
 
   @HiveField(2)
-  final String name;
+  String name;
 
-  const SubjectScore(
+  SubjectScore(
       {required this.name, required this.score, required this.maxScore});
 
   String getScoreAsString() {

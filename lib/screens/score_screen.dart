@@ -4,6 +4,7 @@ import 'package:haolearn/models/subject_score.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_function.dart';
+import 'package:haolearn/utils/edit_score_widget.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 
@@ -55,7 +56,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                           IconButton(
                               onPressed: (() {
                                 setState(() {
-                                  scoreList.add(const SubjectScore(
+                                  scoreList.add(SubjectScore(
                                       name: "Unname", score: 0, maxScore: 0));
                                   service.saveData();
                                 });
@@ -107,7 +108,23 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                     backgroundColor: Colors.transparent,
                                     foregroundColor: Colors.red),
                                 SlidableAction(
-                                    onPressed: (context) {},
+                                    onPressed: (context) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              EditScoreWidget(
+                                                savedData: (topics, scores,
+                                                    full_score) {
+                                                  service
+                                                      .saveData()
+                                                      .then((value) {
+                                                    setState(() {});
+                                                  });
+                                                },
+                                                index: index,
+                                                subjectIndex: widget.index,
+                                              ));
+                                    },
                                     label: "Edit",
                                     icon: Icons.edit,
                                     autoClose: true,
@@ -135,7 +152,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                         Theme.of(context).textTheme.headline2,
                                   ),
                                   Text(
-                                    "18 / 20",
+                                    "${subjectList[widget.index].scores[index].score}/${subjectList[widget.index].scores[index].maxScore}",
                                     style:
                                         Theme.of(context).textTheme.headline2,
                                   )
