@@ -5,6 +5,7 @@ import 'package:haolearn/models/save.dart';
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_content.dart';
+import 'package:haolearn/models/subject_score.dart';
 import 'package:haolearn/models/table.dart';
 import 'package:haolearn/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -30,6 +31,7 @@ class StorageService {
     Hive.registerAdapter<Priority>(PriorityAdapter());
     Hive.registerAdapter<SubjectContent>(SubjectContentAdapter());
     Hive.registerAdapter<ContentUnderstanding>(ContentUnderstandingAdapter());
+    Hive.registerAdapter<SubjectScore>(SubjectScoreAdapter());
 
     await Hive.openBox<Save>("save").then((v) {
       _box = v;
