@@ -44,16 +44,15 @@ class _TimeScreenState extends State<TimeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          constraints: BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width - 116,
-                              maxHeight: 30),
-                          child: Marquee(
-                            blankSpace: 100,
-                            text: data.mainTable.subjectList[widget.index].name,
-                            style: const TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.w700),
-                          ),
-                        ),
+                            constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width - 116,
+                                maxHeight: 30),
+                            child: Text(
+                                "${studyTime.length} Time${studyTime.length == 1 ? '' : 's'}",
+                                style: const TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w700))),
                         Row(children: [
                           IconButton(
                               onPressed: (() {

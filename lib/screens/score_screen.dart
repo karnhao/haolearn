@@ -46,12 +46,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${scoreList.length.toString()} Score${scoreList.length == 1 ? "" : 's'}",
-                            style: const TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
-                          ),
+                              "${scoreList.length.toString()} Score${scoreList.length == 1 ? "" : 's'} : ${subjectList[widget.index].getSigmaScore()}/${subjectList[widget.index].getMaxSigmaScore()}",
+                              style: const TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.w700)),
                           IconButton(
                               onPressed: (() {
                                 setState(() {
@@ -135,7 +132,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                         Theme.of(context).textTheme.headline2,
                                   ),
                                   Text(
-                                    "18 / 20",
+                                    "${scoreList[index].score} / ${scoreList[index].maxScore}",
                                     style:
                                         Theme.of(context).textTheme.headline2,
                                   )

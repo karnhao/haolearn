@@ -62,12 +62,9 @@ class _NotesScreenState extends State<NotesScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${subject.contents.length} Note${subject.contents.length == 1 ? '' : 's'}",
-                            style: const TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
-                          ),
+                              "${subject.contents.length} Note${subject.contents.length == 1 ? '' : 's'}",
+                              style: const TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.w700)),
                           IconButton(
                               onPressed: () {
                                 subject.addContent();

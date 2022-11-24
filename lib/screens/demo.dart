@@ -96,12 +96,21 @@ class _DemoPageState extends State<DemoPage> {
                       priority: model.Priority.low,
                       score: 20));
                   Subject testSubject = Subject(name: "Biolody");
-                  testSubject.studyTimes
-                      .add(StudyTime(day: 1, startTime: 500, width: 50));
                   Subject testSubject2 =
                       Subject(name: "Introduction to Computer Science");
+                  Subject testSubject3 = Subject(name: "Calculas II");
                   testSubject.studyTimes
-                      .add(StudyTime(day: 1, startTime: 600, width: 60));
+                      .add(StudyTime(day: 1, startTime: 500, width: 120));
+                  testSubject.studyTimes
+                      .add(StudyTime(day: 3, startTime: 500, width: 120));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 1, startTime: 680, width: 60));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 2, startTime: 680, width: 60));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 5, startTime: 680, width: 60));
+                  testSubject3.studyTimes
+                      .add(StudyTime(day: 1, startTime: 740, width: 240));
                   testSubject2.addContent(
                       title: "Bitwise Operators I",
                       description: "Bitwise I Operators is hard",
@@ -110,8 +119,12 @@ class _DemoPageState extends State<DemoPage> {
                       title: "Bitwise Operators II",
                       description: "Bitwise II Operators is hardest",
                       understanding: ContentUnderstanding.lowest);
+                  testSubject.room = "SC-709";
+                  testSubject2.room = "LH1-504";
+                  testSubject3.room = "SC-708";
                   data.getMainTable()!.subjectList.add(testSubject);
                   data.getMainTable()!.subjectList.add(testSubject2);
+                  data.getMainTable()!.subjectList.add(testSubject3);
                   service.saveData();
 
                   showSnackBar("Hello");

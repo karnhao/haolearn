@@ -64,7 +64,7 @@ class Subject {
     return _sigma(scores.map((t) => t.maxScore));
   }
 
-  double _sigma(Iterable<double> lists, {initialValue = 0}) {
+  double _sigma(Iterable<double> lists, {initialValue = 0.0}) {
     return lists.fold(
         initialValue, (previousValue, element) => previousValue + element);
   }
