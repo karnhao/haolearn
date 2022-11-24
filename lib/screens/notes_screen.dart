@@ -71,7 +71,20 @@ class _NotesScreenState extends State<NotesScreen> {
                           IconButton(
                               onPressed: () {
                                 subject.addContent();
-                                service.saveData().then((value) {
+                                service.saveData();
+                                Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: NoteSubjectScreen(
+                                                contentIndex: widget.index,
+                                                subjectIndex: widget.index),
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: const Duration(
+                                                milliseconds: 500),
+                                            reverseDuration: const Duration(
+                                                milliseconds: 500)))
+                                    .then((value) {
                                   setState(() {});
                                 });
                               },
