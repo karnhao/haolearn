@@ -44,5 +44,15 @@ class Save extends HiveObject {
 
     tasks = result;
   }
+
+  double getTaskCompletePercentage() {
+    int finishCount = 0;
+    for (var element in tasks) {
+      if (element.complete) {
+        finishCount++;
+      }
+    }
+    return finishCount / tasks.length * 100;
+  }
 }
 // flutter packages pub run build_runner build

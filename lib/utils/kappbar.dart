@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
     {List<Widget> actions = const []}) {
+  final style = Theme.of(context).textTheme.headline1;
+  final Size size = (TextPainter(
+          text: TextSpan(text: title, style: style),
+          maxLines: 1,
+          textScaleFactor: MediaQuery.of(context).textScaleFactor,
+          textDirection: TextDirection.ltr)
+        ..layout())
+      .size;
   return PreferredSize(
       preferredSize: Size(MediaQuery.of(context).size.width, 54),
       child: Column(
@@ -26,6 +36,7 @@ PreferredSize createKAppBar(BuildContext context, String title,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 40),
                     child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Visibility(
                           visible: Navigator.of(context).canPop(),
@@ -40,9 +51,19 @@ PreferredSize createKAppBar(BuildContext context, String title,
                         const SizedBox(
                           width: 20,
                         ),
-                        Text(title,
-                            style: Theme.of(context).textTheme.headline1,
-                            overflow: TextOverflow.ellipsis),
+                        Container(
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width - 111),
+                          child: size.width >
+                                  MediaQuery.of(context).size.width - 111
+                              ? Marquee(
+                                  text: title, blankSpace: 100, style: style)
+                              : Text(
+                                  title,
+                                  style: style,
+                                ),
+                        )
                       ],
                     ),
                   ),
