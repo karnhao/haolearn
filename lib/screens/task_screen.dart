@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/models/task.dart';
@@ -57,13 +56,17 @@ class _TaskScreenState extends State<TaskScreen> {
                         Text(
                           "${data.tasks.length} Task${data.tasks.length == 1 ? '' : 's'}",
                           style: const TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
                         ),
                         Row(
                           children: [
                             const Text("Sort by : ",
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w700)),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
                             DropdownButton(
                                 value: sortBy,
                                 items: const [
@@ -72,14 +75,16 @@ class _TaskScreenState extends State<TaskScreen> {
                                     child: Text("Due Date",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.w500)),
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red)),
                                   ),
                                   DropdownMenuItem(
                                     value: 1,
                                     child: Text("Priority",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.w500)),
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red)),
                                   )
                                 ],
                                 onChanged: (v) {
@@ -118,10 +123,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                   });
                                 });
                               }),
-                              icon: const Icon(
-                                Icons.add,
-                                size: 40,
-                              ))
+                              icon: const Icon(Icons.add,
+                                  size: 40, color: Colors.white))
                         ])
                       ]),
                 ),
@@ -161,7 +164,9 @@ class _TaskScreenState extends State<TaskScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
-                              decoration: kuBoxStyle,
+                              decoration: !data.getTaskList()[index].complete
+                                  ? kuBoxStyle
+                                  : createKuBoxStyle(color: Colors.grey),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: Padding(
@@ -208,9 +213,26 @@ class _TaskScreenState extends State<TaskScreen> {
                                           itemCount: 5,
                                           itemSize: 20,
                                           itemBuilder: (context, index) {
-                                            return const Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
+                                            Color color = Colors.red;
+                                            switch (index) {
+                                              case 4:
+                                                color = Colors.red;
+                                                break;
+                                              case 3:
+                                                color = Colors.orange;
+                                                break;
+                                              case 2:
+                                                color = Colors.yellow;
+                                                break;
+                                              case 1:
+                                                color = Colors.green;
+                                                break;
+                                              default:
+                                                color = Colors.blue;
+                                            }
+                                            return Icon(
+                                              Icons.priority_high,
+                                              color: color,
                                             );
                                           },
                                         ),

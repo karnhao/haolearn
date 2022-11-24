@@ -227,70 +227,129 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                 style: const TextStyle(fontSize: 28)),
                       ],
                     )),
-                    Center(
-                      child: InkWell(
-                        onTap: toggle
-                            ? () {
-                                if (!formKey.currentState!.validate()) {
-                                  return;
-                                }
-                                toggle = false;
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => const Center(
-                                          child: CircularProgressIndicator(
-                                              strokeWidth: 4),
-                                        ));
-                                data.tasks[widget.index].title =
-                                    title ?? "ERROR";
-                                data.tasks[widget.index].description =
-                                    description ?? "ERROR";
-                                data.tasks[widget.index].score = fullscore ?? 0;
-                                data.tasks[widget.index].dueDate = selectedDate;
-                                data.tasks[widget.index].priority = priority;
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: InkWell(
+                            onTap: toggle
+                                ? () {
+                                    if (!formKey.currentState!.validate()) {
+                                      return;
+                                    }
+                                    toggle = false;
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => const Center(
+                                              child: CircularProgressIndicator(
+                                                  strokeWidth: 4),
+                                            ));
+                                    data.tasks[widget.index].title =
+                                        title ?? "ERROR";
+                                    data.tasks[widget.index].description =
+                                        description ?? "ERROR";
+                                    data.tasks[widget.index].score =
+                                        fullscore ?? 0;
+                                    data.tasks[widget.index].dueDate =
+                                        selectedDate;
+                                    data.tasks[widget.index].priority =
+                                        priority;
 
-                                if (data.tasks[widget.index].dueDate != null) {
-                                  data.tasks[widget.index].registerNotification(
-                                      NotificationModel(
-                                          id: data.tasks[widget.index].id,
-                                          showTime: data
-                                              .tasks[widget.index].dueDate!),
-                                      NotificationChannel.homework);
-                                }
+                                    if (data.tasks[widget.index].dueDate !=
+                                        null) {
+                                      data.tasks[widget.index]
+                                          .registerNotification(
+                                              NotificationModel(
+                                                  id: data
+                                                      .tasks[widget.index].id,
+                                                  showTime: data
+                                                      .tasks[widget.index]
+                                                      .dueDate!),
+                                              NotificationChannel.homework);
+                                    }
 
-                                service.saveData().then((value) {
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                  showSnackBar("Save complete",
-                                      backgroundColor: Colors.green);
-                                  Navigator.pop(context);
-                                });
-                              }
-                            : null,
-                        child: Container(
-                            margin: const EdgeInsets.all(20),
-                            padding: const EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                                color: toggle ? kuPriColor : Colors.grey,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Save",
-                                  style: Theme.of(context).textTheme.headline1,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Icon(
-                                  Icons.save,
-                                  color: Colors.white,
-                                )
-                              ],
-                            )),
-                      ),
-                    ),
+                                    service.saveData().then((value) {
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                      showSnackBar("Save complete",
+                                          backgroundColor: Colors.green);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                : null,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 1),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: toggle ? kuPriColor : Colors.grey,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Save",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Icon(
+                                        Icons.save,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: InkWell(
+                            onTap: () {
+                              task.complete = !task.complete;
+                              service.saveData().then((value) {
+                                setState(() {});
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 1),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: toggle
+                                          ? task.complete
+                                              ? Colors.red
+                                              : kuPriColor
+                                          : Colors.grey,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        task.complete
+                                            ? "Mark as not finish"
+                                            : "Mark as done",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Icon(
+                                        Icons.done,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        )
+                      ],
+                    ))
                   ],
                 ),
               ),

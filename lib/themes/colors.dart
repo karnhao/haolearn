@@ -16,3 +16,14 @@ BoxDecoration kuBoxStyle = BoxDecoration(boxShadow: [
     offset: const Offset(0, 3), // changes position of shadow
   ),
 ], color: kuPriColor, borderRadius: BorderRadius.circular(20));
+
+BoxDecoration createKuBoxStyle({Color color = kuPriColor}) {
+  return BoxDecoration(boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.9),
+      spreadRadius: 0.1,
+      blurRadius: 7,
+      offset: const Offset(0, 3), // changes position of shadow
+    ),
+  ], color: color, borderRadius: BorderRadius.circular(20));
+}
