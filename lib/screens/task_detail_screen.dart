@@ -309,10 +309,12 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              task.complete = !task.complete;
-                              service.saveData().then((value) {
-                                setState(() {});
-                              });
+                              if (toggle) {
+                                task.complete = !task.complete;
+                                service.saveData().then((value) {
+                                  setState(() {});
+                                });
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
