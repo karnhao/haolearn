@@ -37,8 +37,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final data =
         StorageService.getService().getSaveData()!.getTaskCompletePercentage();
-
-    Map<String, double> dataMap = {"Finish": data, "Not Finish": 100 - data};
+    final finishTaskCount = StorageService.getService()
+        .getSaveData()!
+        .tasks
+        .where((t) => t.complete)
+        .length;
+    final notFinishTaskCount = StorageService.getService()
+        .getSaveData()!
+        .tasks
+        .where((t) => !t.complete)
+        .length;
+    Map<String, double> dataMap = {
+      "Finish $finishTaskCount Task${finishTaskCount == 1 ? '' : 's'}": data,
+      "Remain $notFinishTaskCount Task${notFinishTaskCount == 1 ? '' : 's'}":
+          100 - data
+    };
     return Scaffold(
         backgroundColor: kuSecColor,
         appBar: createKAppBar(context, "Home"),
@@ -47,39 +60,33 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             children: [
               Container(
-                height: 225,
+                height: 340,
                 decoration: const BoxDecoration(color: Colors.white),
                 child: PieChart(
                   dataMap: dataMap,
                   animationDuration: const Duration(milliseconds: 3000),
-                  chartLegendSpacing: 24,
-                  chartRadius: MediaQuery.of(context).size.width / 4.0,
+                  chartLegendSpacing: 30,
+                  chartRadius: MediaQuery.of(context).size.width / 3.4,
                   colorList: colorList,
                   initialAngleInDegree: 0,
                   chartType: ChartType.ring,
-                  ringStrokeWidth: 24,
+                  ringStrokeWidth: 26,
                   centerText: "Homework",
                   legendOptions: const LegendOptions(
-                    showLegendsInRow: true,
+                    showLegendsInRow: false,
                     legendPosition: LegendPosition.right,
                     showLegends: true,
-                    legendTextStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    legendTextStyle:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   chartValuesOptions: const ChartValuesOptions(
                     showChartValueBackground: true,
                     showChartValues: true,
                     showChartValuesInPercentage: true,
-                    showChartValuesOutside: false,
+                    showChartValuesOutside: true,
                     decimalPlaces: 1,
                   ),
                 ),
-              ),
-              Container(
-                height: 120,
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255)),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -138,14 +145,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: InkWell(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: const TaskScreen(),
-                                        type: PageTransitionType.leftToRight,
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        reverseDuration:
-                                            const Duration(milliseconds: 500)));
+                                        context,
+                                        PageTransition(
+                                            child: const TaskScreen(),
+                                            type:
+                                                PageTransitionType.leftToRight,
+                                            duration: const Duration(
+                                                milliseconds: 500),
+                                            reverseDuration: const Duration(
+                                                milliseconds: 500)))
+                                    .then((v) {
+                                  setState(() {});
+                                });
                               },
                               child: boxBottom(
                                   "Task",
@@ -168,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const Duration(milliseconds: 500)));
                               },
                               child: boxBottom(
-                                  "Debug",
-                                  Icon(Icons.cancel,
+                                  "Achievements",
+                                  Icon(Icons.emoji_events,
                                       color: Colors.white, size: iconSize))),
                         )
                       ],

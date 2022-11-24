@@ -3,6 +3,7 @@ import 'package:haolearn/themes/colors.dart';
 
 ThemeData appTheme() {
   return ThemeData(
+      canvasColor: Colors.transparent,
       fontFamily: "DB-Ozone-X",
       textTheme: const TextTheme(
           headline1: TextStyle(
