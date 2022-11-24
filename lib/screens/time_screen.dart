@@ -10,6 +10,7 @@ import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/time_set_widget.dart';
 import 'package:haolearn/utils/utils.dart';
+import 'package:marquee/marquee.dart';
 
 class TimeScreen extends StatefulWidget {
   final int index;
@@ -56,11 +57,15 @@ class _TimeScreenState extends State<TimeScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          data.mainTable.subjectList[widget.index].name,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
+                        Container(
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width - 116,
+                              maxHeight: 30),
+                          child: Marquee(
+                            text: data.mainTable.subjectList[widget.index].name,
+                            style: const TextStyle(
+                                fontSize: 26, fontWeight: FontWeight.w700),
+                          ),
                         ),
                         Row(children: [
                           IconButton(
