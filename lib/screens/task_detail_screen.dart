@@ -236,7 +236,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               children: [
                 // Delete
                 DeleteConfirm(
-                  function: () {},
+                  function: () {
+                    data.tasks.removeAt(widget.index);
+                    setState(() {});
+                    Navigator.pop(context, 'OK');
+                  },
                 ),
                 InkWell(
                     onTap: () {},
