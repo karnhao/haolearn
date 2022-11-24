@@ -10,6 +10,7 @@ import 'package:haolearn/utils/delete_dialog_function.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class NotesScreen extends StatefulWidget {
   final int index;
@@ -36,6 +37,15 @@ class _NotesScreenState extends State<NotesScreen> {
     final data = service.getSaveData()!;
     subject = data.getMainTable()!.subjectList[widget.index];
     subject.sortContentViaUnderstanding(reverse: reverseSort);
+    final understand = subject.contents
+        .map((t) => t.understanding.level)
+        .fold(0, (previousValue, element) => previousValue + element);
+    final maxUnderstand = subject.contents.length * 5;
+    final value = understand / maxUnderstand * 100;
+    Map<String, double> dataMap = {
+      "Understand": value,
+      "Not Understand": 100 - value
+    };
 
     return Scaffold(
         appBar: createKAppBar(context, subject.name),
@@ -44,9 +54,31 @@ class _NotesScreenState extends State<NotesScreen> {
             Container(
               alignment: AlignmentDirectional.center,
               height: 200,
-            ),
-            const SizedBox(
-              height: 50,
+              child: PieChart(
+                dataMap: dataMap,
+                animationDuration: const Duration(milliseconds: 3000),
+                chartLegendSpacing: 30,
+                chartRadius: MediaQuery.of(context).size.width / 3.4,
+                colorList: const [Colors.blue, Colors.red],
+                initialAngleInDegree: 0,
+                chartType: ChartType.ring,
+                ringStrokeWidth: 26,
+                centerText: "Homework",
+                legendOptions: const LegendOptions(
+                  showLegendsInRow: false,
+                  legendPosition: LegendPosition.right,
+                  showLegends: true,
+                  legendTextStyle:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                chartValuesOptions: const ChartValuesOptions(
+                  showChartValueBackground: true,
+                  showChartValues: true,
+                  showChartValuesInPercentage: true,
+                  showChartValuesOutside: true,
+                  decimalPlaces: 1,
+                ),
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.7,

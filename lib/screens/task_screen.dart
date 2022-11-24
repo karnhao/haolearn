@@ -5,6 +5,7 @@ import 'package:haolearn/screens/task_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/utils.dart';
 import 'package:page_transition/page_transition.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -145,6 +146,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: ListView.builder(
                       itemCount: data.getTaskList().length,
                       itemBuilder: ((context, index) {
+                        final date = data.tasks[index].dueDate;
                         return InkWell(
                           onTap: () {
                             Navigator.push(
@@ -182,7 +184,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            "${data.tasks[index].dueDate ?? "ไม่ระบุ"}",
+                                            date == null
+                                                ? "No Due Date Data"
+                                                : "${date.day}/${date.month}/${date.year} ${formatTime(date.hour.toString())}:${formatTime(date.minute.toString())}",
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.white)),

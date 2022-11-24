@@ -6,6 +6,7 @@ import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 import '../models/subject.dart';
 
@@ -84,7 +85,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                 height: 50,
                 child: Center(
                   child: Text(
-                    "Piority",
+                    "Rate your understanding",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
