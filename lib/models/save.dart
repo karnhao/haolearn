@@ -54,5 +54,9 @@ class Save extends HiveObject {
     }
     return finishCount / tasks.length * 100;
   }
+
+  void sortTasksFromPriority() {
+    tasks.sort((b, a) => a.priority.level.compareTo(b.priority.level));
+  }
 }
 // flutter packages pub run build_runner build

@@ -4,7 +4,6 @@ import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
-import 'package:haolearn/utils/show_snack_bar.dart';
 
 import '../models/subject.dart';
 

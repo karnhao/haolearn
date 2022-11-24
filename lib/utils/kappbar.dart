@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:marquee/marquee.dart';
 
@@ -29,10 +28,13 @@ PreferredSize createKAppBar(BuildContext context, String title,
               children: [
                 Container(
                   height: 54,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       color: kuPriColor,
                       borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(20))),
+                          size.width <= MediaQuery.of(context).size.width - 111
+                              ? const BorderRadius.only(
+                                  bottomRight: Radius.circular(20))
+                              : null),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 40),
                     child: Row(

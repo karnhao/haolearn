@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:haolearn/models/task.dart';
@@ -18,10 +20,19 @@ class _TaskScreenState extends State<TaskScreen> {
   final _service = StorageService.getService();
   String? taskNameChange, description;
   double? fullscore;
+  int sortBy = 0;
+  bool sortGate = true;
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
-    data.sortTasksFromDueDate();
+
+    if (sortGate) {
+      if (sortBy == 0) {
+        data.sortTasksFromDueDate();
+      } else {
+        data.sortTasksFromPriority();
+      }
+    }
 
     return Scaffold(
       appBar: createKAppBar(context, "Task"),
@@ -55,29 +66,37 @@ class _TaskScreenState extends State<TaskScreen> {
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w700)),
                             DropdownButton(
-                                value: 0,
+                                value: sortBy,
                                 items: const [
                                   DropdownMenuItem(
                                     value: 0,
                                     child: Text("Due Date",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.w100)),
+                                            fontWeight: FontWeight.w500)),
                                   ),
                                   DropdownMenuItem(
                                     value: 1,
                                     child: Text("Priority",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.w100)),
+                                            fontWeight: FontWeight.w500)),
                                   )
                                 ],
-                                onChanged: (v) {}),
+                                onChanged: (v) {
+                                  sortBy = v!;
+                                  StorageService.getService()
+                                      .saveData()
+                                      .then((v) {
+                                    setState(() {});
+                                  });
+                                }),
                           ],
                         ),
                         Row(children: [
                           IconButton(
                               onPressed: (() {
+                                sortGate = false;
                                 Task task = Task();
                                 data.tasks.add(task);
                                 _service.saveData().then((value) {
@@ -85,7 +104,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                           context,
                                           PageTransition(
                                               child: TaskDetailScreen(
-                                                  index: data.tasks.length - 1),
+                                                  index: data.tasks.length - 1,
+                                                  editToggle: true),
                                               type: PageTransitionType
                                                   .leftToRight,
                                               duration: const Duration(
@@ -93,7 +113,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                               reverseDuration: const Duration(
                                                   milliseconds: 500)))
                                       .then((value) {
-                                    setState(() {});
+                                    setState(() {
+                                      sortGate = true;
+                                    });
                                   });
                                 });
                               }),
@@ -140,9 +162,7 @@ class _TaskScreenState extends State<TaskScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  color: kuPriColor,
-                                  borderRadius: BorderRadius.circular(20)),
+                              decoration: kuBoxStyle,
                               height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: Padding(

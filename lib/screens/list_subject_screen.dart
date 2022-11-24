@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/screens/subject_screen.dart';
