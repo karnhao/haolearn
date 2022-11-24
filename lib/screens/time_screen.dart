@@ -5,7 +5,6 @@ import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/time_set_widget.dart';
-import 'package:marquee/marquee.dart';
 
 class TimeScreen extends StatefulWidget {
   final int index;
