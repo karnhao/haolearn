@@ -57,9 +57,23 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                         Row(children: [
                           IconButton(
                               onPressed: (() {
-                                setState(() {
-                                  subjectList.add(Subject(name: "Unname"));
-                                  service.saveData();
+                                subjectList.add(Subject(name: "Unname"));
+                                service.saveData().then((x) {
+                                  Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: SubjectScreen(
+                                                  index:
+                                                      subjectList.length - 1),
+                                              type: PageTransitionType
+                                                  .leftToRight,
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              reverseDuration: const Duration(
+                                                  milliseconds: 500)))
+                                      .then((v) {
+                                    setState(() {});
+                                  });
                                 });
                               }),
                               icon: const Icon(
