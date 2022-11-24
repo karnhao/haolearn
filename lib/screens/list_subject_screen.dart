@@ -58,20 +58,22 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                           IconButton(
                               onPressed: (() {
                                 subjectList.add(Subject(name: "Unname"));
-                                service.saveData();
-                                Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            child: SubjectScreen(
-                                                index: subjectList.length - 1),
-                                            type:
-                                                PageTransitionType.leftToRight,
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            reverseDuration: const Duration(
-                                                milliseconds: 500)))
-                                    .then((v) {
-                                  setState(() {});
+                                service.saveData().then((x) {
+                                  Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: SubjectScreen(
+                                                  index:
+                                                      subjectList.length - 1),
+                                              type: PageTransitionType
+                                                  .leftToRight,
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              reverseDuration: const Duration(
+                                                  milliseconds: 500)))
+                                      .then((v) {
+                                    setState(() {});
+                                  });
                                 });
                               }),
                               icon: const Icon(
