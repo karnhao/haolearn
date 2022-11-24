@@ -38,6 +38,7 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                 onChanged: (value) {
                   title = value;
                 },
+                initialValue: title,
                 decoration: InputDecoration(
                     errorStyle:
                         const TextStyle(color: Colors.red, fontSize: 18),
@@ -54,6 +55,7 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                 onChanged: (value) {
                   scores = double.parse(value);
                 },
+                initialValue: scores.toString(),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     errorStyle:
@@ -71,6 +73,7 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                 onChanged: (value) {
                   fullScores = double.parse(value);
                 },
+                initialValue: fullScores.toString(),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     errorStyle:
