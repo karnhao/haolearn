@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:haolearn/models/task.dart';
 import 'package:haolearn/screens/task_detail_screen.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_alert.dart';
+import 'package:haolearn/utils/delete_dialog_function.dart';
 import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/show_snack_bar.dart';
 import 'package:page_transition/page_transition.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -23,6 +29,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
+    final task = data.tasks;
 
     if (sortGate) {
       if (sortBy == 0) {
@@ -163,89 +170,151 @@ class _TaskScreenState extends State<TaskScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
-                            child: Container(
-                              decoration: !data.getTaskList()[index].complete
-                                  ? kuBoxStyle
-                                  : createKuBoxStyle(color: Colors.grey),
-                              height: 80,
-                              width: MediaQuery.of(context).size.width,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30, top: 10, right: 30),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Slidable(
+                              endActionPane: ActionPane(
+                                  motion: const ScrollMotion(),
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            "${data.tasks[index].dueDate ?? "ไม่ระบุ"}",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white)),
-                                        const SizedBox(
-                                          height: 6,
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              204,
-                                          child: Text(data.tasks[index].title,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline2),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(data.tasks[index].score.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white)),
-                                        const SizedBox(
-                                          height: 6,
-                                        ),
-                                        RatingBarIndicator(
-                                          rating: data
-                                              .tasks[index].priority.level
-                                              .toDouble(),
-                                          itemCount: 5,
-                                          itemSize: 20,
-                                          itemBuilder: (context, index) {
-                                            Color color = Colors.red;
-                                            switch (index) {
-                                              case 4:
-                                                color = Colors.red;
-                                                break;
-                                              case 3:
-                                                color = Colors.orange;
-                                                break;
-                                              case 2:
-                                                color = Colors.yellow;
-                                                break;
-                                              case 1:
-                                                color = Colors.green;
-                                                break;
-                                              default:
-                                                color = Colors.blue;
-                                            }
-                                            return Icon(
-                                              Icons.priority_high,
-                                              color: color,
-                                            );
+                                    SlidableAction(
+                                      backgroundColor: Colors.transparent,
+                                      label: "Delete",
+                                      icon: Icons.delete,
+                                      foregroundColor: Colors.red,
+                                      onPressed: (context) {
+                                        showDeleteDialog(
+                                          context,
+                                          onDeleteConfirm: () {
+                                            log("$index");
+                                            data.tasks.removeAt(index);
+
+                                            _service.saveData().then((value) {
+                                              showSnackBar("Delete successful",
+                                                  backgroundColor:
+                                                      Colors.green);
+                                              setState(() {});
+                                            });
                                           },
-                                        ),
-                                      ],
+                                        );
+                                      },
                                     ),
-                                  ],
+                                    SlidableAction(
+                                        backgroundColor: Colors.transparent,
+                                        icon: Icons.check,
+                                        label: "Mark as complete",
+                                        onPressed: (context) {
+                                          data.tasks[index].complete = true;
+                                          setState(() {});
+                                        }),
+                                    SlidableAction(
+                                        backgroundColor: Colors.transparent,
+                                        icon: Icons.edit,
+                                        label: "Edit",
+                                        onPressed: (context) {
+                                          Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                      child: TaskDetailScreen(
+                                                          index: index,
+                                                          editToggle: true),
+                                                      type: PageTransitionType
+                                                          .leftToRight,
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
+                                                      reverseDuration:
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  500)))
+                                              .then((value) {
+                                            setState(() {});
+                                          });
+                                        }),
+                                  ]),
+                              child: Container(
+                                decoration: !data.getTaskList()[index].complete
+                                    ? kuBoxStyle
+                                    : createKuBoxStyle(color: Colors.grey),
+                                height: 80,
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30, top: 10, right: 30),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "${data.tasks[index].dueDate ?? "ไม่ระบุ"}",
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white)),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                204,
+                                            child: Text(data.tasks[index].title,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                              data.tasks[index].score
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white)),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                          RatingBarIndicator(
+                                            rating: data
+                                                .tasks[index].priority.level
+                                                .toDouble(),
+                                            itemCount: 5,
+                                            itemSize: 20,
+                                            itemBuilder: (context, index) {
+                                              Color color = Colors.red;
+                                              switch (index) {
+                                                case 4:
+                                                  color = Colors.red;
+                                                  break;
+                                                case 3:
+                                                  color = Colors.orange;
+                                                  break;
+                                                case 2:
+                                                  color = Colors.yellow;
+                                                  break;
+                                                case 1:
+                                                  color = Colors.green;
+                                                  break;
+                                                default:
+                                                  color = Colors.blue;
+                                              }
+                                              return Icon(
+                                                Icons.priority_high,
+                                                color: color,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
