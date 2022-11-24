@@ -35,6 +35,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
+              boxShadow: [],
               color: kuSecColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
@@ -49,7 +50,9 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                         Text(
                           "${subjectList.length} Subject${subjectList.length == 1 ? '' : 's'}",
                           style: const TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
                         ),
                         Row(children: [
                           IconButton(
@@ -62,6 +65,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                               icon: const Icon(
                                 Icons.add,
                                 size: 40,
+                                color: Colors.white,
                               ))
                         ])
                       ]),
@@ -111,7 +115,23 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                                       backgroundColor: Colors.transparent,
                                       foregroundColor: Colors.red),
                                   SlidableAction(
-                                      onPressed: (context) {},
+                                      onPressed: (context) {
+                                        Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    child: SubjectScreen(
+                                                        index: index),
+                                                    type: PageTransitionType
+                                                        .leftToRight,
+                                                    duration: const Duration(
+                                                        milliseconds: 500),
+                                                    reverseDuration:
+                                                        const Duration(
+                                                            milliseconds: 500)))
+                                            .then((v) {
+                                          setState(() {});
+                                        });
+                                      },
                                       label: "Edit",
                                       icon: Icons.edit,
                                       autoClose: true,

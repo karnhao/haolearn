@@ -4,6 +4,8 @@ import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
+import 'package:haolearn/utils/kappbar.dart';
+import 'package:haolearn/utils/show_snack_bar.dart';
 
 import '../models/subject.dart';
 
@@ -39,11 +41,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
       update = false;
     }
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(nameChange, style: Theme.of(context).textTheme.headline2),
-        backgroundColor: kuSecColor,
-      ),
+      appBar: createKAppBar(context, subject.name),
       body: Stack(
         children: [
           ListView(
@@ -95,6 +93,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
               //MARK Rating Star
               Center(
                 child: RatingBar(
+                  tapOnlyMode: true,
                   minRating: 1,
                   maxRating: 5,
                   allowHalfRating: false,
@@ -140,24 +139,27 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  subject.contents[widget.contentIndex].title = nameChange;
-                  subject.contents[widget.contentIndex].description =
-                      descriptionChange;
-                  subject.contents[widget.contentIndex].understanding =
-                      ContentUnderstanding.from(understandingLevelChange);
+              Container(
+                  margin: const EdgeInsets.all(50),
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                      color: kuPriColor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: InkWell(
+                    onTap: () {
+                      subject.contents[widget.contentIndex].title = nameChange;
+                      subject.contents[widget.contentIndex].description =
+                          descriptionChange;
+                      subject.contents[widget.contentIndex].understanding =
+                          ContentUnderstanding.from(understandingLevelChange);
 
-                  service.saveData().then((v) {
-                    setState(() {});
-                  });
-                },
-                child: Container(
-                    margin: const EdgeInsets.all(50),
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                        color: kuPriColor,
-                        borderRadius: BorderRadius.circular(30)),
+                      service.saveData().then((v) {
+                        setState(() {});
+                        Navigator.pop(context);
+                        showSnackBar("Save successful",
+                            backgroundColor: Colors.green);
+                      });
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -173,8 +175,8 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                           color: Colors.white,
                         )
                       ],
-                    )),
-              ),
+                    ),
+                  )),
             ],
           ),
           Positioned(
@@ -187,6 +189,8 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                     subject.removeContent(widget.contentIndex);
                     service.saveData();
                     Navigator.pop(context);
+                    showSnackBar("Delete successful",
+                        backgroundColor: Colors.green);
                   },
                 ),
                 InkWell(
