@@ -1,15 +1,11 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
-import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/time_set_widget.dart';
-import 'package:haolearn/utils/utils.dart';
 import 'package:marquee/marquee.dart';
 
 class TimeScreen extends StatefulWidget {
@@ -26,15 +22,6 @@ class _TimeScreenState extends State<TimeScreen> {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
     final studyTime = data.mainTable.subjectList[widget.index].studyTimes;
-    const List<String> list = <String>[
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
 
     return Scaffold(
       appBar: createKAppBar(context, "Schedule"),

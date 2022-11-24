@@ -18,10 +18,19 @@ class _TaskScreenState extends State<TaskScreen> {
   final _service = StorageService.getService();
   String? taskNameChange, description;
   double? fullscore;
+  int sortBy = 0;
+  bool sortGate = true;
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
-    data.sortTasksFromDueDate();
+
+    if (sortGate) {
+      if (sortBy == 0) {
+        data.sortTasksFromDueDate();
+      } else {
+        data.sortTasksFromPriority();
+      }
+    }
 
     return Scaffold(
       appBar: createKAppBar(context, "Task"),
@@ -47,11 +56,51 @@ class _TaskScreenState extends State<TaskScreen> {
                         Text(
                           "${data.tasks.length} Task${data.tasks.length == 1 ? '' : 's'}",
                           style: const TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w700),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                        Row(
+                          children: [
+                            const Text("Sort by : ",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
+                            DropdownButton(
+                                value: sortBy,
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: 0,
+                                    child: Text("Due Date",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red)),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 1,
+                                    child: Text("Priority",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red)),
+                                  )
+                                ],
+                                onChanged: (v) {
+                                  sortBy = v!;
+                                  StorageService.getService()
+                                      .saveData()
+                                      .then((v) {
+                                    setState(() {});
+                                  });
+                                }),
+                          ],
                         ),
                         Row(children: [
                           IconButton(
                               onPressed: (() {
+                                sortGate = false;
                                 Task task = Task();
                                 data.tasks.add(task);
                                 _service.saveData().then((value) {
@@ -59,7 +108,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                           context,
                                           PageTransition(
                                               child: TaskDetailScreen(
-                                                  index: data.tasks.length - 1),
+                                                  index: data.tasks.length - 1,
+                                                  editToggle: true),
                                               type: PageTransitionType
                                                   .leftToRight,
                                               duration: const Duration(
@@ -67,14 +117,14 @@ class _TaskScreenState extends State<TaskScreen> {
                                               reverseDuration: const Duration(
                                                   milliseconds: 500)))
                                       .then((value) {
-                                    setState(() {});
+                                    setState(() {
+                                      sortGate = true;
+                                    });
                                   });
                                 });
                               }),
-                              icon: const Icon(
-                                Icons.add,
-                                size: 40,
-                              ))
+                              icon: const Icon(Icons.add,
+                                  size: 40, color: Colors.white))
                         ])
                       ]),
                 ),
@@ -114,9 +164,9 @@ class _TaskScreenState extends State<TaskScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  color: kuPriColor,
-                                  borderRadius: BorderRadius.circular(20)),
+                              decoration: !data.getTaskList()[index].complete
+                                  ? kuBoxStyle
+                                  : createKuBoxStyle(color: Colors.grey),
                               height: 80,
                               width: MediaQuery.of(context).size.width,
                               child: Padding(
@@ -163,9 +213,26 @@ class _TaskScreenState extends State<TaskScreen> {
                                           itemCount: 5,
                                           itemSize: 20,
                                           itemBuilder: (context, index) {
-                                            return const Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
+                                            Color color = Colors.red;
+                                            switch (index) {
+                                              case 4:
+                                                color = Colors.red;
+                                                break;
+                                              case 3:
+                                                color = Colors.orange;
+                                                break;
+                                              case 2:
+                                                color = Colors.yellow;
+                                                break;
+                                              case 1:
+                                                color = Colors.green;
+                                                break;
+                                              default:
+                                                color = Colors.blue;
+                                            }
+                                            return Icon(
+                                              Icons.priority_high,
+                                              color: color,
                                             );
                                           },
                                         ),

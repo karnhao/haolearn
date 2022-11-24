@@ -51,14 +51,24 @@ class _DemoPageState extends State<DemoPage> {
                       description:
                           "Do PDPA powerpoint and present in front of the class!",
                       dueDate: DateTime.now()
-                          .add(const Duration(days: 1, minutes: 1)),
+                          .add(const Duration(days: 1, seconds: 10)),
                       priority: model.Priority.high,
                       score: 100);
+                  final dueDate = task1.dueDate;
                   task1.registerNotification(
                       NotificationModel(
-                          id: task1.id,
-                          showTime: DateTime(task1.dueDate!.year,
-                              task1.dueDate!.month, task1.dueDate!.day - 1)),
+                          title: "Homework Due tomorrow",
+                          message: "${task1.title} - ${task1.description}",
+                          id: 0,
+                          showTime: DateTime(
+                              dueDate!.year,
+                              dueDate.month,
+                              dueDate.day - 1,
+                              dueDate.hour,
+                              dueDate.minute,
+                              dueDate.second,
+                              dueDate.millisecond,
+                              dueDate.microsecond)),
                       NotificationChannel.homework);
                   data.tasks.add(Task(
                       title: "PDPA",
