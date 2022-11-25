@@ -66,6 +66,14 @@ Widget createTableWidget(BuildContext context) {
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
                               overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          t.time.getTimeName(),
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
                         )
                       ],
                     ),
