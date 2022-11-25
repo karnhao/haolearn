@@ -148,28 +148,48 @@ class _TimeScreenState extends State<TimeScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.9),
-                                      spreadRadius: 0.1,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                  color: kuPriColor,
-                                  borderRadius: BorderRadius.circular(20)),
-                              height: 80,
-                              width: MediaQuery.of(context).size.width,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, top: 30),
-                                child: Text(
-                                    "${studyTime[index].getDayName()} ${studyTime[index].getTimeName()}",
-                                    style:
-                                        Theme.of(context).textTheme.headline2),
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        TimeSetWidget(
+                                          index: index,
+                                          subjectIndex: widget.index,
+                                          onTimeSeledted:
+                                              (day, startday, widthday) {
+                                            service.saveData().then(
+                                              (value) {
+                                                setState(() {});
+                                              },
+                                            );
+                                          },
+                                        ));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.9),
+                                        spreadRadius: 0.1,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                    color: kuPriColor,
+                                    borderRadius: BorderRadius.circular(20)),
+                                height: 80,
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 20, top: 30),
+                                  child: Text(
+                                      "${studyTime[index].getDayName()} ${studyTime[index].getTimeName()}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2),
+                                ),
                               ),
                             ),
                           ),

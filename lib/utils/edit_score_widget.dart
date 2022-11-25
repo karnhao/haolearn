@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:haolearn/services/storage_service.dart';
-import 'package:haolearn/utils/utils.dart';
 
 class EditScoreWidget extends StatefulWidget {
   final int index;
@@ -46,9 +44,9 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(45),
-                        borderSide: BorderSide(width: 1, color: Colors.blue))),
+                        borderSide: const BorderSide(width: 1, color: Colors.blue))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -64,9 +62,9 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(45),
-                        borderSide: BorderSide(width: 1, color: Colors.blue))),
+                        borderSide: const BorderSide(width: 1, color: Colors.blue))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -82,7 +80,7 @@ class _EditScoreWidgetState extends State<EditScoreWidget> {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(45),
-                        borderSide: BorderSide(width: 1, color: Colors.blue))),
+                        borderSide: const BorderSide(width: 1, color: Colors.blue))),
               ),
             ],
           ),

@@ -202,6 +202,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                         ),
                         toggle
                             ? DropdownButton(
+                                dropdownColor: Colors.white,
                                 value: priority.name,
                                 items: Priority.values
                                     .map((t) => DropdownMenuItem(
@@ -256,17 +257,31 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                     data.tasks[widget.index].priority =
                                         priority;
 
-                                    if (data.tasks[widget.index].dueDate !=
-                                        null) {
-                                      data.tasks[widget.index]
-                                          .registerNotification(
-                                              NotificationModel(
-                                                  id: data
-                                                      .tasks[widget.index].id,
-                                                  showTime: data
-                                                      .tasks[widget.index]
-                                                      .dueDate!),
-                                              NotificationChannel.homework);
+                                    try {
+                                      if (data.tasks[widget.index].dueDate !=
+                                          null) {
+                                        final dueDate =
+                                            data.tasks[widget.index].dueDate!;
+                                        data.tasks[widget.index].registerNotification(
+                                            NotificationModel(
+                                                title:
+                                                    "${task.title} | Due Date tomorrow",
+                                                message:
+                                                    "Don't forget to summit the homework - ${task.description}",
+                                                id: data.tasks[widget.index].id,
+                                                showTime: DateTime(
+                                                    dueDate.year,
+                                                    dueDate.month,
+                                                    dueDate.day - 1,
+                                                    dueDate.hour,
+                                                    dueDate.minute,
+                                                    dueDate.second,
+                                                    dueDate.millisecond,
+                                                    dueDate.microsecond)),
+                                            NotificationChannel.homework);
+                                      }
+                                    } catch (e) {
+                                      // Nothing
                                     }
 
                                     service.saveData().then((value) {

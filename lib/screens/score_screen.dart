@@ -111,7 +111,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                           builder: (BuildContext context) =>
                                               EditScoreWidget(
                                                 savedData: (topics, scores,
-                                                    full_score) {
+                                                    fullScore) {
                                                   service
                                                       .saveData()
                                                       .then((value) {
@@ -131,29 +131,44 @@ class _ScoreScreenState extends State<ScoreScreen> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: kuPriColor,
-                                  borderRadius: BorderRadius.circular(20)),
-                              height: 80,
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    subjectList[widget.index]
-                                        .scores[index]
-                                        .name,
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                  ),
-                                  Text(
-                                    "${scoreList[index].score} / ${scoreList[index].maxScore}",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                  )
-                                ],
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        EditScoreWidget(
+                                          savedData:
+                                              (topics, scores, fullScore) {
+                                            service.saveData().then((value) {
+                                              setState(() {});
+                                            });
+                                          },
+                                          index: index,
+                                          subjectIndex: widget.index,
+                                        ));
+                              },
+                              child: Container(
+                                decoration: kuBoxStyle,
+                                height: 80,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      subjectList[widget.index]
+                                          .scores[index]
+                                          .name,
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    ),
+                                    Text(
+                                      "${scoreList[index].score} / ${scoreList[index].maxScore}",
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

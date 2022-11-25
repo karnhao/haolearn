@@ -6,7 +6,6 @@ import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
-import 'package:pie_chart/pie_chart.dart';
 
 import '../models/subject.dart';
 

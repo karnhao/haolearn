@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     };
     return Scaffold(
         backgroundColor: kuSecColor,
-        appBar: createKAppBar(context, "Home"),
+        appBar: createKAppBar(context, "Home", forceHidePopAction: true),
         body: Container(
           color: kuSecColor,
           child: ListView(

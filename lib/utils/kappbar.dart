@@ -3,7 +3,7 @@ import 'package:haolearn/themes/colors.dart';
 import 'package:marquee/marquee.dart';
 
 PreferredSize createKAppBar(BuildContext context, String title,
-    {List<Widget> actions = const []}) {
+    {List<Widget> actions = const [], bool forceHidePopAction = false}) {
   final style = Theme.of(context).textTheme.headline1;
   final Size size = (TextPainter(
           text: TextSpan(text: title, style: style),
@@ -41,7 +41,7 @@ PreferredSize createKAppBar(BuildContext context, String title,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Visibility(
-                          visible: Navigator.of(context).canPop(),
+                          visible: Navigator.of(context).canPop() && !forceHidePopAction,
                           child: InkWell(
                             onTap: () {
                               Navigator.maybePop(context);

@@ -52,6 +52,7 @@ class _TimeSetWidgetState extends State<TimeSetWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           DropdownButton(
+              dropdownColor: Colors.white,
               value: selectedDay.toString(),
               hint: Text(dayName),
               items: list.map((t) {

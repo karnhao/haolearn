@@ -74,6 +74,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white)),
                             DropdownButton(
+                                dropdownColor: Colors.white,
                                 value: sortBy,
                                 items: const [
                                   DropdownMenuItem(
@@ -176,7 +177,6 @@ class _TaskScreenState extends State<TaskScreen> {
                                   children: [
                                     SlidableAction(
                                       backgroundColor: Colors.transparent,
-                                      label: "Delete",
                                       icon: Icons.delete,
                                       foregroundColor: Colors.red,
                                       onPressed: (context) {
@@ -199,7 +199,6 @@ class _TaskScreenState extends State<TaskScreen> {
                                     SlidableAction(
                                         backgroundColor: Colors.transparent,
                                         icon: Icons.check,
-                                        label: "Mark as complete",
                                         onPressed: (context) {
                                           data.tasks[index].complete = true;
                                           setState(() {});
@@ -207,7 +206,6 @@ class _TaskScreenState extends State<TaskScreen> {
                                     SlidableAction(
                                         backgroundColor: Colors.transparent,
                                         icon: Icons.edit,
-                                        label: "Edit",
                                         onPressed: (context) {
                                           Navigator.push(
                                                   context,
@@ -249,8 +247,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                         children: [
                                           Text(
                                               date == null
-                                                ? "No Due Date Data"
-                                                : "${date.day}/${date.month}/${date.year} ${formatTime(date.hour.toString())}:${formatTime(date.minute.toString())}",
+                                                  ? "No Due Date Data"
+                                                  : "${date.day}/${date.month}/${date.year} ${formatTime(date.hour.toString())}:${formatTime(date.minute.toString())}",
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.white)),
@@ -275,8 +273,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                              data.tasks[index].score
-                                                  .toString(),
+                                              "Score : ${data.tasks[index].score}",
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.white)),
