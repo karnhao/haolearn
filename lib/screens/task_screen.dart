@@ -29,7 +29,6 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     final data = _service.getSaveData()!;
-    final task = data.tasks;
 
     if (sortGate) {
       if (sortBy == 0) {
