@@ -1,3 +1,4 @@
+import 'package:haolearn/utils/utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'study_time.g.dart';
@@ -68,10 +69,6 @@ class StudyTime {
   }
 
   static String _getTimeString(int time) {
-    return "${_formatTime((time ~/ 60).toString())}:${_formatTime((time % 60).toString())}";
-  }
-
-  static String _formatTime(String s) {
-    return s.length > 1 ? s : "0$s";
+    return "${formatTime((time ~/ 60).toString())}:${formatTime((time % 60).toString())}";
   }
 }

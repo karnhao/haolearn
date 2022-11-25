@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:haolearn/models/notification_model.dart';
 import 'package:haolearn/models/priority.dart' as model;
 import 'package:haolearn/models/study_time.dart';
 import 'package:haolearn/models/subject.dart';
 import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/models/task.dart';
+import 'package:haolearn/services/notification_service.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
@@ -40,19 +42,34 @@ class _DemoPageState extends State<DemoPage> {
               const Text(
                 'Testing data',
               ),
-              Text("Table Name : ${data.mainTable.name}"),
-              Text(
-                  "First Subject Name : ${data.mainTable.subjectList.first.name}"),
-              Text(
-                  "First Subject Room : ${data.mainTable.subjectList.first.room}"),
-              Text(
-                  "First Subject Day : ${data.mainTable.subjectList.first.studyTimes.first.getDayName()}"),
-              Text(
-                  "First Subject Time : ${data.mainTable.subjectList.first.studyTimes.first.getTimeName()}"),
               InkWell(
                 onTap: () {
                   data.getMainTable()!.subjectList.clear();
                   data.tasks.clear();
+                  Task task1 = Task(
+                      title: "PDPA",
+                      description:
+                          "Do PDPA powerpoint and present in front of the class!",
+                      dueDate: DateTime.now()
+                          .add(const Duration(days: 1, seconds: 10)),
+                      priority: model.Priority.high,
+                      score: 100);
+                  final dueDate = task1.dueDate;
+                  task1.registerNotification(
+                      NotificationModel(
+                          title: "Homework Due tomorrow",
+                          message: "${task1.title} - ${task1.description}",
+                          id: 0,
+                          showTime: DateTime(
+                              dueDate!.year,
+                              dueDate.month,
+                              dueDate.day - 1,
+                              dueDate.hour,
+                              dueDate.minute,
+                              dueDate.second,
+                              dueDate.millisecond,
+                              dueDate.microsecond)),
+                      NotificationChannel.homework);
                   data.tasks.add(Task(
                       title: "PDPA",
                       description:
@@ -79,12 +96,21 @@ class _DemoPageState extends State<DemoPage> {
                       priority: model.Priority.low,
                       score: 20));
                   Subject testSubject = Subject(name: "Biolody");
-                  testSubject.studyTimes
-                      .add(StudyTime(day: 1, startTime: 500, width: 50));
                   Subject testSubject2 =
                       Subject(name: "Introduction to Computer Science");
+                  Subject testSubject3 = Subject(name: "Calculas II");
                   testSubject.studyTimes
-                      .add(StudyTime(day: 1, startTime: 600, width: 60));
+                      .add(StudyTime(day: 1, startTime: 500, width: 120));
+                  testSubject.studyTimes
+                      .add(StudyTime(day: 3, startTime: 500, width: 120));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 1, startTime: 680, width: 60));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 2, startTime: 680, width: 60));
+                  testSubject2.studyTimes
+                      .add(StudyTime(day: 5, startTime: 680, width: 60));
+                  testSubject3.studyTimes
+                      .add(StudyTime(day: 1, startTime: 740, width: 240));
                   testSubject2.addContent(
                       title: "Bitwise Operators I",
                       description: "Bitwise I Operators is hard",
@@ -93,8 +119,12 @@ class _DemoPageState extends State<DemoPage> {
                       title: "Bitwise Operators II",
                       description: "Bitwise II Operators is hardest",
                       understanding: ContentUnderstanding.lowest);
+                  testSubject.room = "SC-709";
+                  testSubject2.room = "LH1-504";
+                  testSubject3.room = "SC-708";
                   data.getMainTable()!.subjectList.add(testSubject);
                   data.getMainTable()!.subjectList.add(testSubject2);
+                  data.getMainTable()!.subjectList.add(testSubject3);
                   service.saveData();
 
                   showSnackBar("Hello");

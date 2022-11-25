@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:haolearn/models/notification_model.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 
 enum NotificationChannel {
   homework(description: "homework notification channel");
@@ -12,10 +13,12 @@ enum NotificationChannel {
 }
 
 class NotificationService {
+  final String postURL = "https://myapi.ku.th/auth/login";
   static late NotificationService _self;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   static Future<void> initialize() async {
+    tz.initializeTimeZones();
     try {
       _self = NotificationService();
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:haolearn/models/subject_content.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
 import 'package:haolearn/utils/delete_dialog_alert.dart';
+import 'package:haolearn/utils/kappbar.dart';
 import 'package:haolearn/utils/show_snack_bar.dart';
 
 import '../models/subject.dart';
@@ -21,8 +23,9 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
   late Subject subject;
   bool toggle = false;
   bool update = true;
-  String? nameChange;
-  String? descriptionChange;
+  late String nameChange;
+  late String descriptionChange;
+  late int understandingLevelChange;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +36,12 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
     if (update) {
       nameChange = subject.contents[widget.contentIndex].title;
       descriptionChange = subject.contents[widget.contentIndex].description;
+      understandingLevelChange =
+          subject.contents[widget.contentIndex].understanding.level;
       update = false;
     }
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(nameChange!, style: Theme.of(context).textTheme.headline2),
-        backgroundColor: kuSecColor,
-      ),
+      appBar: createKAppBar(context, subject.name),
       body: Stack(
         children: [
           ListView(
@@ -83,7 +84,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                 height: 50,
                 child: Center(
                   child: Text(
-                    "Piority",
+                    "Rate your understanding",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -92,13 +93,14 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
               //MARK Rating Star
               Center(
                 child: RatingBar(
+                  tapOnlyMode: true,
                   minRating: 1,
                   maxRating: 5,
                   allowHalfRating: false,
                   itemSize: 40,
-                  initialRating: 1,
+                  initialRating: understandingLevelChange.toDouble(),
                   onRatingUpdate: (value) {
-                    showSnackBar("Sevice unvalible");
+                    understandingLevelChange = value.toInt();
                   },
                   ratingWidget: RatingWidget(
                       full: const Icon(Icons.star, color: Colors.amber),
@@ -137,23 +139,27 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  subject.contents[widget.contentIndex].title =
-                      nameChange ?? "ERROR";
-                  subject.contents[widget.contentIndex].description =
-                      descriptionChange ?? "ERROR";
+              Container(
+                  margin: const EdgeInsets.all(50),
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                      color: kuPriColor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: InkWell(
+                    onTap: () {
+                      subject.contents[widget.contentIndex].title = nameChange;
+                      subject.contents[widget.contentIndex].description =
+                          descriptionChange;
+                      subject.contents[widget.contentIndex].understanding =
+                          ContentUnderstanding.from(understandingLevelChange);
 
-                  service.saveData().then((v) {
-                    setState(() {});
-                  });
-                },
-                child: Container(
-                    margin: const EdgeInsets.all(50),
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                        color: kuPriColor,
-                        borderRadius: BorderRadius.circular(30)),
+                      service.saveData().then((v) {
+                        setState(() {});
+                        Navigator.pop(context);
+                        showSnackBar("Save successful",
+                            backgroundColor: Colors.green);
+                      });
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -169,8 +175,8 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                           color: Colors.white,
                         )
                       ],
-                    )),
-              ),
+                    ),
+                  )),
             ],
           ),
           Positioned(
@@ -183,6 +189,8 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                     subject.removeContent(widget.contentIndex);
                     service.saveData();
                     Navigator.pop(context);
+                    showSnackBar("Delete successful",
+                        backgroundColor: Colors.green);
                   },
                 ),
                 InkWell(

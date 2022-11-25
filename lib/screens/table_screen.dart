@@ -11,13 +11,11 @@ class TableScreen extends StatefulWidget {
 }
 
 class _TableScreenState extends State<TableScreen> {
+  bool loaded = false;
+  late Widget table;
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
   }
 
   @override
@@ -31,6 +29,10 @@ class _TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     return Scaffold(
         appBar: createKAppBar(context, "Table"),
         body: createTableWidget(context));

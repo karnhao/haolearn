@@ -6,6 +6,14 @@ import 'package:time_planner/time_planner.dart';
 Widget createTableWidget(BuildContext context) {
   final mainTable = StorageService.getService().getSaveData()!.getMainTable()!;
   List<SubjectTable> allSubjectTables = List.empty(growable: true);
+  List<Color> dayColor = [
+    Colors.red,
+    Colors.yellow,
+    Colors.green,
+    Colors.orange,
+    Colors.blue,
+    Colors.purple
+  ];
   for (var t in [0, 1, 2, 3, 4, 5, 6]) {
     allSubjectTables.addAll(mainTable.getSubjectTableList(day: t));
   }
@@ -34,6 +42,7 @@ Widget createTableWidget(BuildContext context) {
           tasks: allSubjectTables
               .where((u) => !u.isEmptySubject)
               .map((t) => TimePlannerTask(
+                    color: dayColor[t.time.day],
                     dateTime: TimePlannerDateTime(
                         day: t.time.day,
                         hour: t.time.getStartHour(),
@@ -41,7 +50,24 @@ Widget createTableWidget(BuildContext context) {
                     minutesDuration: t.time.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text(t.name)],
+                      children: [
+                        Text(
+                          t.name,
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          t.room ?? "",
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis),
+                        )
+                      ],
                     ),
                   ))
               .toList(),

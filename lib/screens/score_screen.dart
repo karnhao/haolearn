@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:haolearn/screens/subject_screen.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:haolearn/models/subject_score.dart';
 import 'package:haolearn/services/storage_service.dart';
 import 'package:haolearn/themes/colors.dart';
+import 'package:haolearn/utils/delete_dialog_function.dart';
+import 'package:haolearn/utils/edit_score_widget.dart';
 import 'package:haolearn/utils/kappbar.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:haolearn/utils/show_snack_bar.dart';
 
 class ScoreScreen extends StatefulWidget {
   final int index;
@@ -19,9 +22,10 @@ class _ScoreScreenState extends State<ScoreScreen> {
     final service = StorageService.getService();
     final data = service.getSaveData()!;
     final subjectList = data.mainTable.subjectList;
+    final scoreList = subjectList[widget.index].scores;
 
     return Scaffold(
-      appBar: createKAppBar(context, "Score"),
+      appBar: createKAppBar(context, subjectList[widget.index].name),
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
@@ -42,16 +46,22 @@ class _ScoreScreenState extends State<ScoreScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Subject",
-                            style: TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.w700),
-                          ),
+                          Text(
+                              "${scoreList.length.toString()} Score${scoreList.length == 1 ? "" : 's'} : ${subjectList[widget.index].getSigmaScore()}/${subjectList[widget.index].getMaxSigmaScore()}",
+                              style: const TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.w700)),
                           IconButton(
-                              onPressed: (() {}),
+                              onPressed: (() {
+                                setState(() {
+                                  scoreList.add(SubjectScore(
+                                      name: "Unname", score: 0, maxScore: 0));
+                                  service.saveData();
+                                });
+                              }),
                               icon: const Icon(
                                 Icons.add,
                                 size: 40,
+                                color: Colors.white,
                               ))
                         ])),
                 const SizedBox(
@@ -69,30 +79,97 @@ class _ScoreScreenState extends State<ScoreScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: scoreList.length,
                       itemBuilder: ((context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: SubjectScreen(
-                                      index: index,
-                                    ),
-                                    type: PageTransitionType.leftToRight,
-                                    duration: const Duration(milliseconds: 500),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 500)));
-                          },
+                        return Slidable(
+                          endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                    onPressed: (context) {
+                                      showDeleteDialog(
+                                        context,
+                                        onDeleteConfirm: () {
+                                          scoreList.removeAt(index);
+                                          service.saveData().then((value) {
+                                            showSnackBar("Delete successful",
+                                                backgroundColor: Colors.green);
+                                            setState(() {});
+                                          });
+                                        },
+                                      );
+                                    },
+                                    label: "Delete",
+                                    icon: Icons.delete,
+                                    autoClose: true,
+                                    backgroundColor: Colors.transparent,
+                                    foregroundColor: Colors.red),
+                                SlidableAction(
+                                    onPressed: (context) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              EditScoreWidget(
+                                                savedData: (topics, scores,
+                                                    fullScore) {
+                                                  service
+                                                      .saveData()
+                                                      .then((value) {
+                                                    setState(() {});
+                                                  });
+                                                },
+                                                index: index,
+                                                subjectIndex: widget.index,
+                                              ));
+                                    },
+                                    label: "Edit",
+                                    icon: Icons.edit,
+                                    autoClose: true,
+                                    backgroundColor: Colors.transparent,
+                                    foregroundColor: Colors.white),
+                              ]),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 22),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: kuPriColor,
-                                  borderRadius: BorderRadius.circular(20)),
-                              height: 80,
-                              width: MediaQuery.of(context).size.width,
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        EditScoreWidget(
+                                          savedData:
+                                              (topics, scores, fullScore) {
+                                            service.saveData().then((value) {
+                                              setState(() {});
+                                            });
+                                          },
+                                          index: index,
+                                          subjectIndex: widget.index,
+                                        ));
+                              },
+                              child: Container(
+                                decoration: kuBoxStyle,
+                                height: 80,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      subjectList[widget.index]
+                                          .scores[index]
+                                          .name,
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    ),
+                                    Text(
+                                      "${scoreList[index].score} / ${scoreList[index].maxScore}",
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         );

@@ -80,4 +80,13 @@ class Table {
 
     return result;
   }
+
+  void swapSubject(int index1, int index2) {
+    if (subjectList.length <= index1 || subjectList.length <= index2) {
+      throw Exception("Index out of bounds : $index1 or $index2");
+    }
+    final temp = subjectList[index1];
+    subjectList[index1] = subjectList[index2];
+    subjectList[index2] = temp;
+  }
 }

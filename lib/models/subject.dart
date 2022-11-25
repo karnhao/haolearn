@@ -64,8 +64,16 @@ class Subject {
     return _sigma(scores.map((t) => t.maxScore));
   }
 
-  double _sigma(Iterable<double> lists, {initialValue = 0}) {
+  double _sigma(Iterable<double> lists, {initialValue = 0.0}) {
     return lists.fold(
         initialValue, (previousValue, element) => previousValue + element);
+  }
+
+  void sortContentViaUnderstanding({bool reverse = false}) {
+    contents
+        .sort((a, b) => a.understanding.level.compareTo(b.understanding.level));
+    if (reverse) {
+      contents = contents.reversed.toList();
+    }
   }
 }
