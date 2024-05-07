@@ -6,9 +6,9 @@ ThemeData appTheme() {
       canvasColor: Colors.transparent,
       fontFamily: "DB-Ozone-X",
       textTheme: const TextTheme(
-          headline1: TextStyle(
+          displayLarge: TextStyle(
               fontSize: 32.0, fontWeight: FontWeight.w700, color: Colors.white),
-          headline2: TextStyle(
+          displayMedium: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
               color: Colors.white)),

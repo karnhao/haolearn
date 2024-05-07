@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:haolearn/models/notification_model.dart';
 import 'package:haolearn/models/priority.dart';
 import 'package:haolearn/services/notification_service.dart';
@@ -307,7 +307,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                         "Save",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline1,
+                                            .displayLarge,
                                       ),
                                       const SizedBox(
                                         width: 10,
@@ -351,7 +351,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                             : "Mark as done",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline1,
+                                            .displayLarge,
                                       ),
                                       const SizedBox(
                                         width: 10,

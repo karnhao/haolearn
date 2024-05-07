@@ -236,7 +236,7 @@ class _NotesScreenState extends State<NotesScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40),
                   child: Text(subject.contents[index].title,
-                      style: Theme.of(context).textTheme.headline2),
+                      style: Theme.of(context).textTheme.displayMedium),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(right: 40),

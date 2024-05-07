@@ -264,7 +264,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                                 overflow: TextOverflow.ellipsis,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline2),
+                                                    .displayMedium),
                                           )
                                         ],
                                       ),
