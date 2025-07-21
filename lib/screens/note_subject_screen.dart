@@ -165,7 +165,7 @@ class _NoteSubjectScreenState extends State<NoteSubjectScreen> {
                       children: [
                         Text(
                           "Save",
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                         const SizedBox(
                           width: 10,

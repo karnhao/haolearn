@@ -202,7 +202,7 @@ class _ListSubjectScreenState extends State<ListSubjectScreen> {
                                         Text(subjectList[index].name,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline2),
+                                                .displayMedium),
                                       ],
                                     ),
                                   ),

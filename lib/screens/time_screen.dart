@@ -188,7 +188,7 @@ class _TimeScreenState extends State<TimeScreen> {
                                       "${studyTime[index].getDayName()} ${studyTime[index].getTimeName()}",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2),
+                                          .displayMedium),
                                 ),
                               ),
                             ),

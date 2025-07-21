@@ -160,12 +160,12 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                           .scores[index]
                                           .name,
                                       style:
-                                          Theme.of(context).textTheme.headline2,
+                                          Theme.of(context).textTheme.displayMedium,
                                     ),
                                     Text(
                                       "${scoreList[index].score} / ${scoreList[index].maxScore}",
                                       style:
-                                          Theme.of(context).textTheme.headline2,
+                                          Theme.of(context).textTheme.displayMedium,
                                     )
                                   ],
                                 ),
